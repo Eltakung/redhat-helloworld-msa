@@ -13,15 +13,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-# Helloworld-MSA
-:toc:
+# Helloworld-MSA (Microservices architecture)
+http://developers.redhat.com
+:toc: left
 :toc-title: Table of Contents
 :toclevels: 3
 :icons: font
+:data-uri:
+
+This content is brought to you by http://developers.redhat.com - Register today!
+
+image::images/rhdevelopers.png[]
+
 
 Latest HTML:
 https://htmlpreview.github.io/?https://github.com/redhat-helloworld-msa/helloworld-msa/blob/master/readme.html
-
 
 
 toc::[]

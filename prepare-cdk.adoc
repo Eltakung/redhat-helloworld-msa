@@ -32,6 +32,8 @@ Execute Vagrant:
 
 ----
 $ cd cdk-v2
+$ export VM_CPU=4
+$ export VM_MEMORY=6144
 $ export SUB_USERNAME=<your-subscription-username>
 $ export SUB_PASSWORD=<your-subscription-password>
 $ vagrant up
