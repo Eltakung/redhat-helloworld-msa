@@ -15,9 +15,9 @@
 
 # Helloworld-MSA (Microservices architecture)
 http://developers.redhat.com
-:toc: left
+:toc: macro
 :toc-title: Table of Contents
-:toclevels: 3
+:toclevels: 2
 :icons: font
 :data-uri:
 
