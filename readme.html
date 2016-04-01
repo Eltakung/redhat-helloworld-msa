@@ -436,7 +436,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle" class="title">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_prepare_cdk">Prepare CDK</a></li>
+<li><a href="#_prepare_cdk">Prepare CDK</a>
+<ul class="sectlevel2">
+<li><a href="#_install_cdk">Install CDK</a></li>
+<li><a href="#_install_openshift_client">Install Openshift Client</a></li>
+<li><a href="#_access_openshift_console">Access Openshift console</a></li>
+</ul>
+</li>
 <li><a href="#_create_a_project">Create a project</a></li>
 <li><a href="#_deploy_the_hello_jax_rs_eap_microservice">Deploy the hello (JAX-RS/EAP) microservice</a>
 <ul class="sectlevel2">
@@ -507,16 +513,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_prepare_cdk">Prepare CDK</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_install_cdk">Install CDK</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Install a virtualization provider (hypervisor) for your system such as VirtualBox, VMware, or KVM/libvirt.</p>
+</li>
+<li>
+<p>Install Vagrant, from <a href="https://www.vagrantup.com/">vagrantup.com</a>, or from your operating system’s packages.</p>
+</li>
+<li>
+<p>From <a href="https://access.redhat.com/downloads/content/293/ver=2/rhel---7/2.0.0/x86_64/product-software">Red Hat Customer Portal</a> download Red Hat Container Tools (cdk-2.0.0.zip) and the RHEL 7.2 Vagrant box that matches your virtualization provider: VirtualBox, VMare, or KVM/libvirt.</p>
+</li>
+<li>
+<p>Unzip <code>cdk-2.0.0.zip</code> into a directory of your choosing.</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>Clone the CDK repo:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ git clone https://github.com/redhat-developer-tooling/openshift-vagrant</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Install any required vagrant plugins:</p>
+<p>Install the required vagrant plugins:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -525,18 +541,36 @@ $ vagrant plugin install vagrant-registration</pre>
 </div>
 </div>
 <div class="paragraph">
+<p>Add the RHEL 7.2 Vagrant box to Vagrant with the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ vagrant box add --name cdkv2 &lt;path to downloaded .box file&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Execute Vagrant:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ cd cdk-v2
-$ export VM_CPU=4
-$ export VM_MEMORY=6144
+<pre>$ cd components/rhel/rhel-ose
 $ export SUB_USERNAME=&lt;your-subscription-username&gt;
 $ export SUB_PASSWORD=&lt;your-subscription-password&gt;
 $ vagrant up</pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_install_openshift_client">Install Openshift Client</h3>
+<div class="paragraph">
+<p>You can download and unpack the CLI from the <a href="https://access.redhat.com/downloads/content/290/ver=3.1/rhel---7/3.1.1.6/x86_64/product-software">Red Hat Customer Portal</a> for use on Linux, MacOSX, and Windows clients. After logging in with your Red Hat account, you must have an active OpenShift Enterprise subscription to access the downloads page.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://access.redhat.com/downloads/content/290">Download the CLI</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_access_openshift_console">Access Openshift console</h3>
 <div class="paragraph">
 <p>Open Openshift console:  <a href="https://10.1.2.2:8443/console/" class="bare">https://10.1.2.2:8443/console/</a><br>
 (Accept the certificate and proceed)</p>
@@ -544,6 +578,7 @@ $ vagrant up</pre>
 <div class="paragraph">
 <p>Log in Openshift<br>
 Use <strong>openshift-dev/devel</strong> as your credentials in CDK</p>
+</div>
 </div>
 </div>
 </div>
@@ -994,7 +1029,7 @@ $ oc expose service frontend</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-01 00:43:36 EDT
+Last updated 2016-04-01 12:00:20 EDT
 </div>
 </div>
 </body>
