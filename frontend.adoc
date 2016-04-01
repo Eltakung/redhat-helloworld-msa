@@ -31,6 +31,7 @@ Execute:
 ----
 $ oc new-app --name frontend nodejs~https://github.com/redhat-helloworld-msa/frontend
 $ oc expose service frontend
+$ oc logs -f bc/frontend
 ----
 
 ### Test the service endpoint

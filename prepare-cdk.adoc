@@ -35,10 +35,21 @@ Add the RHEL 7.2 Vagrant box to Vagrant with the command:
 $ vagrant box add --name cdkv2 <path to downloaded .box file>
 ----
 
-Execute Vagrant:
+Update CDK Memory and CPU
 
 ----
 $ cd components/rhel/rhel-ose
+----
+
+Edit the Vagrantfile and replace
+----
+v.memory = 4096
+v.cpu = 4
+----
+
+Execute Vagrant:
+
+----
 $ export SUB_USERNAME=<your-subscription-username>
 $ export SUB_PASSWORD=<your-subscription-password>
 $ vagrant up

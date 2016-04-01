@@ -31,6 +31,7 @@ Execute:
 ----
 $ oc new-app --name bonjour nodejs~https://github.com/redhat-helloworld-msa/bonjour
 $ oc expose service bonjour
+$ oc logs -f bc/bonjour
 ----
 
 ### Test the service endpoint

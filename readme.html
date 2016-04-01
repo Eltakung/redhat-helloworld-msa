@@ -446,7 +446,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_create_a_project">Create a project</a></li>
 <li><a href="#_deploy_the_hello_jax_rs_eap_microservice">Deploy the hello (JAX-RS/EAP) microservice</a>
 <ul class="sectlevel2">
-<li><a href="#_create_a_wildfly_builder_template_imagestream">Create a WildFly builder template/imagestream</a></li>
+<li><a href="#_create_a_eap_7_0_beta_builder_template_imagestream">Create a EAP 7.0 (Beta) builder template/imagestream</a></li>
 <li><a href="#_option_1_deploy_the_microservice_using_console">Option 1: Deploy the microservice using console</a></li>
 <li><a href="#_option_2_deploy_the_microservice_using_oc_command">Option 2: Deploy the microservice using oc command</a></li>
 <li><a href="#_test_the_service_endpoint">Test the service endpoint</a></li>
@@ -549,12 +549,28 @@ $ vagrant plugin install vagrant-registration</pre>
 </div>
 </div>
 <div class="paragraph">
+<p>Update CDK Memory and CPU</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ cd components/rhel/rhel-ose</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Edit the Vagrantfile and replace</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>v.memory = 4096
+v.cpu = 4</pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Execute Vagrant:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ cd components/rhel/rhel-ose
-$ export SUB_USERNAME=&lt;your-subscription-username&gt;
+<pre>$ export SUB_USERNAME=&lt;your-subscription-username&gt;
 $ export SUB_PASSWORD=&lt;your-subscription-password&gt;
 $ vagrant up</pre>
 </div>
@@ -615,11 +631,11 @@ oc new-project helloworld-msa</pre>
 <h2 id="_deploy_the_hello_jax_rs_eap_microservice">Deploy the hello (JAX-RS/EAP) microservice</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_create_a_wildfly_builder_template_imagestream">Create a WildFly builder template/imagestream</h3>
+<h3 id="_create_a_eap_7_0_beta_builder_template_imagestream">Create a EAP 7.0 (Beta) builder template/imagestream</h3>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
-$ oc create -n helloworld-msa -f https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json</pre>
+$ oc create -n helloworld-msa -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/jboss-image-streams.json</pre>
 </div>
 </div>
 </div>
@@ -628,7 +644,7 @@ $ oc create -n helloworld-msa -f https://raw.githubusercontent.com/openshift/ori
 <div class="ulist">
 <ul>
 <li>
-<p>Select <code>wildfly:10.0.0</code> xpaas builder image</p>
+<p>Select <code>jboss-eap70-openshift:1.3-Beta</code> xpaas builder image</p>
 </li>
 <li>
 <p>Name: <code>hello</code></p>
@@ -658,8 +674,9 @@ $ oc create -n helloworld-msa -f https://raw.githubusercontent.com/openshift/ori
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc new-app --name hello wildfly~https://github.com/redhat-helloworld-msa/hello -l hystrix.enabled=true
-$ oc expose service hello</pre>
+<pre>$ oc new-app --name hello jboss-eap70-openshift:1.3-Beta~https://github.com/redhat-helloworld-msa/hello -l hystrix.enabled=true
+$ oc expose service hello
+$ oc logs -f bc/hello</pre>
 </div>
 </div>
 </div>
@@ -680,9 +697,9 @@ $ oc expose service hello</pre>
 <div class="content">
 <pre>$ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
 $ oc project helloworld-msa
-$ oc create  -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/master/1.0/test/imagestream.json
-$ oc create  -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/master/1.0/test/build-config.json
-$ oc start-build wildflyswarm-10-centos7-build</pre>
+$ oc create -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/master/1.0/test/imagestream.json
+$ oc create -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/master/1.0/test/build-config.json
+$ oc start-build wildflyswarm-10-centos7-build --follow</pre>
 </div>
 </div>
 </div>
@@ -741,7 +758,8 @@ You may need to click on <code>"Don&#8217;t see the image you are looking for?"<
 <div class="listingblock">
 <div class="content">
 <pre>$ oc new-app --name hola wildflyswarm-10-centos7~https://github.com/redhat-helloworld-msa/hola -l hystrix.enabled=true
-$ oc expose service hola</pre>
+$ oc expose service hola
+$ oc logs -f bc/hola</pre>
 </div>
 </div>
 </div>
@@ -762,7 +780,8 @@ $ oc expose service hola</pre>
 <div class="content">
 <pre>$ oc login 10.3.2.2:8443 (login with openshift-dev/devel credentials)
 $ oc project helloworld-msa
-$ oc create -f https://raw.githubusercontent.com/vert-x3/vertx-openshift-s2i/initial-work/vertx-s2i-all.json</pre>
+$ oc create -f https://raw.githubusercontent.com/vert-x3/vertx-openshift-s2i/initial-work/vertx-s2i-all.json
+$ oc logs -f bc/vertx-s2i</pre>
 </div>
 </div>
 </div>
@@ -809,7 +828,8 @@ $ oc create -f https://raw.githubusercontent.com/vert-x3/vertx-openshift-s2i/ini
 <div class="content">
 <pre>$ oc new-app --name aloha vertx-s2i~https://github.com/redhat-helloworld-msa/aloha -l hystrix.enabled=true
 $ oc delete service aloha; oc expose dc aloha --port=8080
-$ oc expose service aloha</pre>
+$ oc expose service aloha
+$ oc logs -f bc/aloha</pre>
 </div>
 </div>
 </div>
@@ -859,12 +879,12 @@ $ oc expose service ola</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>git clone https://github.com/redhat-helloworld-msa/namaste
+<pre>$ git clone https://github.com/redhat-helloworld-msa/namaste
 $ cd namaste
 
 $ oc new-build --binary --name=namaste
 $ mvn package; oc start-build namaste --from-dir=. --follow
-$ oc new-app namaste  -l hystrix.enabled=true
+$ oc new-app namaste -l hystrix.enabled=true
 $ oc expose service namaste</pre>
 </div>
 </div>
@@ -913,7 +933,8 @@ $ oc expose service namaste</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc new-app --name bonjour nodejs~https://github.com/redhat-helloworld-msa/bonjour
-$ oc expose service bonjour</pre>
+$ oc expose service bonjour
+$ oc logs -f bc/bonjour</pre>
 </div>
 </div>
 </div>
@@ -940,7 +961,7 @@ $ cd api-gateway
 
 $ oc new-build --binary --name=api-gateway
 $ mvn package; oc start-build api-gateway --from-dir=. --follow
-$ oc new-app api-gateway  -l hystrix.enabled=true
+$ oc new-app api-gateway -l hystrix.enabled=true
 $ oc expose service api-gateway</pre>
 </div>
 </div>
@@ -1014,7 +1035,8 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine<
 <div class="listingblock">
 <div class="content">
 <pre>$ oc new-app --name frontend nodejs~https://github.com/redhat-helloworld-msa/frontend
-$ oc expose service frontend</pre>
+$ oc expose service frontend
+$ oc logs -f bc/frontend</pre>
 </div>
 </div>
 </div>

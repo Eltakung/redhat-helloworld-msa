@@ -21,6 +21,7 @@
 $ oc login 10.3.2.2:8443 (login with openshift-dev/devel credentials)
 $ oc project helloworld-msa
 $ oc create -f https://raw.githubusercontent.com/vert-x3/vertx-openshift-s2i/initial-work/vertx-s2i-all.json
+$ oc logs -f bc/vertx-s2i
 ----
 
 ### Option 1: Deploy the microservice using console
@@ -43,6 +44,7 @@ Execute:
 $ oc new-app --name aloha vertx-s2i~https://github.com/redhat-helloworld-msa/aloha -l hystrix.enabled=true
 $ oc delete service aloha; oc expose dc aloha --port=8080
 $ oc expose service aloha
+$ oc logs -f bc/aloha
 ----
 
 ### Test the service endpoint

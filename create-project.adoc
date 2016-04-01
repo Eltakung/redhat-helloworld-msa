@@ -21,6 +21,6 @@ IMPORTANT: You must use the exact project name since it will affect the generate
 
 Or run:
 ----
-oc login 10.1.2.2:8443  #login with openshift-dev/devel credentials
-oc new-project helloworld-msa
+$ oc login 10.1.2.2:8443  #login with openshift-dev/devel credentials
+$ oc new-project helloworld-msa
 ----

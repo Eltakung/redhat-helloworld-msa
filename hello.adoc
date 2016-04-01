@@ -15,16 +15,16 @@
 
 ## Deploy the hello (JAX-RS/EAP) microservice
 
-### Create a WildFly builder template/imagestream
+### Create a EAP 7.0 (Beta) builder template/imagestream
 
 ----
 $ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
-$ oc create -n helloworld-msa -f https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+$ oc create -n helloworld-msa -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/jboss-image-streams.json
 ----
 
 ### Option 1: Deploy the microservice using console
 
-- Select `wildfly:10.0.0` xpaas builder image
+- Select `jboss-eap70-openshift:1.3-Beta` xpaas builder image
 - Name: `hello`
 - Git URL: https://github.com/redhat-helloworld-msa/hello
 - Click on `"Show advanced build and deployment options"`
@@ -37,8 +37,9 @@ $ oc create -n helloworld-msa -f https://raw.githubusercontent.com/openshift/ori
 Execute:
 
 ----
-$ oc new-app --name hello wildfly~https://github.com/redhat-helloworld-msa/hello -l hystrix.enabled=true
+$ oc new-app --name hello jboss-eap70-openshift:1.3-Beta~https://github.com/redhat-helloworld-msa/hello -l hystrix.enabled=true
 $ oc expose service hello
+$ oc logs -f bc/hello
 ----
 
 ### Test the service endpoint
