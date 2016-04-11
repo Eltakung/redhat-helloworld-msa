@@ -19,7 +19,7 @@
 
 ----
 $ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
-$ oc create -n helloworld-msa -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/jboss-image-streams.json
+$ oc create -n helloworld-msa -f https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.0-1/jboss-image-streams.json
 ----
 
 ### Option 1: Deploy the microservice using console
