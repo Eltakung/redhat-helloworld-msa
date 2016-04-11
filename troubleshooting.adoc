@@ -13,45 +13,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-# Helloworld-MSA (Microservices architecture)
-http://developers.redhat.com
-:toc: macro
-:toc-title: Table of Contents
-:toclevels: 2
-:icons: font
-:data-uri:
+== Troubleshooting
 
-This content is brought to you by http://developers.redhat.com - Register today!
+=== DNS issues
 
-image::images/rhdevelopers.png[]
+CDK uses http://xip.io that make the following address 10.0.0.1.xip.io resolves to 10.0.0.1
 
+Sometimes xip.io presents some issues or you don't have network access.
 
-Latest HTML:
-https://htmlpreview.github.io/?https://github.com/redhat-helloworld-msa/helloworld-msa/blob/master/readme.html
+To solve this problem, add the following line to your `/etc/hosts` file. For Windows, this file is located in `C:\Windows\System32\Drivers\etc\hosts`
 
-
-toc::[]
-
-include::prepare-cdk.adoc[]
-
-include::create-project.adoc[]
-
-include::hello.adoc[]
-
-include::hola.adoc[]
-
-include::aloha.adoc[]
-
-include::ola.adoc[]
-
-include::namaste.adoc[]
-
-include::bonjour.adoc[]
-
-include::api-gateway.adoc[]
-
-include::kubeflix.adoc[]
-
-include::frontend.adoc[]
-
-include::troubleshooting.adoc[]
+----
+10.1.2.2        hello-helloworld-msa.rhel-cdk.10.1.2.2.xip.io hola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io aloha-helloworld-msa.rhel-cdk.10.1.2.2.xip.io namaste-helloworld-msa.rhel-cdk.10.1.2.2.xip.io ola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io hystrix-dashboard-helloworld-msa.rhel-cdk.10.1.2.2.xip.io
+----

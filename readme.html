@@ -506,6 +506,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_test_the_service_endpoint_7">Test the service endpoint</a></li>
 </ul>
 </li>
+<li><a href="#_troubleshooting">Troubleshooting</a>
+<ul class="sectlevel2">
+<li><a href="#_dns_issues">DNS issues</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1048,10 +1053,32 @@ $ oc logs -f bc/frontend</pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_troubleshooting">Troubleshooting</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_dns_issues">DNS issues</h3>
+<div class="paragraph">
+<p>CDK uses <a href="http://xip.io" class="bare">http://xip.io</a> that make the following address 10.0.0.1.xip.io resolves to 10.0.0.1</p>
+</div>
+<div class="paragraph">
+<p>Sometimes xip.io presents some issues or you don&#8217;t have network access.</p>
+</div>
+<div class="paragraph">
+<p>To solve this problem, add the following line to your <code>/etc/hosts</code> file. For Windows, this file is located in <code>C:\Windows\System32\Drivers\etc\hosts</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>10.1.2.2        hello-helloworld-msa.rhel-cdk.10.1.2.2.xip.io hola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io aloha-helloworld-msa.rhel-cdk.10.1.2.2.xip.io namaste-helloworld-msa.rhel-cdk.10.1.2.2.xip.io ola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io hystrix-dashboard-helloworld-msa.rhel-cdk.10.1.2.2.xip.io</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-01 12:00:20 EDT
+Last updated 2016-04-11 16:45:52 EDT
 </div>
 </div>
 </body>
