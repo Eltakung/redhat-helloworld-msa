@@ -508,7 +508,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_deployment_patterns">Deployment Patterns</a>
 <ul class="sectlevel2">
-<li><a href="#_blue_green_deployments">Blue/Green deployments</a></li>
+<li><a href="#_blue_green_deployment">Blue/Green deployment</a></li>
 </ul>
 </li>
 <li><a href="#_troubleshooting">Troubleshooting</a>
@@ -1062,12 +1062,12 @@ $ oc logs -f bc/frontend</pre>
 <h2 id="_deployment_patterns">Deployment Patterns</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_blue_green_deployments">Blue/Green deployments</h3>
+<h3 id="_blue_green_deployment">Blue/Green deployment</h3>
 <div class="paragraph">
-<p>Blue/Green deployment is a technique where two different environments/versions (Blue and Green) of the same application  are running in parallel but only one of them is receiving request from the router at a time.</p>
+<p>Blue/Green deployment is a technique where two different environments/versions (Blue and Green) of the same application  are running in parallel but only one of them is receiving requests from the router at a time.</p>
 </div>
 <div class="paragraph">
-<p>To release a new version, the router is update to switch between the environment "Blue" and point to the environment "Green".</p>
+<p>To release a new version, the router is updated to switch between the "Blue" environment and point to the "Green" environment.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1164,7 +1164,7 @@ $ oc delete builds -l build=api-gateway</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-12 14:07:01 EDT
+Last updated 2016-04-12 17:07:16 EDT
 </div>
 </div>
 </body>

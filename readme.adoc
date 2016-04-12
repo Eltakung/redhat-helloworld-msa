@@ -54,6 +54,6 @@ include::kubeflix.adoc[]
 
 include::frontend.adoc[]
 
-include::bluegreen.adoc[]
+include::deployments.adoc[]
 
 include::troubleshooting.adoc[]

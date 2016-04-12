@@ -15,11 +15,11 @@
 
 == Deployment Patterns
 
-=== Blue/Green deployments
+=== Blue/Green deployment
 
-Blue/Green deployment is a technique where two different environments/versions (Blue and Green) of the same application  are running in parallel but only one of them is receiving request from the router at a time.
+Blue/Green deployment is a technique where two different environments/versions (Blue and Green) of the same application  are running in parallel but only one of them is receiving requests from the router at a time.
 
-To release a new version, the router is update to switch between the environment "Blue" and point to the environment "Green".
+To release a new version, the router is updated to switch between the "Blue" environment and point to the "Green" environment.
 
 image::images/greendeployment.png[]
 
