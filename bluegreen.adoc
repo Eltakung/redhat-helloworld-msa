@@ -21,6 +21,8 @@ Blue/Green deployment is a technique where two different environments/versions (
 
 To release a new version, the router is update to switch between the environment "Blue" and point to the environment "Green".
 
+image::images/greendeployment.png[]
+
 These steps show how to make blue-green deployments using Openshift.
 
 Strategy based on: https://github.com/openshift/origin/tree/master/examples/deployment#blue-green-deployment
