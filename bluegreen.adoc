@@ -53,5 +53,6 @@ $ oc patch route/api-gateway -p '{"spec": {"to": {"name": "api-gateway" }}}'
 - (Optional) Remove the "old" version.
 ----
 $ oc delete is,bc,dc,svc api-gateway
+$ oc delete builds -l build=api-gateway
 ----
 

@@ -1132,7 +1132,8 @@ $ oc patch route/api-gateway -p '{"spec": {"to": {"name": "api-gateway" }}}'</pr
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc delete is,bc,dc,svc api-gateway</pre>
+<pre>$ oc delete is,bc,dc,svc api-gateway
+$ oc delete builds -l build=api-gateway</pre>
 </div>
 </div>
 </div>
