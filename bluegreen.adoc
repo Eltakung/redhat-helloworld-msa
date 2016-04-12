@@ -25,7 +25,7 @@ image::images/greendeployment.png[]
 
 These steps show how to make blue-green deployments using Openshift.
 
-Strategy based on: https://github.com/openshift/origin/tree/master/examples/deployment#blue-green-deployment
+Strategy based on: <https://github.com/openshift/origin/tree/master/examples/deployment#blue-green-deployment>
 
 This example uses the `API-Gateway` project, but it could be used with any other project:
 
