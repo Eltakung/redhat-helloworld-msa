@@ -17,7 +17,7 @@
 
 === Blue/Green deployments
 
-Blue/Green deployments is a technique where the two environments of your application are running in parallel but only one of them is receiving request from the router at a time.
+Blue/Green deployment is a technique where the two environments of your application are running in parallel but only one of them is receiving request from the router at a time.
 
 To release a new version, the router is update to switch between the environment "bluen" and point to the environment "green".
 
