@@ -17,11 +17,11 @@
 
 === Blue/Green deployments
 
-Blue/Green deployment is a technique where the two environments of your application are running in parallel but only one of them is receiving request from the router at a time.
+Blue/Green deployment is a technique where two different environments/versions (Blue and Green) of the same application  are running in parallel but only one of them is receiving request from the router at a time.
 
-To release a new version, the router is update to switch between the environment "bluen" and point to the environment "green".
+To release a new version, the router is update to switch between the environment "Blue" and point to the environment "Green".
 
-These steps show how to make blue/green deployments using Openshift.
+These steps show how to make blue-green deployments using Openshift.
 
 Strategy based on: https://github.com/openshift/origin/tree/master/examples/deployment#blue-green-deployment
 

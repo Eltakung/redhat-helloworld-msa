@@ -1064,13 +1064,13 @@ $ oc logs -f bc/frontend</pre>
 <div class="sect2">
 <h3 id="_blue_green_deployments">Blue/Green deployments</h3>
 <div class="paragraph">
-<p>Blue/Green deployment is a technique where the two environments of your application are running in parallel but only one of them is receiving request from the router at a time.</p>
+<p>Blue/Green deployment is a technique where two different environments/versions (Blue and Green) of the same application  are running in parallel but only one of them is receiving request from the router at a time.</p>
 </div>
 <div class="paragraph">
-<p>To release a new version, the router is update to switch between the environment "bluen" and point to the environment "green".</p>
+<p>To release a new version, the router is update to switch between the environment "Blue" and point to the environment "Green".</p>
 </div>
 <div class="paragraph">
-<p>These steps show how to make blue/green deployments using Openshift.</p>
+<p>These steps show how to make blue-green deployments using Openshift.</p>
 </div>
 <div class="paragraph">
 <p>Strategy based on: <a href="https://github.com/openshift/origin/tree/master/examples/deployment#blue-green-deployment" class="bare">https://github.com/openshift/origin/tree/master/examples/deployment#blue-green-deployment</a></p>
