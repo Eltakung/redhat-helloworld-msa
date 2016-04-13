@@ -707,9 +707,8 @@ $ oc logs -f bc/hello</pre>
 <div class="content">
 <pre>$ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
 $ oc project helloworld-msa
-$ oc create -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/master/1.0/test/imagestream.json
-$ oc create -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/master/1.0/test/build-config.json
-$ oc start-build wildflyswarm-10-centos7-build --follow</pre>
+$ oc create -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/master/1.0/wildflyswarm-sti-all.json
+$ oc logs -f bc/wildflyswarm-10-centos7-build</pre>
 </div>
 </div>
 </div>
@@ -723,22 +722,6 @@ $ oc start-build wildflyswarm-10-centos7-build --follow</pre>
 <li>
 <p>Select <code>"wildflyswarm-10-centos7"</code> image</p>
 </li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You may need to click on <code>"Don&#8217;t see the image you are looking for?"</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="ulist">
-<ul>
 <li>
 <p>Name: <code>hola</code></p>
 </li>

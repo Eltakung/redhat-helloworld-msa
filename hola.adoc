@@ -20,18 +20,14 @@
 ----
 $ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
 $ oc project helloworld-msa
-$ oc create -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/master/1.0/test/imagestream.json
-$ oc create -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/master/1.0/test/build-config.json
-$ oc start-build wildflyswarm-10-centos7-build --follow
+$ oc create -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/master/1.0/wildflyswarm-sti-all.json
+$ oc logs -f bc/wildflyswarm-10-centos7-build
 ----
 
 ### Option 1: Deploy the microservice using console
 
 - Click `"Add to Project"`
 - Select `"wildflyswarm-10-centos7"` image 
-
-NOTE: You may need to click on `"Don't see the image you are looking for?"`.
-
 - Name: `hola`
 - Git URL: https://github.com/redhat-helloworld-msa/hola
 - Click on `"Show advanced build and deployment options"`
