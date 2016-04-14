@@ -57,3 +57,5 @@ include::frontend.adoc[]
 include::deployments.adoc[]
 
 include::troubleshooting.adoc[]
+
+include::maintenance.adoc[]

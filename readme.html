@@ -516,6 +516,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_dns_issues">DNS issues</a></li>
 </ul>
 </li>
+<li><a href="#_maintenance_only_for_redhatmsa_admins">Maintenance (Only for redhatmsa admins)</a>
+<ul class="sectlevel2">
+<li><a href="#_deploy_the_microservices_images_to_docker_hub">Deploy the microservices images to Docker Hub</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1144,10 +1149,36 @@ $ oc delete builds -l build=api-gateway</pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_maintenance_only_for_redhatmsa_admins">Maintenance (Only for redhatmsa admins)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_deploy_the_microservices_images_to_docker_hub">Deploy the microservices images to Docker Hub</h3>
+<div class="paragraph">
+<p>To deploy the microservices images you have to run the following commands from inside the vagrant box (vagrant ssh):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># vagrant ssh
+
+$ oc login -u admin -p admin localhost --insecure-skip-tls-verify=true
+$ oc project default
+
+#### use the email and password of redhatmsa ####
+$ docker login -u redhatmsa docker.io
+
+$ registry=`oc get service docker-registry  --template '{{.spec.portalIP}}'`
+$ declare -a arr=("hello" "hola" "aloha" "ola" "namaste" "bonjour" "api-gateway" "frontend")
+$ for i in "${arr[@]}"; do image=`docker images $registry:5000/helloworld-msa/$i|awk 'NR==2'`; echo "Taging $image"; id=$(echo $image|awk '{print $3}'); docker tag -f $id docker.io/redhatmsa/$i; echo "Pushing $id from $image"; docker push -f docker.io/redhatmsa/$i; done</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-12 17:07:16 EDT
+Last updated 2016-04-13 13:46:39 EDT
 </div>
 </div>
 </body>
