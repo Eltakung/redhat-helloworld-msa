@@ -24,3 +24,14 @@ Or run:
 $ oc login 10.1.2.2:8443  #login with openshift-dev/devel credentials
 $ oc new-project helloworld-msa
 ----
+
+### Create all the services from a simple file. (No builder images)
+
+NOTE: This doesn't install the builder images. Any change on the source, the pod should be built again using the instructions from each service.
+
+----
+$ oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/helloworld-msa/master/helloworld-msa.json
+$ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine
+----
+
+If you want to install each service individually, follow the instructions bellow.
