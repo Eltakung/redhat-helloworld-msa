@@ -44,7 +44,7 @@ $ cd components/rhel/rhel-ose
 Edit the Vagrantfile and replace
 ----
 v.memory = 8192
-v.cpu = 4
+v.cpu = 2
 ----
 
 Execute Vagrant:
