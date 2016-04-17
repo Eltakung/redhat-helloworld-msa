@@ -47,4 +47,6 @@ $ oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/helloworl
 $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine
 ----
 
+TIP: If any pods become "yellow"/"pending". Scale down it to 0 replicas and then scale it up again.
+
 If you want to install each service individually, follow the instructions bellow.

@@ -672,7 +672,7 @@ $ vagrant plugin install vagrant-registration</pre>
 <div class="listingblock">
 <div class="content">
 <pre>v.memory = 8192
-v.cpu = 4</pre>
+v.cpu = 2</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -779,6 +779,18 @@ $ oc new-project helloworld-msa
 $ oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/helloworld-msa/master/helloworld-msa.json
 $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine</pre>
 </div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If any pods become "yellow"/"pending". Scale down it to 0 replicas and then scale it up again.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>If you want to install each service individually, follow the instructions bellow.</p>
