@@ -20,6 +20,7 @@ http://developers.redhat.com
 :toclevels: 2
 :icons: font
 :data-uri:
+:source-highlighter: coderay
 
 This content is brought to you by http://developers.redhat.com - Register today!
 

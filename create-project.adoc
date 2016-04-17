@@ -27,9 +27,22 @@ $ oc new-project helloworld-msa
 
 ### Create all the services from a simple file. (No builder images)
 
-NOTE: This doesn't install the builder images. Any change on the source, the pod should be built again using the instructions from each service.
+WARNING: This doesn't install the builder images. Any change on the source, the pod should be built again using the instructions from each service.
+
+NOTE: First you will need to fetch all pre-built docker images. The following commands will do that. It should take some minutes to complete since it will download aproximatelly 2.5 GB.
 
 ----
+$ cd <PATH to CDK Vagrant file location>/
+$ vagrant plugin update service-manager
+$ eval "$(vagrant service-manager env docker)"
+$ docker pull docker.io/redhatmsa/aloha; docker pull docker.io/redhatmsa/api-gateway; docker pull docker.io/redhatmsa/bonjour; docker pull docker.io/redhatmsa/frontend; docker pull docker.io/redhatmsa/hello; docker pull docker.io/redhatmsa/hola; docker pull docker.io/redhatmsa/namaste; docker pull docker.io/redhatmsa/ola; docker pull docker.io/fabric8/hystrix-dashboard:1.0.15; docker pull docker.io/fabric8/turbine-server:1.0.15
+----
+
+Once that all images are available in the CDK internal registry, you can create the Openshift resources using *oc* command.
+
+----
+$ oc login 10.1.2.2:8443 -u openshift-dev -p devel
+$ oc new-project helloworld-msa
 $ oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/helloworld-msa/master/helloworld-msa.json
 $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine
 ----

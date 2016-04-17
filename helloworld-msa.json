@@ -797,7 +797,6 @@
                 },
                 "template": {
                     "metadata": {
-                        "creationTimestamp": null,
                         "labels": {
                             "deploymentconfig": "hello",
                             "hystrix.enabled": "true"
@@ -1142,8 +1141,7 @@
                     "deploymentconfig": "hello",
                     "hystrix.enabled": "true"
                 },
-                "type": "ClusterIP",
-                "sessionAffinity": "None"
+                "type": "ClusterIP"
             }
         },
         {
@@ -1174,8 +1172,7 @@
                     "deploymentconfig": "hola",
                     "hystrix.enabled": "true"
                 },
-                "type": "ClusterIP",
-                "sessionAffinity": "None"
+                "type": "ClusterIP"
             }
         },
         {
@@ -1200,8 +1197,7 @@
                     "deploymentconfig": "namaste",
                     "hystrix.enabled": "true"
                 },
-                "type": "ClusterIP",
-                "sessionAffinity": "None"
+                "type": "ClusterIP"
             }
         },
         {
@@ -1227,8 +1223,7 @@
                     "deploymentconfig": "ola",
                     "hystrix.enabled": "true"
                 },
-                "type": "ClusterIP",
-                "sessionAffinity": "None"
+                "type": "ClusterIP"
             }
         },
         {
