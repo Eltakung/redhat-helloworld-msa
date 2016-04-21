@@ -580,6 +580,11 @@
                                         "protocol": "TCP"
                                     },
                                     {
+                                        "containerPort": 8778,
+                                        "protocol": "TCP",
+                                        "name": "jolokia"
+                                    },
+                                    {
                                         "containerPort": 8080,
                                         "protocol": "TCP"
                                     }
@@ -637,6 +642,11 @@
                                 "name": "api-gateway",
                                 "image": "helloworld-msa/api-gateway",
                                 "ports": [
+                                    {
+                                        "containerPort": 8778,
+                                        "protocol": "TCP",
+                                        "name": "jolokia"
+                                    },
                                     {
                                         "containerPort": 8080,
                                         "protocol": "TCP"
@@ -818,7 +828,8 @@
                                     },
                                     {
                                         "containerPort": 8778,
-                                        "protocol": "TCP"
+                                        "protocol": "TCP",
+                                        "name": "jolokia"
                                     }
                                 ]
                             }
@@ -876,6 +887,11 @@
                                     {
                                         "containerPort": 8080,
                                         "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 8778,
+                                        "protocol": "TCP",
+                                        "name": "jolokia"
                                     },
                                     {
                                         "containerPort": 8888,
@@ -936,6 +952,11 @@
                                 "image": "helloworld-msa/namaste",
                                 "ports": [
                                     {
+                                        "containerPort": 8778,
+                                        "protocol": "TCP",
+                                        "name": "jolokia"
+                                    },
+                                    {
                                         "containerPort": 8080,
                                         "protocol": "TCP"
                                     }
@@ -994,6 +1015,11 @@
                                 "image": "helloworld-msa/ola",
                                 "ports": [
                                     {
+                                        "containerPort": 8778,
+                                        "protocol": "TCP",
+                                        "name": "jolokia"
+                                    },
+                                    {
                                         "containerPort": 8080,
                                         "protocol": "TCP"
                                     }
@@ -1016,6 +1042,13 @@
             "spec": {
                 "ports": [
                     {
+                        "name": "8778-tcp",
+                        "protocol": "TCP",
+                        "port": 8778,
+                        "targetPort": 8778
+                    },
+                    {
+                        "name": "8080-tcp",
                         "protocol": "TCP",
                         "port": 8080,
                         "targetPort": 8080
@@ -1040,6 +1073,12 @@
             },
             "spec": {
                 "ports": [
+                    {
+                        "name": "8778-tcp",
+                        "protocol": "TCP",
+                        "port": 8778,
+                        "targetPort": 8778
+                    },
                     {
                         "name": "8080-tcp",
                         "protocol": "TCP",
@@ -1162,6 +1201,12 @@
                         "targetPort": 8080
                     },
                     {
+                        "name": "8778-tcp",
+                        "protocol": "TCP",
+                        "port": 8778,
+                        "targetPort": 8778
+                    },
+                    {
                         "name": "8888-tcp",
                         "protocol": "TCP",
                         "port": 8888,
@@ -1186,6 +1231,12 @@
             },
             "spec": {
                 "ports": [
+                    {
+                        "name": "8778-tcp",
+                        "protocol": "TCP",
+                        "port": 8778,
+                        "targetPort": 8778
+                    },
                     {
                         "name": "8080-tcp",
                         "protocol": "TCP",
@@ -1212,6 +1263,12 @@
             },
             "spec": {
                 "ports": [
+                    {
+                        "name": "8778-tcp",
+                        "protocol": "TCP",
+                        "port": 8778,
+                        "targetPort": 8778
+                    },
                     {
                         "name": "8080-tcp",
                         "protocol": "TCP",

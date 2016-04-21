@@ -15,14 +15,25 @@
 
 ## Deploy the hello (JAX-RS/EAP) microservice
 
-### Create a EAP 7.0 (Beta) builder template/imagestream
+
+### Option 1: Deploy using Fabric8 plugin
+
+Execute:
+
+----
+$ git clone https://github.com/redhat-helloworld-msa/hello
+$ cd hello/
+$ mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
+----
+
+### Option 2: Create a EAP 7.0 (Beta) builder template/imagestream
 
 ----
 $ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
 $ oc create -n helloworld-msa -f https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.0-1/jboss-image-streams.json
 ----
 
-### Option 1: Deploy the microservice using console
+####  Using Openshift console
 
 - Select `jboss-eap70-openshift:1.3-Beta` xpaas builder image
 - Name: `hello`
@@ -32,7 +43,7 @@ $ oc create -n helloworld-msa -f https://raw.githubusercontent.com/jboss-openshi
 - Click on `"Create"`. And them click on `"Continue to overview"`
 - Wait for the build to complete. (You can click `"View log"` to follow the build logs)
 
-### Option 2: Deploy the microservice using oc command
+#### Using oc CLI
 
 Execute:
 
@@ -41,6 +52,7 @@ $ oc new-app --name hello jboss-eap70-openshift:1.3-Beta~https://github.com/redh
 $ oc expose service hello
 $ oc logs -f bc/hello
 ----
+
 
 ### Test the service endpoint
 

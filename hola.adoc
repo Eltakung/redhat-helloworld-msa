@@ -15,7 +15,17 @@
 
 ## Deploy hola (JAX-RS/Wildfly Swarm) microservice
 
-### Install Swarm S2I
+### Option 1: Deploy using Fabric8 plugin
+
+Execute:
+
+----
+$ git clone https://github.com/redhat-helloworld-msa/hola
+$ cd hola/
+$ mvn clean package docker:build fabric8:json fabric8:apply
+----
+
+### Option 2: Create a WildFly-Swarm builder template/imagestream
 
 ----
 $ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
@@ -24,7 +34,7 @@ $ oc create -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/
 $ oc logs -f bc/wildflyswarm-10-centos7-build
 ----
 
-### Option 1: Deploy the microservice using console
+#### Using Openshift console
 
 - Click `"Add to Project"`
 - Select `"wildflyswarm-10-centos7"` image 
@@ -35,7 +45,7 @@ $ oc logs -f bc/wildflyswarm-10-centos7-build
 - Click on `"Create"`. And them click on `"Continue to overview"`
 - Wait for the build to complete. (You can click `"View log"` to follow the build logs)
 
-### Option 2: Deploy the microservice using oc command
+#### Using oc CLI
 
 Execute:
 

@@ -16,7 +16,7 @@
 ## Deploy Kubeflix
 
 
-### Deploy using oc command
+### Deploy using oc CLI
 
 Execute:
 

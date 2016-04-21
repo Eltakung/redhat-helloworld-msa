@@ -15,16 +15,18 @@
 
 ## Deploy frontend (NodeJS/HTML5/JS) 
 
-### Option 1: Deploy the microservice using console
+### Deploy using nodejs builder image
+
+####   Using Openshift console
 
 - Click `"Add to Project"`
-- Select `"nodejs:latest"` image 
+- Select `"centos7-s2i-nodejs:stable"` image 
 - Name: `frontend`
 - Git URL:  https://github.com/redhat-helloworld-msa/frontend
 - Click on `"Create"`. And them click on `"Continue to overview"`
 - Wait for the build to complete. (You can click `"View log"` to follow the build logs)
 
-### Option 2: Deploy the microservice using oc command
+#### Using oc CLI
 
 Execute:
 

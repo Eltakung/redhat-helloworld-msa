@@ -38,13 +38,8 @@ $ vagrant box add --name cdkv2 <path to downloaded .box file>
 Update CDK Memory and CPU
 
 ----
-$ cd components/rhel/rhel-ose
-----
-
-Edit the Vagrantfile and replace
-----
-v.memory = 8192
-v.cpu = 2
+$ cd <CDK-PATH>/components/rhel/rhel-ose
+$ export VM_MEMORY=8192
 ----
 
 Execute Vagrant:
@@ -53,6 +48,7 @@ Execute Vagrant:
 $ export SUB_USERNAME=<your-subscription-username>
 $ export SUB_PASSWORD=<your-subscription-password>
 $ vagrant up
+$ eval "$(vagrant service-manager env docker)"
 ----
 
 ### Install Openshift Client

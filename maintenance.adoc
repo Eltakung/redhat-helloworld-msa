@@ -22,14 +22,12 @@ To deploy the microservices images you have to run the following commands from i
 ----
 # vagrant ssh
 
-$ oc login -u admin -p admin localhost --insecure-skip-tls-verify=true
+$ oc login  -u admin -p admin localhost --insecure-skip-tls-verify=true
 $ oc project default
 
 #### use the email and password of redhatmsa ####
-$ docker login -u redhatmsa docker.io
+$ docker login  #login with user redhatmsa
 
-$ registry=`oc get service docker-registry  --template '{{.spec.portalIP}}'`
-$ declare -a arr=("hello" "hola" "aloha" "ola" "namaste" "bonjour" "api-gateway" "frontend")
-$ for i in "${arr[@]}"; do image=`docker images $registry:5000/helloworld-msa/$i|awk 'NR==2'`; echo "Taging $image"; id=$(echo $image|awk '{print $3}'); docker tag -f $id docker.io/redhatmsa/$i; echo "Pushing $id from $image"; docker push -f docker.io/redhatmsa/$i; done
+$ registry=`oc get service docker-registry --template '{{.spec.portalIP}}'`; declare -a arr=("bonjour" "frontend"); for i in "${arr[@]}"; do image=`docker images $registry:5000/helloworld-msa/$i|awk 'NR==2'`; echo "Taging $image"; id=$(echo $image|awk '{print $3}'); docker tag -f $id docker.io/redhatmsa/$i; echo "Pushing $id from $image"; docker push -f docker.io/redhatmsa/$i; done; declare -a arr2=("hello" "hola" "aloha" "ola" "namaste" "api-gateway"); for i in "${arr2[@]}"; do image=`docker images redhatmsa/$i|awk 'NR==2'`; echo "Taging $image"; id=$(echo $image|awk '{print $3}'); docker tag -f $id docker.io/redhatmsa/$i:latest; echo "Pushing $id from $image"; docker push -f docker.io/redhatmsa/$i:latest; done
 ----
 

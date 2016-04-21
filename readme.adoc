@@ -53,6 +53,8 @@ include::api-gateway.adoc[]
 
 include::kubeflix.adoc[]
 
+include::zipkin.adoc[]
+
 include::frontend.adoc[]
 
 include::deployments.adoc[]

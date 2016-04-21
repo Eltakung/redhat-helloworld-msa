@@ -13,32 +13,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-## Deploy namaste (Dropwizard) microservice
+## Deploy Kubernetes ZipKin
 
-### Option 1: Deploy using Fabric8 plugin
-
-Execute:
-
-----
-$ git clone https://github.com/redhat-helloworld-msa/namaste
-$ cd namaste/
-$ mvn clean package docker:build fabric8:json fabric8:apply
-----
-
-###  Option 2: Deploy using oc CLI
+### Deploy using oc CLI
 
 Execute:
 
 ----
-$ git clone https://github.com/redhat-helloworld-msa/namaste
-$ cd namaste
-
-$ oc new-build --binary --name=namaste
-$ mvn package; oc start-build namaste --from-dir=. --follow
-$ oc new-app namaste -l hystrix.enabled=true
-$ oc expose service namaste 
+$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-mninimal/0.0.4/zipkin-starter-mninimal-0.0.4-kubernetes.yml
+$ oc expose service zipkin-query
 ----
 
-### Test the service endpoint
+NOTE: The mispel of mninimal is already reported at https://github.com/fabric8io/kubernetes-zipkin/issues/15
 
-Access: http://namaste-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/namaste
+### Test the hystrix-dashboard
+
+Access: http://zipkin-query-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/
+

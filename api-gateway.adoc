@@ -15,8 +15,17 @@
 
 ## Deploy api-gateway (Spring Boot)
 
+### Option 1: Deploy using Fabric8 plugin
 
-### Deploy using oc command
+Execute:
+
+----
+$ git clone https://github.com/redhat-helloworld-msa/api-gateway
+$ cd api-gateway/
+$ mvn clean package docker:build fabric8:json fabric8:apply
+----
+
+### Option 2: Deploy using oc CLI
 
 Execute:
 

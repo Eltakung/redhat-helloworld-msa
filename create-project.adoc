@@ -21,9 +21,11 @@ IMPORTANT: You must use the exact project name since it will affect the generate
 
 Or run:
 ----
-$ oc login 10.1.2.2:8443  #login with openshift-dev/devel credentials
+$ oc login 10.1.2.2:8443 -u openshift-dev -p devel
 $ oc new-project helloworld-msa
 ----
+
+////
 
 ### Create all the services from a simple file. (No builder images)
 
@@ -33,7 +35,6 @@ NOTE: First you will need to fetch all pre-built docker images. The following co
 
 ----
 $ cd <PATH to CDK Vagrant file location>/
-$ vagrant plugin update service-manager
 $ eval "$(vagrant service-manager env docker)"
 $ docker pull docker.io/redhatmsa/aloha; docker pull docker.io/redhatmsa/api-gateway; docker pull docker.io/redhatmsa/bonjour; docker pull docker.io/redhatmsa/frontend; docker pull docker.io/redhatmsa/hello; docker pull docker.io/redhatmsa/hola; docker pull docker.io/redhatmsa/namaste; docker pull docker.io/redhatmsa/ola; docker pull docker.io/fabric8/hystrix-dashboard:1.0.15; docker pull docker.io/fabric8/turbine-server:1.0.15
 ----
@@ -50,3 +51,5 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine
 TIP: If any pods become "yellow"/"pending". Scale down it to 0 replicas and then scale it up again.
 
 If you want to install each service individually, follow the instructions bellow.
+
+////

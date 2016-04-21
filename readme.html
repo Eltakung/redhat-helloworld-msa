@@ -534,70 +534,71 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_access_openshift_console">Access Openshift console</a></li>
 </ul>
 </li>
-<li><a href="#_create_a_project">Create a project</a>
-<ul class="sectlevel2">
-<li><a href="#_create_all_the_services_from_a_simple_file_no_builder_images">Create all the services from a simple file. (No builder images)</a></li>
-</ul>
-</li>
+<li><a href="#_create_a_project">Create a project</a></li>
 <li><a href="#_deploy_the_hello_jax_rs_eap_microservice">Deploy the hello (JAX-RS/EAP) microservice</a>
 <ul class="sectlevel2">
-<li><a href="#_create_a_eap_7_0_beta_builder_template_imagestream">Create a EAP 7.0 (Beta) builder template/imagestream</a></li>
-<li><a href="#_option_1_deploy_the_microservice_using_console">Option 1: Deploy the microservice using console</a></li>
-<li><a href="#_option_2_deploy_the_microservice_using_oc_command">Option 2: Deploy the microservice using oc command</a></li>
+<li><a href="#_option_1_deploy_using_fabric8_plugin">Option 1: Deploy using Fabric8 plugin</a></li>
+<li><a href="#_option_2_create_a_eap_7_0_beta_builder_template_imagestream">Option 2: Create a EAP 7.0 (Beta) builder template/imagestream</a></li>
 <li><a href="#_test_the_service_endpoint">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_hola_jax_rs_wildfly_swarm_microservice">Deploy hola (JAX-RS/Wildfly Swarm) microservice</a>
 <ul class="sectlevel2">
-<li><a href="#_install_swarm_s2i">Install Swarm S2I</a></li>
-<li><a href="#_option_1_deploy_the_microservice_using_console_2">Option 1: Deploy the microservice using console</a></li>
-<li><a href="#_option_2_deploy_the_microservice_using_oc_command_2">Option 2: Deploy the microservice using oc command</a></li>
+<li><a href="#_option_1_deploy_using_fabric8_plugin_2">Option 1: Deploy using Fabric8 plugin</a></li>
+<li><a href="#_option_2_create_a_wildfly_swarm_builder_template_imagestream">Option 2: Create a WildFly-Swarm builder template/imagestream</a></li>
 <li><a href="#_test_the_service_endpoint_2">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_aloha_vert_x_microservice">Deploy aloha (Vert.x) microservice</a>
 <ul class="sectlevel2">
-<li><a href="#_install_vert_x_s2i">Install Vert.x S2I</a></li>
-<li><a href="#_option_1_deploy_the_microservice_using_console_3">Option 1: Deploy the microservice using console</a></li>
-<li><a href="#_option_2_deploy_the_microservice_using_oc_command_3">Option 2: Deploy the microservice using oc command</a></li>
+<li><a href="#_option_1_deploy_using_fabric8_plugin_3">Option 1: Deploy using Fabric8 plugin</a></li>
+<li><a href="#_option_2_create_a_vert_x_builder_template_imagestream">Option 2: Create a Vert.x builder template/imagestream</a></li>
 <li><a href="#_test_the_service_endpoint_3">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_ola_spring_boot_microservice">Deploy ola (Spring Boot) microservice</a>
 <ul class="sectlevel2">
-<li><a href="#_deploy_the_microservice_using_oc_command">Deploy the microservice using oc command</a></li>
+<li><a href="#_option_1_deploy_using_fabric8_plugin_4">Option 1: Deploy using Fabric8 plugin</a></li>
+<li><a href="#_option_2_deploy_using_oc_cli">Option 2: Deploy using oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint_4">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_namaste_dropwizard_microservice">Deploy namaste (Dropwizard) microservice</a>
 <ul class="sectlevel2">
-<li><a href="#_deploy_the_microservice_using_oc_command_2">Deploy the microservice using oc command</a></li>
+<li><a href="#_option_1_deploy_using_fabric8_plugin_5">Option 1: Deploy using Fabric8 plugin</a></li>
+<li><a href="#_option_2_deploy_using_oc_cli_2">Option 2: Deploy using oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint_5">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_bonjour_nodejs_microservice">Deploy bonjour (NodeJS) microservice</a>
 <ul class="sectlevel2">
-<li><a href="#_option_1_deploy_the_microservice_using_console_4">Option 1: Deploy the microservice using console</a></li>
-<li><a href="#_option_2_deploy_the_microservice_using_oc_command_4">Option 2: Deploy the microservice using oc command</a></li>
+<li><a href="#_option_1_deploy_the_microservice_using_console">Option 1: Deploy the microservice using console</a></li>
+<li><a href="#_option_2_deploy_the_microservice_using_oc_command">Option 2: Deploy the microservice using oc command</a></li>
 <li><a href="#_test_the_service_endpoint_6">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_api_gateway_spring_boot">Deploy api-gateway (Spring Boot)</a>
 <ul class="sectlevel2">
-<li><a href="#_deploy_using_oc_command">Deploy using oc command</a></li>
+<li><a href="#_option_1_deploy_using_fabric8_plugin_6">Option 1: Deploy using Fabric8 plugin</a></li>
+<li><a href="#_option_2_deploy_using_oc_cli_3">Option 2: Deploy using oc CLI</a></li>
 <li><a href="#_test_the_endpoint">Test the endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_kubeflix">Deploy Kubeflix</a>
 <ul class="sectlevel2">
-<li><a href="#_deploy_using_oc_command_2">Deploy using oc command</a></li>
+<li><a href="#_deploy_using_oc_cli">Deploy using oc CLI</a></li>
 <li><a href="#_test_the_hystrix_dashboard">Test the hystrix-dashboard</a></li>
+</ul>
+</li>
+<li><a href="#_deploy_kubernetes_zipkin">Deploy Kubernetes ZipKin</a>
+<ul class="sectlevel2">
+<li><a href="#_deploy_using_oc_cli_2">Deploy using oc CLI</a></li>
+<li><a href="#_test_the_hystrix_dashboard_2">Test the hystrix-dashboard</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_frontend_nodejs_html5_js">Deploy frontend (NodeJS/HTML5/JS)</a>
 <ul class="sectlevel2">
-<li><a href="#_option_1_deploy_the_microservice_using_console_5">Option 1: Deploy the microservice using console</a></li>
-<li><a href="#_option_2_deploy_the_microservice_using_oc_command_5">Option 2: Deploy the microservice using oc command</a></li>
+<li><a href="#_deploy_using_nodejs_builder_image">Deploy using nodejs builder image</a></li>
 <li><a href="#_test_the_service_endpoint_7">Test the service endpoint</a></li>
 </ul>
 </li>
@@ -663,16 +664,8 @@ $ vagrant plugin install vagrant-registration</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ cd components/rhel/rhel-ose</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Edit the Vagrantfile and replace</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>v.memory = 8192
-v.cpu = 2</pre>
+<pre>$ cd &lt;CDK-PATH&gt;/components/rhel/rhel-ose
+$ export VM_MEMORY=8192</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -682,7 +675,8 @@ v.cpu = 2</pre>
 <div class="content">
 <pre>$ export SUB_USERNAME=&lt;your-subscription-username&gt;
 $ export SUB_PASSWORD=&lt;your-subscription-password&gt;
-$ vagrant up</pre>
+$ vagrant up
+$ eval "$(vagrant service-manager env docker)"</pre>
 </div>
 </div>
 </div>
@@ -731,69 +725,8 @@ You must use the exact project name since it will affect the generate endpoint&#
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc login 10.1.2.2:8443  #login with openshift-dev/devel credentials
-$ oc new-project helloworld-msa</pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_create_all_the_services_from_a_simple_file_no_builder_images">Create all the services from a simple file. (No builder images)</h3>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-This doesn&#8217;t install the builder images. Any change on the source, the pod should be built again using the instructions from each service.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-First you will need to fetch all pre-built docker images. The following commands will do that. It should take some minutes to complete since it will download aproximatelly 2.5 GB.
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ cd &lt;PATH to CDK Vagrant file location&gt;/
-$ vagrant plugin update service-manager
-$ eval "$(vagrant service-manager env docker)"
-$ docker pull docker.io/redhatmsa/aloha; docker pull docker.io/redhatmsa/api-gateway; docker pull docker.io/redhatmsa/bonjour; docker pull docker.io/redhatmsa/frontend; docker pull docker.io/redhatmsa/hello; docker pull docker.io/redhatmsa/hola; docker pull docker.io/redhatmsa/namaste; docker pull docker.io/redhatmsa/ola; docker pull docker.io/fabric8/hystrix-dashboard:1.0.15; docker pull docker.io/fabric8/turbine-server:1.0.15</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Once that all images are available in the CDK internal registry, you can create the Openshift resources using <strong>oc</strong> command.</p>
-</div>
-<div class="listingblock">
-<div class="content">
 <pre>$ oc login 10.1.2.2:8443 -u openshift-dev -p devel
-$ oc new-project helloworld-msa
-$ oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/helloworld-msa/master/helloworld-msa.json
-$ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine</pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-If any pods become "yellow"/"pending". Scale down it to 0 replicas and then scale it up again.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If you want to install each service individually, follow the instructions bellow.</p>
+$ oc new-project helloworld-msa</pre>
 </div>
 </div>
 </div>
@@ -802,16 +735,28 @@ If any pods become "yellow"/"pending". Scale down it to 0 replicas and then scal
 <h2 id="_deploy_the_hello_jax_rs_eap_microservice">Deploy the hello (JAX-RS/EAP) microservice</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_create_a_eap_7_0_beta_builder_template_imagestream">Create a EAP 7.0 (Beta) builder template/imagestream</h3>
+<h3 id="_option_1_deploy_using_fabric8_plugin">Option 1: Deploy using Fabric8 plugin</h3>
+<div class="paragraph">
+<p>Execute:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ git clone https://github.com/redhat-helloworld-msa/hello
+$ cd hello/
+$ mvn clean package docker:build fabric8:json fabric8:apply -Popenshift</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_option_2_create_a_eap_7_0_beta_builder_template_imagestream">Option 2: Create a EAP 7.0 (Beta) builder template/imagestream</h3>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
 $ oc create -n helloworld-msa -f https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.0-1/jboss-image-streams.json</pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_option_1_deploy_the_microservice_using_console">Option 1: Deploy the microservice using console</h3>
+<div class="sect3">
+<h4 id="_using_openshift_console">Using Openshift console</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -838,8 +783,8 @@ $ oc create -n helloworld-msa -f https://raw.githubusercontent.com/jboss-openshi
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_option_2_deploy_the_microservice_using_oc_command">Option 2: Deploy the microservice using oc command</h3>
+<div class="sect3">
+<h4 id="_using_oc_cli">Using oc CLI</h4>
 <div class="paragraph">
 <p>Execute:</p>
 </div>
@@ -848,6 +793,7 @@ $ oc create -n helloworld-msa -f https://raw.githubusercontent.com/jboss-openshi
 <pre>$ oc new-app --name hello jboss-eap70-openshift:1.3-Beta~https://github.com/redhat-helloworld-msa/hello -l hystrix.enabled=true
 $ oc expose service hello
 $ oc logs -f bc/hello</pre>
+</div>
 </div>
 </div>
 </div>
@@ -863,7 +809,20 @@ $ oc logs -f bc/hello</pre>
 <h2 id="_deploy_hola_jax_rs_wildfly_swarm_microservice">Deploy hola (JAX-RS/Wildfly Swarm) microservice</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_install_swarm_s2i">Install Swarm S2I</h3>
+<h3 id="_option_1_deploy_using_fabric8_plugin_2">Option 1: Deploy using Fabric8 plugin</h3>
+<div class="paragraph">
+<p>Execute:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ git clone https://github.com/redhat-helloworld-msa/hola
+$ cd hola/
+$ mvn clean package docker:build fabric8:json fabric8:apply</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_option_2_create_a_wildfly_swarm_builder_template_imagestream">Option 2: Create a WildFly-Swarm builder template/imagestream</h3>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
@@ -872,9 +831,8 @@ $ oc create -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/
 $ oc logs -f bc/wildflyswarm-10-centos7-build</pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_option_1_deploy_the_microservice_using_console_2">Option 1: Deploy the microservice using console</h3>
+<div class="sect3">
+<h4 id="_using_openshift_console_2">Using Openshift console</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -904,8 +862,8 @@ $ oc logs -f bc/wildflyswarm-10-centos7-build</pre>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_option_2_deploy_the_microservice_using_oc_command_2">Option 2: Deploy the microservice using oc command</h3>
+<div class="sect3">
+<h4 id="_using_oc_cli_2">Using oc CLI</h4>
 <div class="paragraph">
 <p>Execute:</p>
 </div>
@@ -914,6 +872,7 @@ $ oc logs -f bc/wildflyswarm-10-centos7-build</pre>
 <pre>$ oc new-app --name hola wildflyswarm-10-centos7~https://github.com/redhat-helloworld-msa/hola -l hystrix.enabled=true
 $ oc expose service hola
 $ oc logs -f bc/hola</pre>
+</div>
 </div>
 </div>
 </div>
@@ -929,7 +888,20 @@ $ oc logs -f bc/hola</pre>
 <h2 id="_deploy_aloha_vert_x_microservice">Deploy aloha (Vert.x) microservice</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_install_vert_x_s2i">Install Vert.x S2I</h3>
+<h3 id="_option_1_deploy_using_fabric8_plugin_3">Option 1: Deploy using Fabric8 plugin</h3>
+<div class="paragraph">
+<p>Execute:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ git clone https://github.com/redhat-helloworld-msa/aloha
+$ cd aloha/
+$ mvn clean package docker:build fabric8:json fabric8:apply</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_option_2_create_a_vert_x_builder_template_imagestream">Option 2: Create a Vert.x builder template/imagestream</h3>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc login 10.3.2.2:8443 (login with openshift-dev/devel credentials)
@@ -938,9 +910,8 @@ $ oc create -f https://raw.githubusercontent.com/vert-x3/vertx-openshift-s2i/ini
 $ oc logs -f bc/vertx-s2i</pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_option_1_deploy_the_microservice_using_console_3">Option 1: Deploy the microservice using console</h3>
+<div class="sect3">
+<h4 id="_using_openshift_console_3">Using Openshift console</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -973,8 +944,8 @@ $ oc logs -f bc/vertx-s2i</pre>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_option_2_deploy_the_microservice_using_oc_command_3">Option 2: Deploy the microservice using oc command</h3>
+<div class="sect3">
+<h4 id="_using_oc_cli_3">Using oc CLI</h4>
 <div class="paragraph">
 <p>Execute:</p>
 </div>
@@ -984,6 +955,7 @@ $ oc logs -f bc/vertx-s2i</pre>
 $ oc delete service aloha; oc expose dc aloha --port=8080
 $ oc expose service aloha
 $ oc logs -f bc/aloha</pre>
+</div>
 </div>
 </div>
 </div>
@@ -999,7 +971,20 @@ $ oc logs -f bc/aloha</pre>
 <h2 id="_deploy_ola_spring_boot_microservice">Deploy ola (Spring Boot) microservice</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_deploy_the_microservice_using_oc_command">Deploy the microservice using oc command</h3>
+<h3 id="_option_1_deploy_using_fabric8_plugin_4">Option 1: Deploy using Fabric8 plugin</h3>
+<div class="paragraph">
+<p>Execute:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ git clone https://github.com/redhat-helloworld-msa/ola
+$ cd ola/
+$ mvn clean package docker:build fabric8:json fabric8:apply</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_option_2_deploy_using_oc_cli">Option 2: Deploy using oc CLI</h3>
 <div class="paragraph">
 <p>Execute:</p>
 </div>
@@ -1027,7 +1012,20 @@ $ oc expose service ola</pre>
 <h2 id="_deploy_namaste_dropwizard_microservice">Deploy namaste (Dropwizard) microservice</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_deploy_the_microservice_using_oc_command_2">Deploy the microservice using oc command</h3>
+<h3 id="_option_1_deploy_using_fabric8_plugin_5">Option 1: Deploy using Fabric8 plugin</h3>
+<div class="paragraph">
+<p>Execute:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ git clone https://github.com/redhat-helloworld-msa/namaste
+$ cd namaste/
+$ mvn clean package docker:build fabric8:json fabric8:apply</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_option_2_deploy_using_oc_cli_2">Option 2: Deploy using oc CLI</h3>
 <div class="paragraph">
 <p>Execute:</p>
 </div>
@@ -1055,7 +1053,7 @@ $ oc expose service namaste</pre>
 <h2 id="_deploy_bonjour_nodejs_microservice">Deploy bonjour (NodeJS) microservice</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_option_1_deploy_the_microservice_using_console_4">Option 1: Deploy the microservice using console</h3>
+<h3 id="_option_1_deploy_the_microservice_using_console">Option 1: Deploy the microservice using console</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1080,7 +1078,7 @@ $ oc expose service namaste</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_option_2_deploy_the_microservice_using_oc_command_4">Option 2: Deploy the microservice using oc command</h3>
+<h3 id="_option_2_deploy_the_microservice_using_oc_command">Option 2: Deploy the microservice using oc command</h3>
 <div class="paragraph">
 <p>Execute:</p>
 </div>
@@ -1104,7 +1102,20 @@ $ oc logs -f bc/bonjour</pre>
 <h2 id="_deploy_api_gateway_spring_boot">Deploy api-gateway (Spring Boot)</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_deploy_using_oc_command">Deploy using oc command</h3>
+<h3 id="_option_1_deploy_using_fabric8_plugin_6">Option 1: Deploy using Fabric8 plugin</h3>
+<div class="paragraph">
+<p>Execute:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ git clone https://github.com/redhat-helloworld-msa/api-gateway
+$ cd api-gateway/
+$ mvn clean package docker:build fabric8:json fabric8:apply</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_option_2_deploy_using_oc_cli_3">Option 2: Deploy using oc CLI</h3>
 <div class="paragraph">
 <p>Execute:</p>
 </div>
@@ -1132,7 +1143,7 @@ $ oc expose service api-gateway</pre>
 <h2 id="_deploy_kubeflix">Deploy Kubeflix</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_deploy_using_oc_command_2">Deploy using oc command</h3>
+<h3 id="_deploy_using_oc_cli">Deploy using oc CLI</h3>
 <div class="paragraph">
 <p>Execute:</p>
 </div>
@@ -1154,17 +1165,54 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine<
 </div>
 </div>
 <div class="sect1">
+<h2 id="_deploy_kubernetes_zipkin">Deploy Kubernetes ZipKin</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_deploy_using_oc_cli_2">Deploy using oc CLI</h3>
+<div class="paragraph">
+<p>Execute:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-mninimal/0.0.4/zipkin-starter-mninimal-0.0.4-kubernetes.yml
+$ oc expose service zipkin-query</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The mispel of mninimal is already reported at <a href="https://github.com/fabric8io/kubernetes-zipkin/issues/15" class="bare">https://github.com/fabric8io/kubernetes-zipkin/issues/15</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_test_the_hystrix_dashboard_2">Test the hystrix-dashboard</h3>
+<div class="paragraph">
+<p>Access: <a href="http://zipkin-query-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/" class="bare">http://zipkin-query-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_deploy_frontend_nodejs_html5_js">Deploy frontend (NodeJS/HTML5/JS)</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_option_1_deploy_the_microservice_using_console_5">Option 1: Deploy the microservice using console</h3>
+<h3 id="_deploy_using_nodejs_builder_image">Deploy using nodejs builder image</h3>
+<div class="sect3">
+<h4 id="_using_openshift_console_4">Using Openshift console</h4>
 <div class="ulist">
 <ul>
 <li>
 <p>Click <code>"Add to Project"</code></p>
 </li>
 <li>
-<p>Select <code>"nodejs:latest"</code> image</p>
+<p>Select <code>"centos7-s2i-nodejs:stable"</code> image</p>
 </li>
 <li>
 <p>Name: <code>frontend</code></p>
@@ -1181,8 +1229,8 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine<
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_option_2_deploy_the_microservice_using_oc_command_5">Option 2: Deploy the microservice using oc command</h3>
+<div class="sect3">
+<h4 id="_using_oc_cli_4">Using oc CLI</h4>
 <div class="paragraph">
 <p>Execute:</p>
 </div>
@@ -1191,6 +1239,7 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine<
 <pre>$ oc new-app --name frontend nodejs~https://github.com/redhat-helloworld-msa/frontend
 $ oc expose service frontend
 $ oc logs -f bc/frontend</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1234,8 +1283,8 @@ $ oc logs -f bc/frontend</pre>
 
 $ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.java
 
-# replace .map(name -&gt; createFeign(name).apiGatewayService(name))
-# by      .map(name -&gt; "UPDATED - " + createFeign(name).apiGatewayService(name))</pre>
+# replace .map((feign) -&gt; feign.invokeService(serverSpan))
+# by      .map((feign) -&gt; "UPDATED - " + feign.invokeService(serverSpan))</pre>
 </div>
 </div>
 <div class="ulist">
@@ -1299,7 +1348,7 @@ $ oc delete builds -l build=api-gateway</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>10.1.2.2        hello-helloworld-msa.rhel-cdk.10.1.2.2.xip.io hola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io aloha-helloworld-msa.rhel-cdk.10.1.2.2.xip.io namaste-helloworld-msa.rhel-cdk.10.1.2.2.xip.io ola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io hystrix-dashboard-helloworld-msa.rhel-cdk.10.1.2.2.xip.io frontend-helloworld-msa.rhel-cdk.10.1.2.2.xip.io</pre>
+<pre>10.1.2.2        hello-helloworld-msa.rhel-cdk.10.1.2.2.xip.io hola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io aloha-helloworld-msa.rhel-cdk.10.1.2.2.xip.io namaste-helloworld-msa.rhel-cdk.10.1.2.2.xip.io ola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io hystrix-dashboard-helloworld-msa.rhel-cdk.10.1.2.2.xip.io frontend-helloworld-msa.rhel-cdk.10.1.2.2.xip.io zipkin-query-helloworld-msa.rhel-cdk.10.1.2.2.xip.io</pre>
 </div>
 </div>
 </div>
@@ -1317,15 +1366,13 @@ $ oc delete builds -l build=api-gateway</pre>
 <div class="content">
 <pre># vagrant ssh
 
-$ oc login -u admin -p admin localhost --insecure-skip-tls-verify=true
+$ oc login  -u admin -p admin localhost --insecure-skip-tls-verify=true
 $ oc project default
 
 #### use the email and password of redhatmsa ####
-$ docker login -u redhatmsa docker.io
+$ docker login  #login with user redhatmsa
 
-$ registry=`oc get service docker-registry  --template '{{.spec.portalIP}}'`
-$ declare -a arr=("hello" "hola" "aloha" "ola" "namaste" "bonjour" "api-gateway" "frontend")
-$ for i in "${arr[@]}"; do image=`docker images $registry:5000/helloworld-msa/$i|awk 'NR==2'`; echo "Taging $image"; id=$(echo $image|awk '{print $3}'); docker tag -f $id docker.io/redhatmsa/$i; echo "Pushing $id from $image"; docker push -f docker.io/redhatmsa/$i; done</pre>
+$ registry=`oc get service docker-registry --template '{{.spec.portalIP}}'`; declare -a arr=("bonjour" "frontend"); for i in "${arr[@]}"; do image=`docker images $registry:5000/helloworld-msa/$i|awk 'NR==2'`; echo "Taging $image"; id=$(echo $image|awk '{print $3}'); docker tag -f $id docker.io/redhatmsa/$i; echo "Pushing $id from $image"; docker push -f docker.io/redhatmsa/$i; done; declare -a arr2=("hello" "hola" "aloha" "ola" "namaste" "api-gateway"); for i in "${arr2[@]}"; do image=`docker images redhatmsa/$i|awk 'NR==2'`; echo "Taging $image"; id=$(echo $image|awk '{print $3}'); docker tag -f $id docker.io/redhatmsa/$i:latest; echo "Pushing $id from $image"; docker push -f docker.io/redhatmsa/$i:latest; done</pre>
 </div>
 </div>
 </div>
@@ -1334,7 +1381,7 @@ $ for i in "${arr[@]}"; do image=`docker images $registry:5000/helloworld-msa/$i
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-17 14:02:05 EDT
+Last updated 2016-04-21 15:35:41 EDT
 </div>
 </div>
 </body>

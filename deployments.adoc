@@ -31,8 +31,8 @@ $ cd /api-gateway
 
 $ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.java
 
-# replace .map(name -> createFeign(name).apiGatewayService(name))
-# by      .map(name -> "UPDATED - " + createFeign(name).apiGatewayService(name))
+# replace .map((feign) -> feign.invokeService(serverSpan))
+# by      .map((feign) -> "UPDATED - " + feign.invokeService(serverSpan))
 ----
 
 - Create a `"new"` version of the application using a **different name**..
