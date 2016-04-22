@@ -52,7 +52,7 @@ $ oc logs -f bc/vertx-s2i
 Execute:
 
 ----
-$ oc new-app --name aloha vertx-s2i~https://github.com/redhat-helloworld-msa/aloha -l hystrix.enabled=true
+$ oc new-app --name aloha vertx-s2i~https://github.com/redhat-helloworld-msa/aloha -l app=aloha,hystrix.enabled=true
 $ oc delete service aloha; oc expose dc aloha --port=8080
 $ oc expose service aloha
 $ oc logs -f bc/aloha

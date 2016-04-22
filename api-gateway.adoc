@@ -35,7 +35,7 @@ $ cd api-gateway
 
 $ oc new-build --binary --name=api-gateway
 $ mvn package; oc start-build api-gateway --from-dir=. --follow
-$ oc new-app api-gateway -l hystrix.enabled=true
+$ oc new-app api-gateway -l app=api-gateway,hystrix.enabled=true
 $ oc expose service api-gateway
 ----
 

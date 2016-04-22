@@ -48,7 +48,7 @@ $ oc create -n helloworld-msa -f https://raw.githubusercontent.com/jboss-openshi
 Execute:
 
 ----
-$ oc new-app --name hello jboss-eap70-openshift:1.3-Beta~https://github.com/redhat-helloworld-msa/hello -l hystrix.enabled=true
+$ oc new-app --name hello jboss-eap70-openshift:1.3-Beta~https://github.com/redhat-helloworld-msa/hello -l app=hello,hystrix.enabled=true
 $ oc expose service hello
 $ oc logs -f bc/hello
 ----

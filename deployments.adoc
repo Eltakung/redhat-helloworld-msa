@@ -39,7 +39,7 @@ $ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.j
 ----
 $ oc new-build --binary --name=api-gateway-new
 $ mvn package; oc start-build api-gateway-new --from-dir=. --follow
-$ oc new-app api-gateway-new -l hystrix.enabled=true
+$ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true
 ----
 
 - Switch the route to the `"new"` application.

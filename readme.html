@@ -790,7 +790,7 @@ $ oc create -n helloworld-msa -f https://raw.githubusercontent.com/jboss-openshi
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc new-app --name hello jboss-eap70-openshift:1.3-Beta~https://github.com/redhat-helloworld-msa/hello -l hystrix.enabled=true
+<pre>$ oc new-app --name hello jboss-eap70-openshift:1.3-Beta~https://github.com/redhat-helloworld-msa/hello -l app=hello,hystrix.enabled=true
 $ oc expose service hello
 $ oc logs -f bc/hello</pre>
 </div>
@@ -869,7 +869,7 @@ $ oc logs -f bc/wildflyswarm-10-centos7-build</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc new-app --name hola wildflyswarm-10-centos7~https://github.com/redhat-helloworld-msa/hola -l hystrix.enabled=true
+<pre>$ oc new-app --name hola wildflyswarm-10-centos7~https://github.com/redhat-helloworld-msa/hola -l app=hola,hystrix.enabled=true
 $ oc expose service hola
 $ oc logs -f bc/hola</pre>
 </div>
@@ -951,7 +951,7 @@ $ oc logs -f bc/vertx-s2i</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc new-app --name aloha vertx-s2i~https://github.com/redhat-helloworld-msa/aloha -l hystrix.enabled=true
+<pre>$ oc new-app --name aloha vertx-s2i~https://github.com/redhat-helloworld-msa/aloha -l app=aloha,hystrix.enabled=true
 $ oc delete service aloha; oc expose dc aloha --port=8080
 $ oc expose service aloha
 $ oc logs -f bc/aloha</pre>
@@ -995,7 +995,7 @@ $ cd ola
 
 $ oc new-build --binary --name=ola
 $ mvn package; oc start-build ola --from-dir=. --follow
-$ oc new-app ola -l hystrix.enabled=true
+$ oc new-app ola -l app=ola,hystrix.enabled=true
 $ oc expose service ola</pre>
 </div>
 </div>
@@ -1036,7 +1036,7 @@ $ cd namaste
 
 $ oc new-build --binary --name=namaste
 $ mvn package; oc start-build namaste --from-dir=. --follow
-$ oc new-app namaste -l hystrix.enabled=true
+$ oc new-app namaste -l app=namaste,hystrix.enabled=true
 $ oc expose service namaste</pre>
 </div>
 </div>
@@ -1126,7 +1126,7 @@ $ cd api-gateway
 
 $ oc new-build --binary --name=api-gateway
 $ mvn package; oc start-build api-gateway --from-dir=. --follow
-$ oc new-app api-gateway -l hystrix.enabled=true
+$ oc new-app api-gateway -l app=api-gateway,hystrix.enabled=true
 $ oc expose service api-gateway</pre>
 </div>
 </div>
@@ -1298,7 +1298,7 @@ $ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.j
 <div class="content">
 <pre>$ oc new-build --binary --name=api-gateway-new
 $ mvn package; oc start-build api-gateway-new --from-dir=. --follow
-$ oc new-app api-gateway-new -l hystrix.enabled=true</pre>
+$ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true</pre>
 </div>
 </div>
 <div class="ulist">

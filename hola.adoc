@@ -50,7 +50,7 @@ $ oc logs -f bc/wildflyswarm-10-centos7-build
 Execute:
 
 ----
-$ oc new-app --name hola wildflyswarm-10-centos7~https://github.com/redhat-helloworld-msa/hola -l hystrix.enabled=true
+$ oc new-app --name hola wildflyswarm-10-centos7~https://github.com/redhat-helloworld-msa/hola -l app=hola,hystrix.enabled=true
 $ oc expose service hola
 $ oc logs -f bc/hola
 ----

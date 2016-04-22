@@ -36,7 +36,7 @@ $ cd ola
 
 $ oc new-build --binary --name=ola
 $ mvn package; oc start-build ola --from-dir=. --follow
-$ oc new-app ola -l hystrix.enabled=true
+$ oc new-app ola -l app=ola,hystrix.enabled=true
 $ oc expose service ola 
 ----
 

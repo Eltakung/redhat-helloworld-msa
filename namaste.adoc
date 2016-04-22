@@ -35,7 +35,7 @@ $ cd namaste
 
 $ oc new-build --binary --name=namaste
 $ mvn package; oc start-build namaste --from-dir=. --follow
-$ oc new-app namaste -l hystrix.enabled=true
+$ oc new-app namaste -l app=namaste,hystrix.enabled=true
 $ oc expose service namaste 
 ----
 
