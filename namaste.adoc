@@ -25,18 +25,24 @@ $ cd namaste/
 $ mvn clean package docker:build fabric8:json fabric8:apply
 ----
 
-###  Option 2: Deploy using oc CLI
+### Option 2: Create project via oc CLI
 
-Execute:
+#### Basic project creation
 
 ----
 $ git clone https://github.com/redhat-helloworld-msa/namaste
-$ cd namaste
-
-$ oc new-build --binary --name=namaste
+$ cd namaste/
+$ oc new-build --binary --name=namaste -l app=namaste
 $ mvn package; oc start-build namaste --from-dir=. --follow
 $ oc new-app namaste -l app=namaste,hystrix.enabled=true
-$ oc expose service namaste 
+$ oc expose service namaste
+----
+
+#### (Optional) Enable Jolokia and Readiness probe
+
+----
+$ oc patch dc/namaste -p '{"spec":{"template":{"spec":{"containers":[{"name":"namaste","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+$ oc patch dc/namaste -p '{"spec":{"template":{"spec":{"containers":[{"name":"namaste","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
 ----
 
 ### Test the service endpoint

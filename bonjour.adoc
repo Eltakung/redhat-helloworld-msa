@@ -15,7 +15,24 @@
 
 ## Deploy bonjour (NodeJS) microservice
 
-### Option 1: Deploy the microservice using console
+
+### Option 1: Create project via oc CLI
+
+#### Basic project creation
+
+----
+$ git clone https://github.com/redhat-helloworld-msa/bonjour
+$ cd bonjour/
+$ oc new-build --binary --name=bonjour -l app=bonjour
+$ npm install; oc start-build bonjour --from-dir=. --follow
+$ oc new-app bonjour -l app=bonjour,hystrix.enabled=true
+$ oc expose service bonjour
+----
+
+
+### Option 2: Create project using NodeJS builder template/imagestream
+
+####  Using Openshift console
 
 - Click `"Add to Project"`
 - Select `"nodejs:latest"` image 
@@ -24,7 +41,7 @@
 - Click on `"Create"`. And them click on `"Continue to overview"`
 - Wait for the build to complete. (You can click `"View log"` to follow the build logs)
 
-### Option 2: Deploy the microservice using oc command
+#### Using oc CLI
 
 Execute:
 

@@ -25,8 +25,27 @@ $ cd aloha/
 $ mvn clean package docker:build fabric8:json fabric8:apply
 ----
 
+### Option 2: Create project via oc CLI
 
-### Option 2: Create a Vert.x builder template/imagestream
+#### Basic project creation
+
+----
+$ git clone https://github.com/redhat-helloworld-msa/aloha
+$ cd hello/
+$ oc new-build --binary --name=aloha -l app=aloha
+$ mvn package; oc start-build aloha --from-dir=. --follow
+$ oc new-app aloha -l app=aloha,hystrix.enabled=true
+$ oc expose service aloha
+----
+
+#### (Optional) Enable Jolokia and Readiness probe
+
+----
+$ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+$ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
+----
+
+### Option 3: Create project using Vert.x builder template/imagestream
 
 ----
 $ oc login 10.3.2.2:8443 (login with openshift-dev/devel credentials)

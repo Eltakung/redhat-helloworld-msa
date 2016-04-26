@@ -15,7 +15,20 @@
 
 ## Deploy frontend (NodeJS/HTML5/JS) 
 
-### Deploy using nodejs builder image
+### Option 1: Create project via oc CLI
+
+#### Basic project creation
+
+----
+$ git clone https://github.com/redhat-helloworld-msa/frontend
+$ cd frontend/
+$ oc new-build --binary --name=frontend -l app=frontend
+$ npm install; oc start-build frontend --from-dir=. --follow
+$ oc new-app frontend -l app=frontend,hystrix.enabled=true
+$ oc expose service frontend
+----
+
+### Option 2: Create project using NodeJS builder template/imagestream
 
 ####   Using Openshift console
 

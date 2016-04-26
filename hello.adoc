@@ -26,7 +26,27 @@ $ cd hello/
 $ mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
 ----
 
-### Option 2: Create a EAP 7.0 (Beta) builder template/imagestream
+### Option 2: Create project via oc CLI
+
+#### Basic project creation
+
+----
+$ git clone https://github.com/redhat-helloworld-msa/hello
+$ cd hello/
+$ oc new-build --binary --name=hello -l app=hello
+$ mvn package -Popenshift; oc start-build hello --from-dir=. --follow
+$ oc new-app hello -l app=hello,hystrix.enabled=true
+$ oc expose service hello
+----
+
+#### (Optional) Enable Jolokia and Readiness probe
+
+----
+$ oc patch dc/hello -p '{"spec":{"template":{"spec":{"containers":[{"name":"hello","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+$ oc patch dc/hello -p '{"spec":{"template":{"spec":{"containers":[{"name":"hello","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
+----
+
+### Option 3: Create project using EAP 7.0 (Beta) builder template/imagestream
 
 ----
 $ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)

@@ -25,18 +25,24 @@ $ cd api-gateway/
 $ mvn clean package docker:build fabric8:json fabric8:apply
 ----
 
-### Option 2: Deploy using oc CLI
+### Option 2: Create project via oc CLI
 
-Execute:
+#### Basic project creation
 
 ----
 $ git clone https://github.com/redhat-helloworld-msa/api-gateway
-$ cd api-gateway
-
-$ oc new-build --binary --name=api-gateway
+$ cd api-gateway/
+$ oc new-build --binary --name=api-gateway -l app=api-gateway
 $ mvn package; oc start-build api-gateway --from-dir=. --follow
 $ oc new-app api-gateway -l app=api-gateway,hystrix.enabled=true
 $ oc expose service api-gateway
+----
+
+#### (Optional) Enable Jolokia and Readiness probe
+
+----
+$ oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+$ oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","readinessProbe":{"httpGet":{"path":"/health","port":8080}}}]}}}}'
 ----
 
 ### Test the endpoint

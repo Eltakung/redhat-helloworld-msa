@@ -538,49 +538,52 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_deploy_the_hello_jax_rs_eap_microservice">Deploy the hello (JAX-RS/EAP) microservice</a>
 <ul class="sectlevel2">
 <li><a href="#_option_1_deploy_using_fabric8_plugin">Option 1: Deploy using Fabric8 plugin</a></li>
-<li><a href="#_option_2_create_a_eap_7_0_beta_builder_template_imagestream">Option 2: Create a EAP 7.0 (Beta) builder template/imagestream</a></li>
+<li><a href="#_option_2_create_project_via_oc_cli">Option 2: Create project via oc CLI</a></li>
+<li><a href="#_option_3_create_project_using_eap_7_0_beta_builder_template_imagestream">Option 3: Create project using EAP 7.0 (Beta) builder template/imagestream</a></li>
 <li><a href="#_test_the_service_endpoint">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_hola_jax_rs_wildfly_swarm_microservice">Deploy hola (JAX-RS/Wildfly Swarm) microservice</a>
 <ul class="sectlevel2">
 <li><a href="#_option_1_deploy_using_fabric8_plugin_2">Option 1: Deploy using Fabric8 plugin</a></li>
-<li><a href="#_option_2_create_a_wildfly_swarm_builder_template_imagestream">Option 2: Create a WildFly-Swarm builder template/imagestream</a></li>
+<li><a href="#_option_2_create_project_via_oc_cli_2">Option 2: Create project via oc CLI</a></li>
+<li><a href="#_option_3_create_project_using_wildfly_swarm_builder_template_imagestream">Option 3: Create project using WildFly-Swarm builder template/imagestream</a></li>
 <li><a href="#_test_the_service_endpoint_2">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_aloha_vert_x_microservice">Deploy aloha (Vert.x) microservice</a>
 <ul class="sectlevel2">
 <li><a href="#_option_1_deploy_using_fabric8_plugin_3">Option 1: Deploy using Fabric8 plugin</a></li>
-<li><a href="#_option_2_create_a_vert_x_builder_template_imagestream">Option 2: Create a Vert.x builder template/imagestream</a></li>
+<li><a href="#_option_2_create_project_via_oc_cli_3">Option 2: Create project via oc CLI</a></li>
+<li><a href="#_option_3_create_project_using_vert_x_builder_template_imagestream">Option 3: Create project using Vert.x builder template/imagestream</a></li>
 <li><a href="#_test_the_service_endpoint_3">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_ola_spring_boot_microservice">Deploy ola (Spring Boot) microservice</a>
 <ul class="sectlevel2">
 <li><a href="#_option_1_deploy_using_fabric8_plugin_4">Option 1: Deploy using Fabric8 plugin</a></li>
-<li><a href="#_option_2_deploy_using_oc_cli">Option 2: Deploy using oc CLI</a></li>
+<li><a href="#_option_2_create_project_via_oc_cli_4">Option 2: Create project via oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint_4">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_namaste_dropwizard_microservice">Deploy namaste (Dropwizard) microservice</a>
 <ul class="sectlevel2">
 <li><a href="#_option_1_deploy_using_fabric8_plugin_5">Option 1: Deploy using Fabric8 plugin</a></li>
-<li><a href="#_option_2_deploy_using_oc_cli_2">Option 2: Deploy using oc CLI</a></li>
+<li><a href="#_option_2_create_project_via_oc_cli_5">Option 2: Create project via oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint_5">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_bonjour_nodejs_microservice">Deploy bonjour (NodeJS) microservice</a>
 <ul class="sectlevel2">
-<li><a href="#_option_1_deploy_the_microservice_using_console">Option 1: Deploy the microservice using console</a></li>
-<li><a href="#_option_2_deploy_the_microservice_using_oc_command">Option 2: Deploy the microservice using oc command</a></li>
+<li><a href="#_option_1_create_project_via_oc_cli">Option 1: Create project via oc CLI</a></li>
+<li><a href="#_option_2_create_project_using_nodejs_builder_template_imagestream">Option 2: Create project using NodeJS builder template/imagestream</a></li>
 <li><a href="#_test_the_service_endpoint_6">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_api_gateway_spring_boot">Deploy api-gateway (Spring Boot)</a>
 <ul class="sectlevel2">
 <li><a href="#_option_1_deploy_using_fabric8_plugin_6">Option 1: Deploy using Fabric8 plugin</a></li>
-<li><a href="#_option_2_deploy_using_oc_cli_3">Option 2: Deploy using oc CLI</a></li>
+<li><a href="#_option_2_create_project_via_oc_cli_6">Option 2: Create project via oc CLI</a></li>
 <li><a href="#_test_the_endpoint">Test the endpoint</a></li>
 </ul>
 </li>
@@ -598,7 +601,8 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_deploy_frontend_nodejs_html5_js">Deploy frontend (NodeJS/HTML5/JS)</a>
 <ul class="sectlevel2">
-<li><a href="#_deploy_using_nodejs_builder_image">Deploy using nodejs builder image</a></li>
+<li><a href="#_option_1_create_project_via_oc_cli_2">Option 1: Create project via oc CLI</a></li>
+<li><a href="#_option_2_create_project_using_nodejs_builder_template_imagestream_2">Option 2: Create project using NodeJS builder template/imagestream</a></li>
 <li><a href="#_test_the_service_endpoint_7">Test the service endpoint</a></li>
 </ul>
 </li>
@@ -748,7 +752,32 @@ $ mvn clean package docker:build fabric8:json fabric8:apply -Popenshift</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_option_2_create_a_eap_7_0_beta_builder_template_imagestream">Option 2: Create a EAP 7.0 (Beta) builder template/imagestream</h3>
+<h3 id="_option_2_create_project_via_oc_cli">Option 2: Create project via oc CLI</h3>
+<div class="sect3">
+<h4 id="_basic_project_creation">Basic project creation</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ git clone https://github.com/redhat-helloworld-msa/hello
+$ cd hello/
+$ oc new-build --binary --name=hello -l app=hello
+$ mvn package -Popenshift; oc start-build hello --from-dir=. --follow
+$ oc new-app hello -l app=hello,hystrix.enabled=true
+$ oc expose service hello</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="__optional_enable_jolokia_and_readiness_probe">(Optional) Enable Jolokia and Readiness probe</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc patch dc/hello -p '{"spec":{"template":{"spec":{"containers":[{"name":"hello","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+$ oc patch dc/hello -p '{"spec":{"template":{"spec":{"containers":[{"name":"hello","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_option_3_create_project_using_eap_7_0_beta_builder_template_imagestream">Option 3: Create project using EAP 7.0 (Beta) builder template/imagestream</h3>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
@@ -822,7 +851,31 @@ $ mvn clean package docker:build fabric8:json fabric8:apply</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_option_2_create_a_wildfly_swarm_builder_template_imagestream">Option 2: Create a WildFly-Swarm builder template/imagestream</h3>
+<h3 id="_option_2_create_project_via_oc_cli_2">Option 2: Create project via oc CLI</h3>
+<div class="sect3">
+<h4 id="_basic_project_creation_2">Basic project creation</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ git clone https://github.com/redhat-helloworld-msa/hola
+$ cd hola/
+$ oc new-build --binary --name=hola -l app=hola
+$ mvn package; oc start-build hola --from-dir=. --follow
+$ oc new-app hola -l app=hola,hystrix.enabled=true
+$ oc expose service hola</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="__optional_enable_readiness_probe">(Optional) Enable Readiness probe</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc patch dc/hola -p '{"spec":{"template":{"spec":{"containers":[{"name":"hola","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_option_3_create_project_using_wildfly_swarm_builder_template_imagestream">Option 3: Create project using WildFly-Swarm builder template/imagestream</h3>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
@@ -901,7 +954,32 @@ $ mvn clean package docker:build fabric8:json fabric8:apply</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_option_2_create_a_vert_x_builder_template_imagestream">Option 2: Create a Vert.x builder template/imagestream</h3>
+<h3 id="_option_2_create_project_via_oc_cli_3">Option 2: Create project via oc CLI</h3>
+<div class="sect3">
+<h4 id="_basic_project_creation_3">Basic project creation</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ git clone https://github.com/redhat-helloworld-msa/aloha
+$ cd hello/
+$ oc new-build --binary --name=aloha -l app=aloha
+$ mvn package; oc start-build aloha --from-dir=. --follow
+$ oc new-app aloha -l app=aloha,hystrix.enabled=true
+$ oc expose service aloha</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="__optional_enable_jolokia_and_readiness_probe_2">(Optional) Enable Jolokia and Readiness probe</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+$ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_option_3_create_project_using_vert_x_builder_template_imagestream">Option 3: Create project using Vert.x builder template/imagestream</h3>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc login 10.3.2.2:8443 (login with openshift-dev/devel credentials)
@@ -984,19 +1062,27 @@ $ mvn clean package docker:build fabric8:json fabric8:apply</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_option_2_deploy_using_oc_cli">Option 2: Deploy using oc CLI</h3>
-<div class="paragraph">
-<p>Execute:</p>
-</div>
+<h3 id="_option_2_create_project_via_oc_cli_4">Option 2: Create project via oc CLI</h3>
+<div class="sect3">
+<h4 id="_basic_project_creation_4">Basic project creation</h4>
 <div class="listingblock">
 <div class="content">
 <pre>$ git clone https://github.com/redhat-helloworld-msa/ola
-$ cd ola
-
-$ oc new-build --binary --name=ola
+$ cd ola/
+$ oc new-build --binary --name=ola -l app=ola
 $ mvn package; oc start-build ola --from-dir=. --follow
 $ oc new-app ola -l app=ola,hystrix.enabled=true
 $ oc expose service ola</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="__optional_enable_jolokia_and_readiness_probe_3">(Optional) Enable Jolokia and Readiness probe</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+$ oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1025,19 +1111,27 @@ $ mvn clean package docker:build fabric8:json fabric8:apply</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_option_2_deploy_using_oc_cli_2">Option 2: Deploy using oc CLI</h3>
-<div class="paragraph">
-<p>Execute:</p>
-</div>
+<h3 id="_option_2_create_project_via_oc_cli_5">Option 2: Create project via oc CLI</h3>
+<div class="sect3">
+<h4 id="_basic_project_creation_5">Basic project creation</h4>
 <div class="listingblock">
 <div class="content">
 <pre>$ git clone https://github.com/redhat-helloworld-msa/namaste
-$ cd namaste
-
-$ oc new-build --binary --name=namaste
+$ cd namaste/
+$ oc new-build --binary --name=namaste -l app=namaste
 $ mvn package; oc start-build namaste --from-dir=. --follow
 $ oc new-app namaste -l app=namaste,hystrix.enabled=true
 $ oc expose service namaste</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="__optional_enable_jolokia_and_readiness_probe_4">(Optional) Enable Jolokia and Readiness probe</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc patch dc/namaste -p '{"spec":{"template":{"spec":{"containers":[{"name":"namaste","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+$ oc patch dc/namaste -p '{"spec":{"template":{"spec":{"containers":[{"name":"namaste","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1053,7 +1147,25 @@ $ oc expose service namaste</pre>
 <h2 id="_deploy_bonjour_nodejs_microservice">Deploy bonjour (NodeJS) microservice</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_option_1_deploy_the_microservice_using_console">Option 1: Deploy the microservice using console</h3>
+<h3 id="_option_1_create_project_via_oc_cli">Option 1: Create project via oc CLI</h3>
+<div class="sect3">
+<h4 id="_basic_project_creation_6">Basic project creation</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ git clone https://github.com/redhat-helloworld-msa/bonjour
+$ cd bonjour/
+$ oc new-build --binary --name=bonjour -l app=bonjour
+$ npm install; oc start-build bonjour --from-dir=. --follow
+$ oc new-app bonjour -l app=bonjour,hystrix.enabled=true
+$ oc expose service bonjour</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_option_2_create_project_using_nodejs_builder_template_imagestream">Option 2: Create project using NodeJS builder template/imagestream</h3>
+<div class="sect3">
+<h4 id="_using_openshift_console_4">Using Openshift console</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1077,8 +1189,8 @@ $ oc expose service namaste</pre>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_option_2_deploy_the_microservice_using_oc_command">Option 2: Deploy the microservice using oc command</h3>
+<div class="sect3">
+<h4 id="_using_oc_cli_4">Using oc CLI</h4>
 <div class="paragraph">
 <p>Execute:</p>
 </div>
@@ -1087,6 +1199,7 @@ $ oc expose service namaste</pre>
 <pre>$ oc new-app --name bonjour nodejs~https://github.com/redhat-helloworld-msa/bonjour
 $ oc expose service bonjour
 $ oc logs -f bc/bonjour</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1115,19 +1228,27 @@ $ mvn clean package docker:build fabric8:json fabric8:apply</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_option_2_deploy_using_oc_cli_3">Option 2: Deploy using oc CLI</h3>
-<div class="paragraph">
-<p>Execute:</p>
-</div>
+<h3 id="_option_2_create_project_via_oc_cli_6">Option 2: Create project via oc CLI</h3>
+<div class="sect3">
+<h4 id="_basic_project_creation_7">Basic project creation</h4>
 <div class="listingblock">
 <div class="content">
 <pre>$ git clone https://github.com/redhat-helloworld-msa/api-gateway
-$ cd api-gateway
-
-$ oc new-build --binary --name=api-gateway
+$ cd api-gateway/
+$ oc new-build --binary --name=api-gateway -l app=api-gateway
 $ mvn package; oc start-build api-gateway --from-dir=. --follow
 $ oc new-app api-gateway -l app=api-gateway,hystrix.enabled=true
 $ oc expose service api-gateway</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="__optional_enable_jolokia_and_readiness_probe_5">(Optional) Enable Jolokia and Readiness probe</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+$ oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","readinessProbe":{"httpGet":{"path":"/health","port":8080}}}]}}}}'</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1203,9 +1324,25 @@ The mispel of mninimal is already reported at <a href="https://github.com/fabric
 <h2 id="_deploy_frontend_nodejs_html5_js">Deploy frontend (NodeJS/HTML5/JS)</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_deploy_using_nodejs_builder_image">Deploy using nodejs builder image</h3>
+<h3 id="_option_1_create_project_via_oc_cli_2">Option 1: Create project via oc CLI</h3>
 <div class="sect3">
-<h4 id="_using_openshift_console_4">Using Openshift console</h4>
+<h4 id="_basic_project_creation_8">Basic project creation</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ git clone https://github.com/redhat-helloworld-msa/frontend
+$ cd frontend/
+$ oc new-build --binary --name=frontend -l app=frontend
+$ npm install; oc start-build frontend --from-dir=. --follow
+$ oc new-app frontend -l app=frontend,hystrix.enabled=true
+$ oc expose service frontend</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_option_2_create_project_using_nodejs_builder_template_imagestream_2">Option 2: Create project using NodeJS builder template/imagestream</h3>
+<div class="sect3">
+<h4 id="_using_openshift_console_5">Using Openshift console</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1230,7 +1367,7 @@ The mispel of mninimal is already reported at <a href="https://github.com/fabric
 </div>
 </div>
 <div class="sect3">
-<h4 id="_using_oc_cli_4">Using oc CLI</h4>
+<h4 id="_using_oc_cli_5">Using oc CLI</h4>
 <div class="paragraph">
 <p>Execute:</p>
 </div>

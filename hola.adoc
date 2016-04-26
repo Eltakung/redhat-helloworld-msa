@@ -25,7 +25,27 @@ $ cd hola/
 $ mvn clean package docker:build fabric8:json fabric8:apply
 ----
 
-### Option 2: Create a WildFly-Swarm builder template/imagestream
+### Option 2: Create project via oc CLI
+
+#### Basic project creation
+
+----
+$ git clone https://github.com/redhat-helloworld-msa/hola
+$ cd hola/
+$ oc new-build --binary --name=hola -l app=hola
+$ mvn package; oc start-build hola --from-dir=. --follow
+$ oc new-app hola -l app=hola,hystrix.enabled=true
+$ oc expose service hola
+----
+
+#### (Optional) Enable Readiness probe
+
+----
+$ oc patch dc/hola -p '{"spec":{"template":{"spec":{"containers":[{"name":"hola","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
+----
+
+
+### Option 3: Create project using WildFly-Swarm builder template/imagestream
 
 ----
 $ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
