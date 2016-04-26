@@ -15,7 +15,7 @@
 
 ## Deploy frontend (NodeJS/HTML5/JS) 
 
-### Option 1: Create project via oc CLI
+### Option 1: Deploy project via oc CLI
 
 #### Basic project creation
 
@@ -28,18 +28,9 @@ $ oc new-app frontend -l app=frontend,hystrix.enabled=true
 $ oc expose service frontend
 ----
 
-### Option 2: Create project using NodeJS builder template/imagestream
+### Option 2: Deploy project using NodeJS builder template/imagestream
 
-####   Using Openshift console
-
-- Click `"Add to Project"`
-- Select `"centos7-s2i-nodejs:stable"` image 
-- Name: `frontend`
-- Git URL:  https://github.com/redhat-helloworld-msa/frontend
-- Click on `"Create"`. And them click on `"Continue to overview"`
-- Wait for the build to complete. (You can click `"View log"` to follow the build logs)
-
-#### Using oc CLI
+#### Option 2.1 - Using oc CLI
 
 Execute:
 
@@ -48,6 +39,16 @@ $ oc new-app --name frontend nodejs~https://github.com/redhat-helloworld-msa/fro
 $ oc expose service frontend
 $ oc logs -f bc/frontend
 ----
+
+####  Option 2.2 - Using Openshift console
+
+- Click `"Add to Project"`
+- Select `"centos7-s2i-nodejs:stable"` image 
+- Name: `frontend`
+- Git URL:  https://github.com/redhat-helloworld-msa/frontend
+- Click on `"Create"`. And them click on `"Continue to overview"`
+- Wait for the build to complete. (You can click `"View log"` to follow the build logs)
+
 
 ### Test the service endpoint
 

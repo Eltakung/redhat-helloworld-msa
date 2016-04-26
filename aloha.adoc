@@ -25,7 +25,7 @@ $ cd aloha/
 $ mvn clean package docker:build fabric8:json fabric8:apply
 ----
 
-### Option 2: Create project via oc CLI
+### Option 2: Deploy project via oc CLI
 
 #### Basic project creation
 
@@ -45,7 +45,7 @@ $ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloh
 $ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
 ----
 
-### Option 3: Create project using Vert.x builder template/imagestream
+### Option 3: Deploy project using Vert.x builder template/imagestream
 
 ----
 $ oc login 10.3.2.2:8443 (login with openshift-dev/devel credentials)
@@ -54,7 +54,18 @@ $ oc create -f https://raw.githubusercontent.com/vert-x3/vertx-openshift-s2i/ini
 $ oc logs -f bc/vertx-s2i
 ----
 
-#### Using Openshift console
+#### Option 3.1 - Using oc CLI
+
+Execute:
+
+----
+$ oc new-app --name aloha vertx-s2i~https://github.com/redhat-helloworld-msa/aloha -l app=aloha,hystrix.enabled=true
+$ oc delete service aloha; oc expose dc aloha --port=8080
+$ oc expose service aloha
+$ oc logs -f bc/aloha
+----
+
+#### Option 3.2 - Using Openshift console
 
 - Click `"Add to Project"`
 - Select `"vertx-s2i:latest"` image 
@@ -65,17 +76,6 @@ $ oc logs -f bc/vertx-s2i
 - Add the label **hystrix.enabled** with the value **true**
 - Click on `"Create"`. And them click on `"Continue to overview"`
 - Wait for the build to complete. (You can click `"View log"` to follow the build logs)
-
-#### Using oc CLI
-
-Execute:
-
-----
-$ oc new-app --name aloha vertx-s2i~https://github.com/redhat-helloworld-msa/aloha -l app=aloha,hystrix.enabled=true
-$ oc delete service aloha; oc expose dc aloha --port=8080
-$ oc expose service aloha
-$ oc logs -f bc/aloha
-----
 
 ### Test the service endpoint
 
