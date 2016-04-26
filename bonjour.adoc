@@ -29,6 +29,11 @@ $ oc new-app bonjour -l app=bonjour,hystrix.enabled=true
 $ oc expose service bonjour
 ----
 
+#### (Optional) Enable Readiness probe
+
+----
+$ oc patch dc/bonjour -p '{"spec":{"template":{"spec":{"containers":[{"name":"bonjour","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
+----
 
 ### Option 2: Deploy project using NodeJS builder template/imagestream
 

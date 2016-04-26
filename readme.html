@@ -1161,6 +1161,14 @@ $ oc expose service bonjour</pre>
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="__optional_enable_readiness_probe_2">(Optional) Enable Readiness probe</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc patch dc/bonjour -p '{"spec":{"template":{"spec":{"containers":[{"name":"bonjour","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'</pre>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_option_2_deploy_project_using_nodejs_builder_template_imagestream">Option 2: Deploy project using NodeJS builder template/imagestream</h3>
