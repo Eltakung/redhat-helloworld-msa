@@ -15,7 +15,9 @@
 
 ## Deploy frontend (NodeJS/HTML5/JS) 
 
-### Option 1: Deploy project via oc CLI
+Choose one of the following options/approaches to deploy this microservice.
+
+### Deploy project via oc CLI
 
 #### Basic project creation
 
@@ -27,6 +29,8 @@ $ npm install; oc start-build frontend --from-dir=. --follow
 $ oc new-app frontend -l app=frontend,hystrix.enabled=true
 $ oc expose service frontend
 ----
+
+////
 
 ### Option 2: Deploy project using NodeJS builder template/imagestream
 
@@ -49,6 +53,7 @@ $ oc logs -f bc/frontend
 - Click on `"Create"`. And them click on `"Continue to overview"`
 - Wait for the build to complete. (You can click `"View log"` to follow the build logs)
 
+////
 
 ### Test the service endpoint
 

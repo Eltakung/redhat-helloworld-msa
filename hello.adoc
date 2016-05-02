@@ -15,6 +15,7 @@
 
 ## Deploy the hello (JAX-RS/EAP) microservice
 
+Choose one of the following options/approaches to deploy this microservice.
 
 ### Option 1: Deploy using Fabric8 plugin
 
@@ -46,6 +47,8 @@ $ oc patch dc/hello -p '{"spec":{"template":{"spec":{"containers":[{"name":"hell
 $ oc patch dc/hello -p '{"spec":{"template":{"spec":{"containers":[{"name":"hello","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
 ----
 
+////
+
 ### Option 3: Deploy project using EAP 7.0 (Beta) builder template/imagestream
 
 ----
@@ -73,7 +76,7 @@ $ oc logs -f bc/hello
 - Click on `"Create"`. And them click on `"Continue to overview"`
 - Wait for the build to complete. (You can click `"View log"` to follow the build logs)
 
-
+////
 
 ### Test the service endpoint
 

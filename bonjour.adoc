@@ -15,8 +15,9 @@
 
 ## Deploy bonjour (NodeJS) microservice
 
+Choose one of the following options/approaches to deploy this microservice.
 
-### Option 1: Deploy project via oc CLI
+### Deploy project via oc CLI
 
 #### Basic project creation
 
@@ -34,6 +35,8 @@ $ oc expose service bonjour
 ----
 $ oc patch dc/bonjour -p '{"spec":{"template":{"spec":{"containers":[{"name":"bonjour","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
 ----
+
+////
 
 ### Option 2: Deploy project using NodeJS builder template/imagestream
 
@@ -56,6 +59,7 @@ $ oc logs -f bc/bonjour
 - Click on `"Create"`. And them click on `"Continue to overview"`
 - Wait for the build to complete. (You can click `"View log"` to follow the build logs)
 
+////
 
 ### Test the service endpoint
 

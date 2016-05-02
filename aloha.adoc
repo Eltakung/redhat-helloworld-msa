@@ -15,6 +15,8 @@
 
 ## Deploy aloha (Vert.x) microservice
 
+Choose one of the following options/approaches to deploy this microservice.
+
 ### Option 1: Deploy using Fabric8 plugin
 
 Execute:
@@ -44,6 +46,9 @@ $ oc expose service aloha
 $ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
 $ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
 ----
+
+
+////
 
 ### Option 3: Deploy project using Vert.x builder template/imagestream
 
@@ -76,6 +81,8 @@ $ oc logs -f bc/aloha
 - Add the label **hystrix.enabled** with the value **true**
 - Click on `"Create"`. And them click on `"Continue to overview"`
 - Wait for the build to complete. (You can click `"View log"` to follow the build logs)
+
+////
 
 ### Test the service endpoint
 

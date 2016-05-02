@@ -15,6 +15,8 @@
 
 ## Deploy namaste (Dropwizard) microservice
 
+Choose one of the following options/approaches to deploy this microservice.
+
 ### Option 1: Deploy using Fabric8 plugin
 
 Execute:

@@ -539,7 +539,6 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel2">
 <li><a href="#_option_1_deploy_using_fabric8_plugin">Option 1: Deploy using Fabric8 plugin</a></li>
 <li><a href="#_option_2_deploy_project_via_oc_cli">Option 2: Deploy project via oc CLI</a></li>
-<li><a href="#_option_3_deploy_project_using_eap_7_0_beta_builder_template_imagestream">Option 3: Deploy project using EAP 7.0 (Beta) builder template/imagestream</a></li>
 <li><a href="#_test_the_service_endpoint">Test the service endpoint</a></li>
 </ul>
 </li>
@@ -547,7 +546,6 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel2">
 <li><a href="#_option_1_deploy_using_fabric8_plugin_2">Option 1: Deploy using Fabric8 plugin</a></li>
 <li><a href="#_option_2_deploy_project_via_oc_cli_2">Option 2: Deploy project via oc CLI</a></li>
-<li><a href="#_option_3_deploy_project_using_wildfly_swarm_builder_template_imagestream">Option 3: Deploy project using WildFly-Swarm builder template/imagestream</a></li>
 <li><a href="#_test_the_service_endpoint_2">Test the service endpoint</a></li>
 </ul>
 </li>
@@ -555,7 +553,6 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel2">
 <li><a href="#_option_1_deploy_using_fabric8_plugin_3">Option 1: Deploy using Fabric8 plugin</a></li>
 <li><a href="#_option_2_deploy_project_via_oc_cli_3">Option 2: Deploy project via oc CLI</a></li>
-<li><a href="#_option_3_deploy_project_using_vert_x_builder_template_imagestream">Option 3: Deploy project using Vert.x builder template/imagestream</a></li>
 <li><a href="#_test_the_service_endpoint_3">Test the service endpoint</a></li>
 </ul>
 </li>
@@ -575,8 +572,7 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_deploy_bonjour_nodejs_microservice">Deploy bonjour (NodeJS) microservice</a>
 <ul class="sectlevel2">
-<li><a href="#_option_1_deploy_project_via_oc_cli">Option 1: Deploy project via oc CLI</a></li>
-<li><a href="#_option_2_deploy_project_using_nodejs_builder_template_imagestream">Option 2: Deploy project using NodeJS builder template/imagestream</a></li>
+<li><a href="#_deploy_project_via_oc_cli">Deploy project via oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint_6">Test the service endpoint</a></li>
 </ul>
 </li>
@@ -601,8 +597,7 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_deploy_frontend_nodejs_html5_js">Deploy frontend (NodeJS/HTML5/JS)</a>
 <ul class="sectlevel2">
-<li><a href="#_option_1_deploy_project_via_oc_cli_2">Option 1: Deploy project via oc CLI</a></li>
-<li><a href="#_option_2_deploy_project_using_nodejs_builder_template_imagestream_2">Option 2: Deploy project using NodeJS builder template/imagestream</a></li>
+<li><a href="#_deploy_project_via_oc_cli_2">Deploy project via oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint_7">Test the service endpoint</a></li>
 </ul>
 </li>
@@ -738,6 +733,9 @@ $ oc new-project helloworld-msa</pre>
 <div class="sect1">
 <h2 id="_deploy_the_hello_jax_rs_eap_microservice">Deploy the hello (JAX-RS/EAP) microservice</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Choose one of the following options/approaches to deploy this microservice.</p>
+</div>
 <div class="sect2">
 <h3 id="_option_1_deploy_using_fabric8_plugin">Option 1: Deploy using Fabric8 plugin</h3>
 <div class="paragraph">
@@ -777,56 +775,6 @@ $ oc patch dc/hello -p '{"spec":{"template":{"spec":{"containers":[{"name":"hell
 </div>
 </div>
 <div class="sect2">
-<h3 id="_option_3_deploy_project_using_eap_7_0_beta_builder_template_imagestream">Option 3: Deploy project using EAP 7.0 (Beta) builder template/imagestream</h3>
-<div class="listingblock">
-<div class="content">
-<pre>$ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
-$ oc create -n helloworld-msa -f https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.0-1/jboss-image-streams.json</pre>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_option_3_1_using_oc_cli">Option 3.1 -  Using oc CLI</h4>
-<div class="paragraph">
-<p>Execute:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ oc new-app --name hello jboss-eap70-openshift:1.3-Beta~https://github.com/redhat-helloworld-msa/hello -l app=hello,hystrix.enabled=true
-$ oc expose service hello
-$ oc logs -f bc/hello</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_option_3_2_using_openshift_console">Option 3.2 - Using Openshift console</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Select <code>jboss-eap70-openshift:1.3-Beta</code> xpaas builder image</p>
-</li>
-<li>
-<p>Name: <code>hello</code></p>
-</li>
-<li>
-<p>Git URL: <a href="https://github.com/redhat-helloworld-msa/hello" class="bare">https://github.com/redhat-helloworld-msa/hello</a></p>
-</li>
-<li>
-<p>Click on <code>"Show advanced build and deployment options"</code></p>
-</li>
-<li>
-<p>Add the label <strong>hystrix.enabled</strong> with the value <strong>true</strong></p>
-</li>
-<li>
-<p>Click on <code>"Create"</code>. And them click on <code>"Continue to overview"</code></p>
-</li>
-<li>
-<p>Wait for the build to complete. (You can click <code>"View log"</code> to follow the build logs)</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_test_the_service_endpoint">Test the service endpoint</h3>
 <div class="paragraph">
 <p>Access: <a href="http://hello-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/hello" class="bare">http://hello-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/hello</a></p>
@@ -837,6 +785,9 @@ $ oc logs -f bc/hello</pre>
 <div class="sect1">
 <h2 id="_deploy_hola_jax_rs_wildfly_swarm_microservice">Deploy hola (JAX-RS/Wildfly Swarm) microservice</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Choose one of the following options/approaches to deploy this microservice.</p>
+</div>
 <div class="sect2">
 <h3 id="_option_1_deploy_using_fabric8_plugin_2">Option 1: Deploy using Fabric8 plugin</h3>
 <div class="paragraph">
@@ -875,61 +826,6 @@ $ oc expose service hola</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_option_3_deploy_project_using_wildfly_swarm_builder_template_imagestream">Option 3: Deploy project using WildFly-Swarm builder template/imagestream</h3>
-<div class="listingblock">
-<div class="content">
-<pre>$ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
-$ oc project helloworld-msa
-$ oc create -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/master/1.0/wildflyswarm-sti-all.json
-$ oc logs -f bc/wildflyswarm-10-centos7-build</pre>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_option_3_1_using_oc_cli_2">Option 3.1 - Using oc CLI</h4>
-<div class="paragraph">
-<p>Execute:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ oc new-app --name hola wildflyswarm-10-centos7~https://github.com/redhat-helloworld-msa/hola -l app=hola,hystrix.enabled=true
-$ oc expose service hola
-$ oc logs -f bc/hola</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_option_3_2_using_openshift_console_2">Option 3.2 - Using Openshift console</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Click <code>"Add to Project"</code></p>
-</li>
-<li>
-<p>Select <code>"wildflyswarm-10-centos7"</code> image</p>
-</li>
-<li>
-<p>Name: <code>hola</code></p>
-</li>
-<li>
-<p>Git URL: <a href="https://github.com/redhat-helloworld-msa/hola" class="bare">https://github.com/redhat-helloworld-msa/hola</a></p>
-</li>
-<li>
-<p>Click on <code>"Show advanced build and deployment options"</code></p>
-</li>
-<li>
-<p>Add the label <strong>hystrix.enabled</strong> with the value <strong>true</strong></p>
-</li>
-<li>
-<p>Click on <code>"Create"</code>. And them click on <code>"Continue to overview"</code></p>
-</li>
-<li>
-<p>Wait for the build to complete. (You can click <code>"View log"</code> to follow the build logs)</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_test_the_service_endpoint_2">Test the service endpoint</h3>
 <div class="paragraph">
 <p>Access: <a href="http://hola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/hola" class="bare">http://hola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/hola</a></p>
@@ -940,6 +836,9 @@ $ oc logs -f bc/hola</pre>
 <div class="sect1">
 <h2 id="_deploy_aloha_vert_x_microservice">Deploy aloha (Vert.x) microservice</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Choose one of the following options/approaches to deploy this microservice.</p>
+</div>
 <div class="sect2">
 <h3 id="_option_1_deploy_using_fabric8_plugin_3">Option 1: Deploy using Fabric8 plugin</h3>
 <div class="paragraph">
@@ -979,65 +878,6 @@ $ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloh
 </div>
 </div>
 <div class="sect2">
-<h3 id="_option_3_deploy_project_using_vert_x_builder_template_imagestream">Option 3: Deploy project using Vert.x builder template/imagestream</h3>
-<div class="listingblock">
-<div class="content">
-<pre>$ oc login 10.3.2.2:8443 (login with openshift-dev/devel credentials)
-$ oc project helloworld-msa
-$ oc create -f https://raw.githubusercontent.com/vert-x3/vertx-openshift-s2i/initial-work/vertx-s2i-all.json
-$ oc logs -f bc/vertx-s2i</pre>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_option_3_1_using_oc_cli_3">Option 3.1 - Using oc CLI</h4>
-<div class="paragraph">
-<p>Execute:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ oc new-app --name aloha vertx-s2i~https://github.com/redhat-helloworld-msa/aloha -l app=aloha,hystrix.enabled=true
-$ oc delete service aloha; oc expose dc aloha --port=8080
-$ oc expose service aloha
-$ oc logs -f bc/aloha</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_option_3_2_using_openshift_console_3">Option 3.2 - Using Openshift console</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Click <code>"Add to Project"</code></p>
-</li>
-<li>
-<p>Select <code>"vertx-s2i:latest"</code> image</p>
-</li>
-<li>
-<p>Name: <code>aloha</code></p>
-</li>
-<li>
-<p>Git URL: <a href="https://github.com/redhat-helloworld-msa/aloha" class="bare">https://github.com/redhat-helloworld-msa/aloha</a></p>
-</li>
-<li>
-<p>Click on <code>"Show advanced build and deployment options"</code></p>
-</li>
-<li>
-<p>Change the <strong>Target port</strong> to <strong>8080/TCP</strong></p>
-</li>
-<li>
-<p>Add the label <strong>hystrix.enabled</strong> with the value <strong>true</strong></p>
-</li>
-<li>
-<p>Click on <code>"Create"</code>. And them click on <code>"Continue to overview"</code></p>
-</li>
-<li>
-<p>Wait for the build to complete. (You can click <code>"View log"</code> to follow the build logs)</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_test_the_service_endpoint_3">Test the service endpoint</h3>
 <div class="paragraph">
 <p>Access: <a href="http://aloha-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/aloha" class="bare">http://aloha-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/aloha</a></p>
@@ -1048,6 +888,9 @@ $ oc logs -f bc/aloha</pre>
 <div class="sect1">
 <h2 id="_deploy_ola_spring_boot_microservice">Deploy ola (Spring Boot) microservice</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Choose one of the following options/approaches to deploy this microservice.</p>
+</div>
 <div class="sect2">
 <h3 id="_option_1_deploy_using_fabric8_plugin_4">Option 1: Deploy using Fabric8 plugin</h3>
 <div class="paragraph">
@@ -1097,6 +940,9 @@ $ oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","
 <div class="sect1">
 <h2 id="_deploy_namaste_dropwizard_microservice">Deploy namaste (Dropwizard) microservice</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Choose one of the following options/approaches to deploy this microservice.</p>
+</div>
 <div class="sect2">
 <h3 id="_option_1_deploy_using_fabric8_plugin_5">Option 1: Deploy using Fabric8 plugin</h3>
 <div class="paragraph">
@@ -1146,8 +992,11 @@ $ oc patch dc/namaste -p '{"spec":{"template":{"spec":{"containers":[{"name":"na
 <div class="sect1">
 <h2 id="_deploy_bonjour_nodejs_microservice">Deploy bonjour (NodeJS) microservice</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Choose one of the following options/approaches to deploy this microservice.</p>
+</div>
 <div class="sect2">
-<h3 id="_option_1_deploy_project_via_oc_cli">Option 1: Deploy project via oc CLI</h3>
+<h3 id="_deploy_project_via_oc_cli">Deploy project via oc CLI</h3>
 <div class="sect3">
 <h4 id="_basic_project_creation_6">Basic project creation</h4>
 <div class="listingblock">
@@ -1171,47 +1020,6 @@ $ oc expose service bonjour</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_option_2_deploy_project_using_nodejs_builder_template_imagestream">Option 2: Deploy project using NodeJS builder template/imagestream</h3>
-<div class="sect3">
-<h4 id="_option_2_1_using_oc_cli">Option 2.1 - Using oc CLI</h4>
-<div class="paragraph">
-<p>Execute:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ oc new-app --name bonjour nodejs~https://github.com/redhat-helloworld-msa/bonjour
-$ oc expose service bonjour
-$ oc logs -f bc/bonjour</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_option_2_2_using_openshift_console">Option 2.2 - Using Openshift console</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Click <code>"Add to Project"</code></p>
-</li>
-<li>
-<p>Select <code>"nodejs:latest"</code> image</p>
-</li>
-<li>
-<p>Name: <code>bonjour</code></p>
-</li>
-<li>
-<p>Git URL: <a href="https://github.com/redhat-helloworld-msa/bonjour" class="bare">https://github.com/redhat-helloworld-msa/bonjour</a></p>
-</li>
-<li>
-<p>Click on <code>"Create"</code>. And them click on <code>"Continue to overview"</code></p>
-</li>
-<li>
-<p>Wait for the build to complete. (You can click <code>"View log"</code> to follow the build logs)</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_test_the_service_endpoint_6">Test the service endpoint</h3>
 <div class="paragraph">
 <p>Access: <a href="http://bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/bonjour" class="bare">http://bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/bonjour</a></p>
@@ -1222,6 +1030,9 @@ $ oc logs -f bc/bonjour</pre>
 <div class="sect1">
 <h2 id="_deploy_api_gateway_spring_boot">Deploy api-gateway (Spring Boot)</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Choose one of the following options/approaches to deploy the api-gateway.</p>
+</div>
 <div class="sect2">
 <h3 id="_option_1_deploy_using_fabric8_plugin_6">Option 1: Deploy using Fabric8 plugin</h3>
 <div class="paragraph">
@@ -1319,8 +1130,11 @@ $ oc expose service zipkin-query</pre>
 <div class="sect1">
 <h2 id="_deploy_frontend_nodejs_html5_js">Deploy frontend (NodeJS/HTML5/JS)</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Choose one of the following options/approaches to deploy this microservice.</p>
+</div>
 <div class="sect2">
-<h3 id="_option_1_deploy_project_via_oc_cli_2">Option 1: Deploy project via oc CLI</h3>
+<h3 id="_deploy_project_via_oc_cli_2">Deploy project via oc CLI</h3>
 <div class="sect3">
 <h4 id="_basic_project_creation_8">Basic project creation</h4>
 <div class="listingblock">
@@ -1332,47 +1146,6 @@ $ npm install; oc start-build frontend --from-dir=. --follow
 $ oc new-app frontend -l app=frontend,hystrix.enabled=true
 $ oc expose service frontend</pre>
 </div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_option_2_deploy_project_using_nodejs_builder_template_imagestream_2">Option 2: Deploy project using NodeJS builder template/imagestream</h3>
-<div class="sect3">
-<h4 id="_option_2_1_using_oc_cli_2">Option 2.1 - Using oc CLI</h4>
-<div class="paragraph">
-<p>Execute:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ oc new-app --name frontend nodejs~https://github.com/redhat-helloworld-msa/frontend
-$ oc expose service frontend
-$ oc logs -f bc/frontend</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_option_2_2_using_openshift_console_2">Option 2.2 - Using Openshift console</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Click <code>"Add to Project"</code></p>
-</li>
-<li>
-<p>Select <code>"centos7-s2i-nodejs:stable"</code> image</p>
-</li>
-<li>
-<p>Name: <code>frontend</code></p>
-</li>
-<li>
-<p>Git URL:  <a href="https://github.com/redhat-helloworld-msa/frontend" class="bare">https://github.com/redhat-helloworld-msa/frontend</a></p>
-</li>
-<li>
-<p>Click on <code>"Create"</code>. And them click on <code>"Continue to overview"</code></p>
-</li>
-<li>
-<p>Wait for the build to complete. (You can click <code>"View log"</code> to follow the build logs)</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
