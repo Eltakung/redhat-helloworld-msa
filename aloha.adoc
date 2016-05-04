@@ -33,7 +33,7 @@ $ mvn clean package docker:build fabric8:json fabric8:apply
 
 ----
 $ git clone https://github.com/redhat-helloworld-msa/aloha
-$ cd hello/
+$ cd aloha/
 $ oc new-build --binary --name=aloha -l app=aloha
 $ mvn package; oc start-build aloha --from-dir=. --follow
 $ oc new-app aloha -l app=aloha,hystrix.enabled=true
