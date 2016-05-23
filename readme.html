@@ -1198,9 +1198,28 @@ $ oc new-app -p MEMORY_LIMIT=1024Mi https://raw.githubusercontent.com/openshift/
 $ oc project helloworld-msa</pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Wait the server to become available in the following URL: <a href="https://jenkins-ci.rhel-cdk.10.1.2.2.xip.io/" class="bare">https://jenkins-ci.rhel-cdk.10.1.2.2.xip.io/</a></p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_demo_the_pipeline">Demo the pipeline</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Have at list 2 or 3 Pods running and the readiness probe to show HA during the deployment</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
+$ oc scale dc/aloha --replicas=3</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once approved, the fixed project will be applied to the <code>"production"</code>.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1229,15 +1248,18 @@ $ vim src/main/java/com/redhat/developers/msa/aloha/AlohaVerticle.java
 <pre>$ mvn package; oc start-build aloha --from-dir=. --follow</pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Trigger the build in Jenkins</p>
-</li>
-</ul>
+<div class="sect3">
+<h4 id="__option_1_trigger_the_build_via_cli">(Option 1) Trigger the build via CLI</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ curl -k "https://admin:password@jenkins-ci.rhel-cdk.10.1.2.2.xip.io/job/Aloha%20Microservices/buildWithParameters?token=MyAuthToken"</pre>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="__option_2_trigger_the_build_in_jenkins_ui">(Option 2) Trigger the build in Jenkins UI</h4>
 <div class="paragraph">
-<p>Wait the server to become available and access: <a href="https://jenkins-ci.rhel-cdk.10.1.2.2.xip.io/" class="bare">https://jenkins-ci.rhel-cdk.10.1.2.2.xip.io/</a>
+<p>Access: <a href="https://jenkins-ci.rhel-cdk.10.1.2.2.xip.io/" class="bare">https://jenkins-ci.rhel-cdk.10.1.2.2.xip.io/</a>
 Use the credentials (admin/password)</p>
 </div>
 <div class="paragraph">
@@ -1252,23 +1274,8 @@ Use the credentials (admin/password)</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The projects <code>helloworld-msa-dev</code> and <code>helloworld-msa-qa</code> will be created automatically according to the [defined Pipeline](<a href="https://github.com/redhat-helloworld-msa/aloha/blob/master/Jenkinsfile" class="bare">https://github.com/redhat-helloworld-msa/aloha/blob/master/Jenkinsfile</a>).</p>
+<p>The projects <code>helloworld-msa-dev</code> and <code>helloworld-msa-qa</code> will be created automatically according to the <a href="https://github.com/redhat-helloworld-msa/aloha/blob/master/Jenkinsfile">defined Pipeline</a>.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Have at list 2 or 3 Pods running and the readiness probe to show HA during the deployment</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
-$ oc scale dc/aloha --replicas=3</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Once approved, the fixed project will be applied to the <code>"production"</code>.</p>
 </div>
 </div>
 </div>
