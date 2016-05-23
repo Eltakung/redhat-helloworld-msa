@@ -573,7 +573,7 @@
                         "containers": [
                             {
                                 "name": "aloha",
-                                "image": "helloworld-msa/aloha",
+                                "image": "redhatmsa/aloha",
                                 "ports": [
                                     {
                                         "containerPort": 5701,
@@ -640,7 +640,7 @@
                         "containers": [
                             {
                                 "name": "api-gateway",
-                                "image": "helloworld-msa/api-gateway",
+                                "image": "redhatmsa/api-gateway",
                                 "ports": [
                                     {
                                         "containerPort": 8778,
@@ -702,7 +702,7 @@
                         "containers": [
                             {
                                 "name": "bonjour",
-                                "image": "helloworld-msa/bonjour",
+                                "image": "redhatmsa/bonjour",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
@@ -759,7 +759,7 @@
                         "containers": [
                             {
                                 "name": "frontend",
-                                "image": "helloworld-msa/frontend",
+                                "image": "redhatmsa/frontend",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
@@ -816,7 +816,7 @@
                         "containers": [
                             {
                                 "name": "hello",
-                                "image": "helloworld-msa/hello",
+                                "image": "redhatmsa/hello",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
@@ -882,7 +882,7 @@
                         "containers": [
                             {
                                 "name": "hola",
-                                "image": "helloworld-msa/hola",
+                                "image": "redhatmsa/hola",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
@@ -949,7 +949,7 @@
                         "containers": [
                             {
                                 "name": "namaste",
-                                "image": "helloworld-msa/namaste",
+                                "image": "redhatmsa/namaste",
                                 "ports": [
                                     {
                                         "containerPort": 8778,
@@ -1012,7 +1012,7 @@
                         "containers": [
                             {
                                 "name": "ola",
-                                "image": "helloworld-msa/ola",
+                                "image": "redhatmsa/ola",
                                 "ports": [
                                     {
                                         "containerPort": 8778,
