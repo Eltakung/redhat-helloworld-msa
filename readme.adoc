@@ -30,6 +30,10 @@ image::images/rhdevelopers.png[]
 Latest HTML:
 https://htmlpreview.github.io/?https://github.com/redhat-helloworld-msa/helloworld-msa/blob/master/readme.html
 
+This is the frontend screenshot that you will see after the deployment of all microservices:
+
+image::images/frontend.png[]
+
 
 toc::[]
 
@@ -56,6 +60,8 @@ include::kubeflix.adoc[]
 include::zipkin.adoc[]
 
 include::frontend.adoc[]
+
+include::cicd.adoc[]
 
 include::deployments.adoc[]
 
