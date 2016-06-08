@@ -41,15 +41,18 @@ include::prepare-cdk.adoc[]
 
 include::create-project.adoc[]
 
+////
 include::hello.adoc[]
+////
 
 include::hola.adoc[]
 
 include::aloha.adoc[]
 
 include::ola.adoc[]
-
+////
 include::namaste.adoc[]
+////
 
 include::bonjour.adoc[]
 
