@@ -38,13 +38,15 @@ $ oc project helloworld-msa
 
 Wait the server to become available in the following URL: https://jenkins-ci.rhel-cdk.10.1.2.2.xip.io/
 
+NOTE: Login with the credentials admin/password
+
 ### Demo the pipeline
 
 - Have at list 2 or 3 Pods running and the readiness probe to show HA during the deployment
 
 ----
 $ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
-$ oc scale dc/aloha --replicas=3
+$ oc scale dc/aloha --replicas=2
 ----
 
 Once approved, the fixed project will be applied to the `"production"`.
@@ -62,7 +64,7 @@ $ vim src/main/java/com/redhat/developers/msa/aloha/AlohaVerticle.java
 - Deploy the erroneous version in the production area.
 
 ----
-$ mvn package; oc start-build aloha --from-dir=. --follow
+$ mvn clean package; oc start-build aloha --from-dir=. --follow
 ----
 
 #### (Option 1) Trigger the build via CLI
@@ -74,7 +76,6 @@ $ curl -k "https://admin:password@jenkins-ci.rhel-cdk.10.1.2.2.xip.io/job/Aloha%
 #### (Option 2) Trigger the build in Jenkins UI
 
 Access: https://jenkins-ci.rhel-cdk.10.1.2.2.xip.io/
-Use the credentials (admin/password)
 
 The build should have started automatically. If not, trigger the build yourself.
 
