@@ -15,6 +15,12 @@
 
 ## Deploy Kubernetes ZipKin
 
+https://github.com/fabric8io/kubernetes-zipkin[Kubernetes Zipkin] provides all the required resources to start the required http://zipkin.io/[ZipKin] components in http://kubernetes.io/[Kubernetes] to trace your microservices.
+
+Zipkin is a distributed tracing system. It helps gather timing data needed to troubleshoot latency problems in microservice architectures.
+
+image::images/zipkin.png[]
+
 ### Deploy using oc CLI
 
 Execute:

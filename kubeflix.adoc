@@ -15,6 +15,14 @@
 
 ## Deploy Kubeflix
 
+https://github.com/fabric8io/kubeflix[Kubeflix] provides http://kubernetes.io/[Kubernetes] integration with https://netflix.github.io/[Netlix] open source components such as https://github.com/Netflix/Hystrix[Hystrix], https://github.com/Netflix/Turbine[Turbine] and https://github.com/Netflix/Ribbon[Ribbon].
+
+Specifically it provides:
+
+* Kubernetes Instance Discovery for Turbine and Ribbon
+* Kubernetes configuration and images for Turbine Server and Hystrix Dashboard
+
+image::images/kubeflix.png[]
 
 ### Deploy using oc CLI
 

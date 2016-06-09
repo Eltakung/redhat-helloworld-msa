@@ -15,7 +15,9 @@
 
 ## Deploy frontend (NodeJS/HTML5/JS) 
 
-Choose one of the following options/approaches to deploy this microservice.
+image::images/frontend.png[]
+
+Choose one of the following options/approaches to deploy the UI.
 
 ### Deploy project via oc CLI
 

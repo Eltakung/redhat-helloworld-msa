@@ -34,7 +34,6 @@ This is the frontend screenshot that you will see after the deployment of all mi
 
 image::images/frontend.png[]
 
-
 toc::[]
 
 include::prepare-cdk.adoc[]
