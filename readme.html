@@ -1253,7 +1253,7 @@ $ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.j
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc new-build --binary --name=api-gateway-new
+<pre>$ oc new-build --binary --name=api-gateway-new -l app=api-gateway-new
 $ mvn package; oc start-build api-gateway-new --from-dir=. --follow
 $ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true</pre>
 </div>

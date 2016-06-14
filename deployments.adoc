@@ -37,7 +37,7 @@ $ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.j
 
 - Create a `"new"` version of the application using a **different name**..
 ----
-$ oc new-build --binary --name=api-gateway-new
+$ oc new-build --binary --name=api-gateway-new -l app=api-gateway-new
 $ mvn package; oc start-build api-gateway-new --from-dir=. --follow
 $ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true
 ----
