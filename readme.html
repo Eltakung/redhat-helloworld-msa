@@ -611,11 +611,6 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_dns_issues">DNS issues</a></li>
 </ul>
 </li>
-<li><a href="#_maintenance_only_for_redhatmsa_admins">Maintenance (Only for redhatmsa admins)</a>
-<ul class="sectlevel2">
-<li><a href="#_deploy_the_microservices_images_to_docker_hub">Deploy the microservices images to Docker Hub</a></li>
-</ul>
-</li>
 </ul>
 </div>
 </div>
@@ -1266,6 +1261,18 @@ $ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true</pre>
 <div class="ulist">
 <ul>
 <li>
+<p>Enable Readiness probe</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc patch dc/api-gateway-new -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway-new","readinessProbe":{"httpGet":{"path":"/health","port":8080}}}]}}}}'</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
 <p>Switch the route to the <code>"new"</code> application.</p>
 </li>
 </ul>
@@ -1316,34 +1323,10 @@ $ oc delete builds -l build=api-gateway</pre>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_maintenance_only_for_redhatmsa_admins">Maintenance (Only for redhatmsa admins)</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_deploy_the_microservices_images_to_docker_hub">Deploy the microservices images to Docker Hub</h3>
-<div class="paragraph">
-<p>To deploy the microservices images you have to run the following commands from inside the vagrant box (vagrant ssh):</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre># vagrant ssh
-
-$ oc login  -u admin -p admin localhost --insecure-skip-tls-verify=true
-$ oc project default
-
-#### use the email and password of redhatmsa ####
-$ docker login  #login with user redhatmsa
-
-$ registry=`oc get service docker-registry --template '{{.spec.portalIP}}'`; declare -a arr=("bonjour" "frontend"); for i in "${arr[@]}"; do image=`docker images $registry:5000/helloworld-msa/$i|awk 'NR==2'`; echo "Taging $image"; id=$(echo $image|awk '{print $3}'); docker tag -f $id docker.io/redhatmsa/$i; echo "Pushing $id from $image"; docker push -f docker.io/redhatmsa/$i; done; declare -a arr2=("hello" "hola" "aloha" "ola" "namaste" "api-gateway"); for i in "${arr2[@]}"; do image=`docker images redhatmsa/$i|awk 'NR==2'`; echo "Taging $image"; id=$(echo $image|awk '{print $3}'); docker tag -f $id docker.io/redhatmsa/$i:latest; echo "Pushing $id from $image"; docker push -f docker.io/redhatmsa/$i:latest; done</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-06-08 23:03:39 EDT
+Last updated 2016-06-13 21:16:59 EDT
 </div>
 </div>
 </body>

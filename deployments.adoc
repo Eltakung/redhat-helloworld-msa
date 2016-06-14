@@ -42,6 +42,12 @@ $ mvn package; oc start-build api-gateway-new --from-dir=. --follow
 $ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true
 ----
 
+- Enable Readiness probe
+
+----
+$ oc patch dc/api-gateway-new -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway-new","readinessProbe":{"httpGet":{"path":"/health","port":8080}}}]}}}}'
+----
+
 - Switch the route to the `"new"` application.
 ----
 $ oc patch route/api-gateway -p '{"spec": {"to": {"name": "api-gateway-new" }}}'
