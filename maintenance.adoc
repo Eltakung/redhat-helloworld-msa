@@ -22,6 +22,13 @@ To deploy the microservices images you have to run the following commands from i
 ----
 # vagrant ssh
 
+
+# due to a new docker.io registry, you will need to specify the v1 version
+ 
+# vi ~/.docker/config.json
+# replace "docker.io"
+# by "https://index.docker.io/v1/"
+
 $ oc login  -u admin -p admin localhost --insecure-skip-tls-verify=true
 $ oc project default
 
