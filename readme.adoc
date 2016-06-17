@@ -66,9 +66,9 @@ include::zipkin.adoc[]
 
 include::frontend.adoc[]
 
-include::cicd.adoc[]
-
 include::deployments.adoc[]
+
+include::cicd.adoc[]
 
 include::troubleshooting.adoc[]
 
