@@ -43,7 +43,7 @@ $ oc expose service hola
 #### (Optional) Enable Readiness probe
 
 ----
-$ oc patch dc/hola -p '{"spec":{"template":{"spec":{"containers":[{"name":"hola","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
+$ oc set probe dc/hola --readiness --get-url=http://:8080/api/health
 ----
 
 ////

@@ -46,7 +46,7 @@ $ oc expose service api-gateway
 
 ----
 $ oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
-$ oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","readinessProbe":{"httpGet":{"path":"/health","port":8080}}}]}}}}'
+$ oc set probe dc/api-gateway --readiness --get-url=http://:8080/health
 ----
 
 ### Test the endpoint

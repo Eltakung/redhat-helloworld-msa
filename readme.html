@@ -629,10 +629,10 @@ table.CodeRay td.code>pre{padding:0}
 <p>Install Vagrant, from <a href="https://www.vagrantup.com/">vagrantup.com</a>, or from your operating system’s packages.</p>
 </li>
 <li>
-<p>From <a href="https://access.redhat.com/downloads/content/293/ver=2/rhel---7/2.0.0/x86_64/product-software">Red Hat Customer Portal</a> download Red Hat Container Tools (cdk-2.0.0.zip) and the RHEL 7.2 Vagrant box that matches your virtualization provider: VirtualBox, VMare, or KVM/libvirt.</p>
+<p>From <a href="https://access.redhat.com/downloads/content/293/ver=2.1/rhel---7/2.1.0/x86_64/product-software">Red Hat Customer Portal</a> download Red Hat Container Tools (cdk-2.1.0.zip) and the RHEL 7.2 Vagrant box that matches your virtualization provider: VirtualBox, VMare, or KVM/libvirt.</p>
 </li>
 <li>
-<p>Unzip <code>cdk-2.0.0.zip</code> into a directory of your choosing.</p>
+<p>Unzip <code>cdk-2.1.0.zip</code> into a directory of your choosing.</p>
 </li>
 </ul>
 </div>
@@ -763,7 +763,7 @@ $ oc expose service hola</pre>
 <h4 id="__optional_enable_readiness_probe">(Optional) Enable Readiness probe</h4>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc patch dc/hola -p '{"spec":{"template":{"spec":{"containers":[{"name":"hola","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'</pre>
+<pre>$ oc set probe dc/hola --readiness --get-url=http://:8080/api/health</pre>
 </div>
 </div>
 </div>
@@ -815,7 +815,7 @@ $ oc expose service aloha</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
-$ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'</pre>
+$ oc set probe dc/aloha --readiness --get-url=http://:8080/api/health</pre>
 </div>
 </div>
 </div>
@@ -867,7 +867,7 @@ $ oc expose service ola</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
-$ oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'</pre>
+$ oc set probe dc/ola --readiness --get-url=http://:8080/api/health</pre>
 </div>
 </div>
 </div>
@@ -896,7 +896,7 @@ $ oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","
 $ cd bonjour/
 $ oc new-build --binary --name=bonjour -l app=bonjour
 $ npm install; oc start-build bonjour --from-dir=. --follow
-$ oc new-app bonjour -l app=bonjour,hystrix.enabled=true
+$ oc new-app bonjour -l app=bonjour
 $ oc expose service bonjour</pre>
 </div>
 </div>
@@ -905,7 +905,7 @@ $ oc expose service bonjour</pre>
 <h4 id="__optional_enable_readiness_probe_2">(Optional) Enable Readiness probe</h4>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc patch dc/bonjour -p '{"spec":{"template":{"spec":{"containers":[{"name":"bonjour","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'</pre>
+<pre>$ oc set probe dc/bonjour --readiness --get-url=http://:8080/api/health</pre>
 </div>
 </div>
 </div>
@@ -960,7 +960,7 @@ $ oc expose service api-gateway</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
-$ oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","readinessProbe":{"httpGet":{"path":"/health","port":8080}}}]}}}}'</pre>
+$ oc set probe dc/api-gateway --readiness --get-url=http://:8080/health</pre>
 </div>
 </div>
 </div>
@@ -1147,7 +1147,7 @@ $ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc patch dc/api-gateway-new -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway-new","readinessProbe":{"httpGet":{"path":"/health","port":8080}}}]}}}}'</pre>
+<pre>$ oc set probe dc/api-gateway-new --readiness --get-url=http://:8080/health</pre>
 </div>
 </div>
 <div class="ulist">
@@ -1229,14 +1229,13 @@ Login with the credentials admin/password
 <div class="ulist">
 <ul>
 <li>
-<p>Have at list 2 or 3 Pods running and the readiness probe to show HA during the deployment</p>
+<p>Have  readiness probe to show HA during the deployment</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
-$ oc scale dc/aloha --replicas=2</pre>
+<pre>$ oc set probe dc/aloha --readiness --get-url=http://:8080/api/health</pre>
 </div>
 </div>
 <div class="paragraph">

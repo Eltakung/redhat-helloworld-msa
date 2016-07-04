@@ -42,11 +42,10 @@ NOTE: Login with the credentials admin/password
 
 ### Demo the pipeline
 
-- Have at list 2 or 3 Pods running and the readiness probe to show HA during the deployment
+- Have  readiness probe to show HA during the deployment
 
 ----
-$ oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
-$ oc scale dc/aloha --replicas=2
+$ oc set probe dc/aloha --readiness --get-url=http://:8080/api/health
 ----
 
 Once approved, the fixed project will be applied to the `"production"`.

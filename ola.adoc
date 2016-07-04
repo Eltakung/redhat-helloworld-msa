@@ -44,7 +44,7 @@ $ oc expose service ola
 
 ----
 $ oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
-$ oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
+$ oc set probe dc/ola --readiness --get-url=http://:8080/api/health
 ----
 
 ### Test the service endpoint

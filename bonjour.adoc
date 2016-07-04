@@ -26,14 +26,14 @@ $ git clone https://github.com/redhat-helloworld-msa/bonjour
 $ cd bonjour/
 $ oc new-build --binary --name=bonjour -l app=bonjour
 $ npm install; oc start-build bonjour --from-dir=. --follow
-$ oc new-app bonjour -l app=bonjour,hystrix.enabled=true
+$ oc new-app bonjour -l app=bonjour
 $ oc expose service bonjour
 ----
 
 #### (Optional) Enable Readiness probe
 
 ----
-$ oc patch dc/bonjour -p '{"spec":{"template":{"spec":{"containers":[{"name":"bonjour","readinessProbe":{"httpGet":{"path":"/api/health","port":8080}}}]}}}}'
+$ oc set probe dc/bonjour --readiness --get-url=http://:8080/api/health
 ----
 
 ////
