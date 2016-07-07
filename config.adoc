@@ -60,8 +60,8 @@ $ oc patch dc/hola -p '{"spec":{"template":{"spec":{"containers":[{"name":"hola"
 After the deployment, check that the config is present
 
 ----
-$ oc get pods
-$ oc exec hola-??? cat /etc/config/translation.properties
+$ oc get pods -l app=hola
+$ oc exec hola-?-????? cat /etc/config/translation.properties
 ----
 
 #### Update the microservice to read the file
