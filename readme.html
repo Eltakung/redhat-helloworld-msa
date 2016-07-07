@@ -595,6 +595,12 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_test_the_service_endpoint_5">Test the service endpoint</a></li>
 </ul>
 </li>
+<li><a href="#_configuring_your_application">Configuring your application</a>
+<ul class="sectlevel2">
+<li><a href="#_environment_variables">Environment variables</a></li>
+<li><a href="#_configmaps">ConfigMaps</a></li>
+</ul>
+</li>
 <li><a href="#_deployment_patterns">Deployment Patterns</a>
 <ul class="sectlevel2">
 <li><a href="#_blue_green_deployment">Blue/Green deployment</a></li>
@@ -1089,6 +1095,112 @@ $ oc expose service frontend</pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_configuring_your_application">Configuring your application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/redhat-helloworld-msa/hola">hola</a> microservice uses <a href="deltaspike.apache.org/documentation/configuration.html">DeltaSpike Configuration</a> to obtain the phrase that is displayed.</p>
+</div>
+<div class="paragraph">
+<p>DeltaSpike allows that the configuration to come from different <strong>ConfigSources</strong> (System properties, Environment variables, JNDI value, Properties file values). The microservices needs a configuration value called "hello" to display the provided value. If no value is informed, the default value (Hola de %s) is used.</p>
+</div>
+<div class="paragraph">
+<p>We will use 2 different approaches to configure "hola" microservice:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Environment variables</p>
+</li>
+<li>
+<p><a href="https://docs.openshift.com/enterprise/3.2/dev_guide/configmaps.html">Openshift ConfigMaps</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_environment_variables">Environment variables</h3>
+<div class="paragraph">
+<p>Update the DeploymentConfig:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc env dc/hola hello="Hola de Env var"
+
+# To unset the env var
+$ oc env dc/hola hello-</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configmaps">ConfigMaps</h3>
+<div class="paragraph">
+<p>As you&#8217;ve seen, the definition of environment variables causes the DeploymentConfig to recreate the pods with that value set. OpenShift 3.2 allows the use of ConfigMaps</p>
+</div>
+<div class="sect3">
+<h4 id="_create_a_configmap_from_an_existing_file">Create a ConfigMap from an existing file:</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ cd hola/
+$ oc create configmap translation --from-file=translation.properties
+$ oc get configmap translation -o yaml</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_mount_a_volume_from_configmap">Mount a volume from ConfigMap</h4>
+<div class="paragraph">
+<p>Here we are creating a mounted volume in all pods that reads the file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc patch dc/hola -p '{"spec":{"template":{"spec":{"containers":[{"name":"hola","volumeMounts":[{"name":"config-volume","mountPath":"/etc/config"}]}],"volumes":[{"name":"config-volume","configMap":{"name":"translation"}}]}}}}'
+$</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After the deployment, check that the config is present</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc get pods
+$ oc exec hola-???? ls /etc/config</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_update_the_microservice_to_read_the_file">Update the microservice to read the file</h4>
+<div class="paragraph">
+<p>The POD needs a Java System Property to inform the location of the file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc env dc/hola JAVA_OPTIONS="-Dconf=/etc/config/translation.properties"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Update the ConfigMap and verify if the POD was already updated.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc edit configmap translation</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The synch between the ConfigMap and the mounted volume takes some time to be performed
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_deployment_patterns">Deployment Patterns</h2>
 <div class="sectionbody">
 <div class="sect2">
@@ -1325,7 +1437,7 @@ $ vim src/main/java/com/redhat/developers/msa/aloha/AlohaVerticle.java
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-06-17 14:51:26 EDT
+Last updated 2016-07-07 11:48:44 EDT
 </div>
 </div>
 </body>
