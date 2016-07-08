@@ -17,7 +17,7 @@
 
 link:https://github.com/redhat-helloworld-msa/hola[hola] microservice uses link:deltaspike.apache.org/documentation/configuration.html[DeltaSpike Configuration] to obtain the phrase that is displayed.
 
-DeltaSpike allows that the configuration to come from different *ConfigSources* (System properties, Environment variables, JNDI value, Properties file values). The microservices needs a configuration value called "hello" to display the provided value. If no value is informed, the default value (Hola de %s) is used.
+DeltaSpike allows the configuration to come from different *ConfigSources* (System properties, Environment variables, JNDI value, Properties file values). The microservices needs a configuration value called "hello" to display the provided value. If no value is informed, the default value (Hola de %s) is used.
 
 We will use 2 different approaches to configure "hola" microservice:
 
@@ -72,7 +72,7 @@ The POD needs a Java System Property to inform the location of the file.
 $ oc env dc/hola JAVA_OPTIONS="-Dconf=/etc/config/translation.properties"
 ----
 
-Update the ConfigMap and verify if the POD was already updated.
+Update the ConfigMap and wait the POD to get updated.
 
 ----
 $ oc edit configmap translation
