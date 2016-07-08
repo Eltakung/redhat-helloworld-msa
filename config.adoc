@@ -15,7 +15,7 @@
 
 ## Configuring your application
 
-link:https://github.com/redhat-helloworld-msa/hola[hola] microservice uses link:deltaspike.apache.org/documentation/configuration.html[DeltaSpike Configuration] to obtain the phrase that is displayed.
+link:https://github.com/redhat-helloworld-msa/hola[hola] microservice uses link:http://deltaspike.apache.org/documentation/configuration.html[DeltaSpike Configuration] to obtain the phrase that is displayed.
 
 DeltaSpike allows the configuration to come from different *ConfigSources* (System properties, Environment variables, JNDI value, Properties file values). The microservices needs a configuration value called "hello" to display the provided value. If no value is informed, the default value (Hola de %s) is used.
 
