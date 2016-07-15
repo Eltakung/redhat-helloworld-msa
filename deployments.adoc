@@ -43,7 +43,6 @@ $ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true
 ----
 
 - Enable Readiness probe
-
 ----
 $ oc set probe dc/api-gateway-new --readiness --get-url=http://:8080/health
 ----
@@ -62,3 +61,63 @@ $ oc delete is,bc,dc,svc api-gateway
 $ oc delete builds -l build=api-gateway
 ----
 
+=== A/B deployment
+
+A/B deployments generally imply running two (or more) versions of the application code or application configuration at the same time for testing or experimentation purposes. A/B deployments is a way of testing features in your application for various reasons like usability, popularity, noticeability, etc, and how those factors influence the bottom line. 
+
+image::images/abtesting.png[]
+
+This strategy is based on link:https://github.com/openshift/origin/tree/master/examples/deployment#ab-deployment[Openshift deployment examples] and it uses the `API-Gateway` project, but it could be used with any other project:
+
+- Modify the service.
+----
+$ cd /api-gateway
+
+$ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.java
+
+# replace .map((feign) -> feign.invokeService(serverSpan))
+# by      .map((feign) -> "UPDATED - " + feign.invokeService(serverSpan))
+----
+
+- Create a `"new"` version of the application using a **different name**..
+----
+$ oc new-build --binary --name=api-gateway-new -l app=api-gateway-new
+$ mvn package; oc start-build api-gateway-new --from-dir=. --follow
+$ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true
+----
+
+- Enable Readiness probe
+----
+$ oc set probe dc/api-gateway-new --readiness --get-url=http://:8080/health
+----
+
+- Apply a common label (svc=ab-api-gateway) for both versions (A/B)
+----
+$ oc patch dc/api-gateway -p '{"spec":{"template":{"metadata":{"labels":{"svc":"ab-api-gateway"}}}}}'
+$ oc patch dc/api-gateway-new -p '{"spec":{"template":{"metadata":{"labels":{"svc":"ab-api-gateway"}}}}}'
+----
+
+- Expose the service to both versions
+----
+$ oc expose dc/api-gateway --name=ab-api-gateway --selector='svc=ab-api-gateway' --session-affinity='ClientIP'
+----
+
+- Update the routes
+----
+$ oc delete route/api-gateway
+$ oc expose svc/ab-api-gateway --hostname=api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io
+----
+
+- Simulate multiple clients
+----
+$ oc scale dc/api-gateway-new --replicas=3
+
+# Simulate 10 new clients and note that 75% of the requests are made on api-gateway-new.
+$ for i in {1..10}; do curl http://api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api ; echo ""; done;
+
+# Simulate the same client
+$ curl -b cookies.txt -c cookies.txt  http://api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api
+
+# To change the credentials, delete the cookies file
+$ rm cookies.txt
+----

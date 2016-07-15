@@ -604,6 +604,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_deployment_patterns">Deployment Patterns</a>
 <ul class="sectlevel2">
 <li><a href="#_blue_green_deployment">Blue/Green deployment</a></li>
+<li><a href="#_a_b_deployment">A/B deployment</a></li>
 </ul>
 </li>
 <li><a href="#_ci_cd_pipeline">CI/CD Pipeline</a>
@@ -1098,10 +1099,10 @@ $ oc expose service frontend</pre>
 <h2 id="_configuring_your_application">Configuring your application</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/redhat-helloworld-msa/hola">hola</a> microservice uses <a href="deltaspike.apache.org/documentation/configuration.html">DeltaSpike Configuration</a> to obtain the phrase that is displayed.</p>
+<p><a href="https://github.com/redhat-helloworld-msa/hola">hola</a> microservice uses <a href="http://deltaspike.apache.org/documentation/configuration.html">DeltaSpike Configuration</a> to obtain the phrase that is displayed.</p>
 </div>
 <div class="paragraph">
-<p>DeltaSpike allows that the configuration to come from different <strong>ConfigSources</strong> (System properties, Environment variables, JNDI value, Properties file values). The microservices needs a configuration value called "hello" to display the provided value. If no value is informed, the default value (Hola de %s) is used.</p>
+<p>DeltaSpike allows the configuration to come from different <strong>ConfigSources</strong> (System properties, Environment variables, JNDI value, Properties file values). The microservices needs a configuration value called "hello" to display the provided value. If no value is informed, the default value (Hola de %s) is used.</p>
 </div>
 <div class="paragraph">
 <p>We will use 2 different approaches to configure "hola" microservice:</p>
@@ -1152,8 +1153,7 @@ $ oc get configmap translation -o yaml</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc patch dc/hola -p '{"spec":{"template":{"spec":{"containers":[{"name":"hola","volumeMounts":[{"name":"config-volume","mountPath":"/etc/config"}]}],"volumes":[{"name":"config-volume","configMap":{"name":"translation"}}]}}}}'
-$</pre>
+<pre>$ oc patch dc/hola -p '{"spec":{"template":{"spec":{"containers":[{"name":"hola","volumeMounts":[{"name":"config-volume","mountPath":"/etc/config"}]}],"volumes":[{"name":"config-volume","configMap":{"name":"translation"}}]}}}}'</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1161,8 +1161,8 @@ $</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc get pods
-$ oc exec hola-???? ls /etc/config</pre>
+<pre>$ oc get pods -l app=hola
+$ oc exec hola-?-????? cat /etc/config/translation.properties</pre>
 </div>
 </div>
 </div>
@@ -1177,7 +1177,7 @@ $ oc exec hola-???? ls /etc/config</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Update the ConfigMap and verify if the POD was already updated.</p>
+<p>Update the ConfigMap and wait the POD to get updated.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1191,7 +1191,7 @@ $ oc exec hola-???? ls /etc/config</pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The synch between the ConfigMap and the mounted volume takes some time to be performed
+The synchronization between the ConfigMap and the mounted volume takes some time to be performed
 </td>
 </tr>
 </table>
@@ -1288,6 +1288,122 @@ $ oc patch route/api-gateway -p '{"spec": {"to": {"name": "api-gateway" }}}'</pr
 <div class="content">
 <pre>$ oc delete is,bc,dc,svc api-gateway
 $ oc delete builds -l build=api-gateway</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_a_b_deployment">A/B deployment</h3>
+<div class="paragraph">
+<p>A/B deployments generally imply running two (or more) versions of the application code or application configuration at the same time for testing or experimentation purposes. A/B deployments is a way of testing features in your application for various reasons like usability, popularity, noticeability, etc, and how those factors influence the bottom line.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="data:image/png;base64,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" alt="abtesting">
+</div>
+</div>
+<div class="paragraph">
+<p>This strategy is based on <a href="https://github.com/openshift/origin/tree/master/examples/deployment#ab-deployment">Openshift deployment examples</a> and it uses the <code>API-Gateway</code> project, but it could be used with any other project:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Modify the service.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ cd /api-gateway
+
+$ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.java
+
+# replace .map((feign) -&gt; feign.invokeService(serverSpan))
+# by      .map((feign) -&gt; "UPDATED - " + feign.invokeService(serverSpan))</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a <code>"new"</code> version of the application using a <strong>different name</strong>..</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc new-build --binary --name=api-gateway-new -l app=api-gateway-new
+$ mvn package; oc start-build api-gateway-new --from-dir=. --follow
+$ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Enable Readiness probe</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc set probe dc/api-gateway-new --readiness --get-url=http://:8080/health</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Apply a common label (svc=ab-api-gateway) for both versions (A/B)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc patch dc/api-gateway -p '{"spec":{"template":{"metadata":{"labels":{"svc":"ab-api-gateway"}}}}}'
+$ oc patch dc/api-gateway-new -p '{"spec":{"template":{"metadata":{"labels":{"svc":"ab-api-gateway"}}}}}'</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Expose the service to both versions</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc expose dc/api-gateway --name=ab-api-gateway --selector='svc=ab-api-gateway' --session-affinity='ClientIP'</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Update the routes</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc delete route/api-gateway
+$ oc expose svc/ab-api-gateway --hostname=api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Simulate multiple clients</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc scale dc/api-gateway-new --replicas=3
+
+# Simulate 10 new clients and note that 75% of the requests are made on api-gateway-new.
+$ for i in {1..10}; do curl http://api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api ; echo ""; done;
+
+# Simulate the same client
+$ curl -b cookies.txt -c cookies.txt  http://api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api
+
+# To change the credentials, delete the cookies file
+$ rm cookies.txt</pre>
 </div>
 </div>
 </div>
