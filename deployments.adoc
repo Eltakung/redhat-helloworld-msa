@@ -61,11 +61,11 @@ $ oc delete is,bc,dc,svc api-gateway
 $ oc delete builds -l build=api-gateway
 ----
 
-=== A/B deployment
+=== Canary deployments
 
-A/B deployments generally imply running two (or more) versions of the application code or application configuration at the same time for testing or experimentation purposes. A/B deployments is a way of testing features in your application for various reasons like usability, popularity, noticeability, etc, and how those factors influence the bottom line. 
+Canary deployments are a way of sending out a new version of your app into production that plays the role of a “canary” to get an idea of how it will perform (integrate with other apps, CPU, memory, disk usage, etc). Canary releases let you test the waters before pulling the trigger on a full release.
 
-image::images/abtesting.png[]
+image::images/canarydeployment.png[]
 
 This strategy is based on link:https://github.com/openshift/origin/tree/master/examples/deployment#ab-deployment[Openshift deployment examples] and it uses the `API-Gateway` project, but it could be used with any other project:
 
