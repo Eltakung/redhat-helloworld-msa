@@ -38,7 +38,7 @@ $ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.j
 - Create a `"new"` version of the application using a **different name**..
 ----
 $ oc new-build --binary --name=api-gateway-new -l app=api-gateway-new
-$ mvn package; oc start-build api-gateway-new --from-dir=. --follow
+$ mvn package && oc start-build api-gateway-new --from-dir=. --follow
 $ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true
 ----
 
@@ -67,56 +67,51 @@ Canary deployments are a way of sending out a new version of your app into produ
 
 image::images/canarydeployment.png[]
 
-This strategy is based on link:https://github.com/openshift/origin/tree/master/examples/deployment#ab-deployment[Openshift deployment examples] and it uses the `API-Gateway` project, but it could be used with any other project:
+This strategy is based on link:https://github.com/openshift/origin/tree/master/examples/deployment#rolling-deployments-with-canary-checks[Openshift deployment examples] and it uses the `Bonjour` project, but it could be used with any other project:
 
 - Modify the service.
 ----
-$ cd /api-gateway
+$ cd /bonjour
 
-$ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.java
+$ vim bonjour.js
 
-# replace .map((feign) -> feign.invokeService(serverSpan))
-# by      .map((feign) -> "UPDATED - " + feign.invokeService(serverSpan))
+# replace  return "Bonjour de " + os.hostname();
+# by       return "Version 2 - Bonjour de " + os.hostname();
 ----
 
 - Create a `"new"` version of the application using a **different name**..
 ----
-$ oc new-build --binary --name=api-gateway-new -l app=api-gateway-new
-$ mvn package; oc start-build api-gateway-new --from-dir=. --follow
-$ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true
+$ oc new-build --binary --name=bonjour-new -l app=bonjour-new
+$ npm install && oc start-build bonjour-new --from-dir=. --follow
+$ oc new-app bonjour-new
 ----
 
 - Enable Readiness probe
 ----
-$ oc set probe dc/api-gateway-new --readiness --get-url=http://:8080/health
+$ oc set probe dc/bonjour-new --readiness --get-url=http://:8080/api/health
 ----
 
-- Apply a common label (svc=ab-api-gateway) for both versions (A/B)
+- Apply a common label (svc=canary-bonjour) for both versions (A/B)
 ----
-$ oc patch dc/api-gateway -p '{"spec":{"template":{"metadata":{"labels":{"svc":"ab-api-gateway"}}}}}'
-$ oc patch dc/api-gateway-new -p '{"spec":{"template":{"metadata":{"labels":{"svc":"ab-api-gateway"}}}}}'
-----
-
-- Expose the service to both versions
-----
-$ oc expose dc/api-gateway --name=ab-api-gateway --selector='svc=ab-api-gateway' --session-affinity='ClientIP'
+$ oc patch dc/bonjour -p '{"spec":{"template":{"metadata":{"labels":{"svc":"canary-bonjour"}}}}}'
+$ oc patch dc/bonjour-new -p '{"spec":{"template":{"metadata":{"labels":{"svc":"canary-bonjour"}}}}}'
 ----
 
-- Update the routes
+- Update the Service and Routes
 ----
-$ oc delete route/api-gateway
-$ oc expose svc/ab-api-gateway --hostname=api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io
+$ oc delete svc bonjour && oc delete route bonjour
+$ oc expose dc/bonjour --selector='svc=canary-bonjour' --session-affinity='ClientIP' && oc expose svc/bonjour
 ----
 
 - Simulate multiple clients
 ----
-$ oc scale dc/api-gateway-new --replicas=3
+$ oc scale dc/bonjour --replicas=3
 
-# Simulate 10 new clients and note that 75% of the requests are made on api-gateway-new.
-$ for i in {1..10}; do curl http://api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api ; echo ""; done;
+# Simulate 10 new clients and note that 25% of the requests are made on bonjour-new.
+$ for i in {1..10}; do curl http://bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/bonjour ; echo ""; done;
 
 # Simulate the same client
-$ curl -b cookies.txt -c cookies.txt  http://api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api
+$ curl -b cookies.txt -c cookies.txt  http://bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/bonjour
 
 # To change the credentials, delete the cookies file
 $ rm cookies.txt

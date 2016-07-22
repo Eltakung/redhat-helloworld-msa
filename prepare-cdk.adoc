@@ -39,7 +39,7 @@ Update CDK Memory and CPU
 
 ----
 $ cd <CDK-PATH>/components/rhel/rhel-ose
-$ export VM_MEMORY=8192
+$ export VM_MEMORY=6000
 ----
 
 Execute Vagrant:
