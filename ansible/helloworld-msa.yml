@@ -1,0 +1,185 @@
+---
+- name: Install Helloworld-MSA in OpenShift (CDK)
+  hosts: localhost
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Verify if variables are set
+      fail:
+        msg: "Target directory is not defined. Please edit vars.yml"
+      when: workdir is undefined
+
+    - name: Create Workdir
+      file: 
+        path: "{{ workdir }}"
+        state: directory
+
+    - name: Checkout source code from Github
+      git:
+        repo: "https://github.com/redhat-helloworld-msa/{{ item.name }}"
+        dest: "{{ workdir }}/{{ item.name }}"
+      with_items: "{{ msa_projects }}"
+      tags:
+        - git
+    
+    - name: Compile Java Projects
+      shell: "mvn -f {{ workdir }}/{{ item.name }}/pom.xml package"
+      with_items: "{{ msa_projects }}"
+      when: "item.project == 'java'"
+      tags:
+        - compile
+
+    - name: NPM install NodeJS Projects
+      shell: "npm --prefix {{ workdir }}/{{ item.name }} install {{ workdir }}/{{ item.name }}"
+      with_items: "{{ msa_projects }}"
+      when: "item.project == 'node'"
+      tags:
+        - compile
+
+    - name: Login in OpenShift
+      shell: "oc login -u openshift-dev -p devel {{ openshift }}"
+      tags:
+        - openshift
+
+    - name: Create a new OpenShift project
+      shell: "oc new-project {{ project_name }}"
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+
+    - name: Define OpenShift project
+      shell: "oc project {{ project_name }}"
+      tags:
+        - openshift
+
+    - name: Create OpenShift new-build
+      shell: "oc new-build --binary --name={{ item.name }} -l app={{ item.name }}"
+      register: command_result
+      with_items: "{{ msa_projects }}"
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+
+    - name: Build and Deploy OpenShift images from the sources
+      shell: "oc start-build {{ item.name }} --from-dir={{ workdir }}/{{ item.name }} --follow"
+      with_items: "{{ msa_projects }}"
+      tags:
+        - openshift
+        - build
+
+    - name: Create OpenShift applications from previously created images
+      shell: "oc new-app {{ item.name }} -l app={{ item.name }}{{ (item.hystryx == True) | ternary(',hystrix.enabled=true','') }}"
+      register: command_result
+      with_items: "{{ msa_projects }}"
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+
+    - name: Expose OpenShift applications
+      shell: "oc expose service {{ item.name }} --hostname={{ item.name }}-{{ project_name }}.{{ domain }}"
+      register: command_result
+      with_items: "{{ msa_projects }}"
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+
+    - name: Create OpenShift Readiness Probe for applications
+      shell: "oc set probe dc/{{ item.name }} --readiness --get-url={{ item.probe }}"
+      register: command_result
+      with_items: "{{ msa_projects }}"
+      # Avoid projects without probe
+      when: "item.probe != False"
+      tags:
+        - openshift
+
+    - name: Enable Jolokia for applications
+      shell: "oc patch dc/{{ item.name }} -p '{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"{{ item.name }}\",\"ports\":[{\"containerPort\": 8778,\"name\":\"jolokia\"}]}]}}}}'"
+      register: command_result
+      with_items: "{{ msa_projects }}"
+      # Avoid  no Jolokia projects
+      when: "item.jolokia != False"
+      tags:
+        - openshift
+
+    - name: Install Kubeflix
+      shell: "oc create -f http://central.maven.org/maven2/io/fabric8/kubeflix/packages/kubeflix/1.0.17/kubeflix-1.0.17-kubernetes.yml && oc new-app kubeflix && oc expose service hystrix-dashboard && oc policy add-role-to-user admin system:serviceaccount:{{ project_name }}:turbine"
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+        - kubeflix
+
+    - name: Install Kubernetes ZipKin
+      shell: "oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.0.8/zipkin-starter-minimal-0.0.8-kubernetes.yml &&  oc expose service zipkin-query"
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+        - zipkin
+
+#Install Jenkins
+    - name: Login in OpenShift as administrator
+      shell: "oc login -u admin -p admin {{ openshift }}"
+      tags:
+        - openshift
+        - jenkins
+        - admin
+        
+    - name: Define project=openshift
+      shell: "oc project openshift"
+      tags:
+        - openshift
+        - jenkins
+        - admin
+
+    - name: Create custom buildConfig for Jenkins
+      shell: "oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/jenkins/master/custom-jenkins.build.yaml"
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+        - jenkins
+        - admin
+
+    - name: Build a custom Jenkins instance
+      shell: "oc start-build custom-jenkins-build --follow"
+      tags:
+        - openshift
+        - jenkins
+        - build
+        - admin
+        
+    - name: Login in OpenShift as openshift-dev
+      shell: "oc login -u openshift-dev -p devel {{ openshift }}"
+      tags:
+        - openshift
+        
+    - name: Create a new CI OpenShift project
+      shell: "oc new-project ci"
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift        
+        - jenkins
+
+    - name: Create a Jenkins application in CI project
+      shell: "oc new-app -p MEMORY_LIMIT=1024Mi https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-ephemeral-template.json"
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift        
+        - jenkins
+
+    - name: Use OpenShift MSA project
+      shell: "oc project {{ project_name }}"
+      tags:
+        - openshift
