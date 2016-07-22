@@ -116,3 +116,11 @@ $ curl -b cookies.txt -c cookies.txt  http://bonjour-helloworld-msa.rhel-cdk.10.
 # To change the credentials, delete the cookies file
 $ rm cookies.txt
 ----
+
+- To return to the original state
+----
+$ oc delete route bonjour &&  oc delete svc bonjour
+$ oc expose dc/bonjour
+$ oc scale dc/bonjour --replicas=1
+$ oc delete all -l app=bonjour=new
+----
