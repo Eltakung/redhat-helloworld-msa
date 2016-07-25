@@ -13,13 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-## Deploy api-gateway (Spring Boot)
+### Deploy api-gateway (Spring Boot)
 
 The API-Gateway is a microservices architectural pattern. For more information about this pattern, visit: http://microservices.io/patterns/apigateway.html
 
 Choose one of the following options/approaches to deploy the api-gateway.
 
-### Option 1: Deploy using Fabric8 plugin
+#### Option 1: Deploy using Fabric8 plugin
 
 Execute:
 
@@ -29,9 +29,9 @@ $ cd api-gateway/
 $ mvn clean package docker:build fabric8:json fabric8:apply
 ----
 
-### Option 2: Deploy project via oc CLI
+#### Option 2: Deploy project via oc CLI
 
-#### Basic project creation
+##### Basic project creation
 
 ----
 $ git clone https://github.com/redhat-helloworld-msa/api-gateway
@@ -42,14 +42,14 @@ $ oc new-app api-gateway -l app=api-gateway,hystrix.enabled=true
 $ oc expose service api-gateway
 ----
 
-#### (Optional) Enable Jolokia and Readiness probe
+##### (Optional) Enable Jolokia and Readiness probe
 
 ----
 $ oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
 $ oc set probe dc/api-gateway --readiness --get-url=http://:8080/health
 ----
 
-### Test the endpoint
+#### Test the endpoint
 
 Access: http://api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api
 

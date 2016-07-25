@@ -13,13 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-## Deploy bonjour (NodeJS) microservice
+### Deploy bonjour (NodeJS) microservice
 
 Choose one of the following options/approaches to deploy this microservice.
 
-### Deploy project via oc CLI
+#### Deploy project via oc CLI
 
-#### Basic project creation
+##### Basic project creation
 
 ----
 $ git clone https://github.com/redhat-helloworld-msa/bonjour
@@ -30,7 +30,7 @@ $ oc new-app bonjour -l app=bonjour
 $ oc expose service bonjour
 ----
 
-#### (Optional) Enable Readiness probe
+##### (Optional) Enable Readiness probe
 
 ----
 $ oc set probe dc/bonjour --readiness --get-url=http://:8080/api/health
@@ -61,7 +61,7 @@ $ oc logs -f bc/bonjour
 
 ////
 
-### Test the service endpoint
+#### Test the service endpoint
 
 Access: http://bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/bonjour
 

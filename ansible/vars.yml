@@ -1,5 +1,5 @@
 ---
-#workdir: "{{ ansible_user_dir }}/projetos-ansible"
+#workdir: "{{ ansible_user_dir }}/helloworld-msa"
 openshift: 10.1.2.2
 project_name: helloworld-msa
 domain: rhel-cdk.10.1.2.2.xip.io

@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-## Deploy Kubeflix
+### Deploy Kubeflix
 
 https://github.com/fabric8io/kubeflix[Kubeflix] provides http://kubernetes.io/[Kubernetes] integration with https://netflix.github.io/[Netlix] open source components such as https://github.com/Netflix/Hystrix[Hystrix], https://github.com/Netflix/Turbine[Turbine] and https://github.com/Netflix/Ribbon[Ribbon].
 
@@ -24,7 +24,7 @@ Specifically it provides:
 
 image::images/kubeflix.png[]
 
-### Deploy using oc CLI
+#### Deploy using oc CLI
 
 Execute:
 
@@ -35,7 +35,7 @@ $ oc expose service hystrix-dashboard
 $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine
 ----
 
-### Test the hystrix-dashboard
+#### Test the hystrix-dashboard
 
 Access: http://hystrix-dashboard-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/
 

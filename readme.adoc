@@ -17,7 +17,7 @@
 http://developers.redhat.com
 :toc: macro
 :toc-title: Table of Contents
-:toclevels: 2
+:toclevels: 3
 :icons: font
 :data-uri:
 :source-highlighter: coderay
@@ -25,7 +25,6 @@ http://developers.redhat.com
 This content is brought to you by http://developers.redhat.com - Register today!
 
 image::images/rhdevelopers.png[]
-
 
 Latest HTML:
 https://htmlpreview.github.io/?https://github.com/redhat-helloworld-msa/helloworld-msa/blob/master/readme.html
@@ -39,6 +38,10 @@ toc::[]
 include::prepare-cdk.adoc[]
 
 include::create-project.adoc[]
+
+include::ansible.adoc[]
+
+## (Option 2) Install each microservice individually
 
 //// 
 REMOVED EAP

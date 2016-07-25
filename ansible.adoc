@@ -13,24 +13,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-### Deploy Kubernetes ZipKin
+## (Option 1) Install all microservices using Ansible
 
-https://github.com/fabric8io/kubernetes-zipkin[Kubernetes Zipkin] provides all the required resources to start the required http://zipkin.io/[ZipKin] components in http://kubernetes.io/[Kubernetes] to trace your microservices.
+link:https://www.ansible.com/[Ansible] can be used to automate the bootstrap process to setup Helloworld-MSA in CDK. The whole process will take  approximately 20 minutes to complete.
 
-Zipkin is a distributed tracing system. It helps gather timing data needed to troubleshoot latency problems in microservice architectures.
+Make sure you have the following requirenments installed:
 
-image::images/zipkin.png[]
+- Git
+- Ansible 1.9+
+- Maven 3.0+
+- JDK 1.8
+- NPM
 
-#### Deploy using oc CLI
-
-Execute:
+And run the following commands:
 
 ----
-$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.0.8/zipkin-starter-minimal-0.0.8-kubernetes.yml
-$ oc expose service zipkin-query
+$ git clone https://github.com/redhat-helloworld-msa/helloworld-msa
+$ cd helloworld-msa/ansible
+$ ansible-playbook helloworld-msa.yml
 ----
 
-#### Test the hystrix-dashboard
-
-Access: http://zipkin-query-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/
+NOTE: This approach is used to make it easy to create an environment with all pieces of this demo. However microservices can *and should* be deployed independently. The following instructions allows you to understand the individual process to deploy each microservice.
 

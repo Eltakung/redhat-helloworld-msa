@@ -13,15 +13,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-## Deploy frontend (NodeJS/HTML5/JS) 
+### Deploy frontend (NodeJS/HTML5/JS) 
 
 image::images/frontend.png[]
 
 Choose one of the following options/approaches to deploy the UI.
 
-### Deploy project via oc CLI
+#### Deploy project via oc CLI
 
-#### Basic project creation
+##### Basic project creation
 
 ----
 $ git clone https://github.com/redhat-helloworld-msa/frontend
@@ -57,7 +57,7 @@ $ oc logs -f bc/frontend
 
 ////
 
-### Test the service endpoint
+#### Test the service endpoint
 
 Access: http://frontend-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/
 

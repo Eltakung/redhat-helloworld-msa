@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-## Configuring your application
+## Use case: Configuring your application
 
 link:https://github.com/redhat-helloworld-msa/hola[hola] microservice uses link:http://deltaspike.apache.org/documentation/configuration.html[DeltaSpike Configuration] to obtain the phrase that is displayed.
 

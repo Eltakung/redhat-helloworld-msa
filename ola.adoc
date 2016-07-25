@@ -13,11 +13,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-## Deploy ola (Spring Boot) microservice
+### Deploy ola (Spring Boot) microservice
 
 Choose one of the following options/approaches to deploy this microservice.
 
-### Option 1: Deploy using Fabric8 plugin
+#### Option 1: Deploy using Fabric8 plugin
 
 Execute:
 
@@ -27,9 +27,9 @@ $ cd ola/
 $ mvn clean package docker:build fabric8:json fabric8:apply
 ----
 
-### Option 2: Deploy project via oc CLI
+#### Option 2: Deploy project via oc CLI
 
-#### Basic project creation
+##### Basic project creation
 
 ----
 $ git clone https://github.com/redhat-helloworld-msa/ola
@@ -40,13 +40,13 @@ $ oc new-app ola -l app=ola,hystrix.enabled=true
 $ oc expose service ola
 ----
 
-#### (Optional) Enable Jolokia and Readiness probe
+##### (Optional) Enable Jolokia and Readiness probe
 
 ----
 $ oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
 $ oc set probe dc/ola --readiness --get-url=http://:8080/api/health
 ----
 
-### Test the service endpoint
+#### Test the service endpoint
 
 Access: http://ola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/ola
