@@ -15,7 +15,7 @@
 
 ## (Option 1) Install all microservices using Ansible
 
-link:https://www.ansible.com/[Ansible] can be used to automate the bootstrap process to setup Helloworld-MSA in CDK. The whole process will take  approximately 20 minutes to complete.
+link:https://www.ansible.com/[Ansible] can be used to automate the bootstrap process to setup Helloworld-MSA in CDK. 
 
 Make sure you have the following requirenments installed:
 
@@ -32,6 +32,8 @@ $ git clone https://github.com/redhat-helloworld-msa/helloworld-msa
 $ cd helloworld-msa/ansible
 $ ansible-playbook helloworld-msa.yml
 ----
+
+The playbook will take approximately 20 minutes to complete. After that OpenShift should take more 10 minutes to finish the installation and boot of each microservice. The bootstrap process should complete within 30 minutes.
 
 NOTE: This approach is used to make it easy to create an environment with all pieces of this demo. However microservices can *and should* be deployed independently. The following instructions allows you to understand the individual process to deploy each microservice.
 
