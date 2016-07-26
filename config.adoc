@@ -61,7 +61,9 @@ After the deployment, check that the config is present
 
 ----
 $ oc get pods -l app=hola
-$ oc exec hola-?-????? cat /etc/config/translation.properties
+$ oc rsh hola-?-????? 
+sh-4.2$ cat /etc/config/translation.properties
+sh-4.2$ exit
 ----
 
 #### Update the microservice to read the file
