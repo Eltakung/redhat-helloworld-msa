@@ -37,7 +37,7 @@
         - compile
 
     - name: Login in OpenShift
-      shell: "oc login -u openshift-dev -p devel {{ openshift }}"
+      shell: "oc login --insecure-skip-tls-verify=true -u openshift-dev -p devel {{ openshift }}"
       tags:
         - openshift
 

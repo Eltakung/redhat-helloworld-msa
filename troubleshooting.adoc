@@ -20,7 +20,7 @@
 You can easily customize the frontend to access the a new domain using the following command:
 
 ----
-$ oc env dc/frontend  OS_SUBDOMAIN=redhatmsa.com ZIPKINQUERYURL=http://zipkin-query-helloworld-msa.app.redhatmsa.com HYSTRIXDASHBOARDURL=http://hystrix-dashboard-helloworld-msa.app.redhatmsa.com
+$ oc env dc/frontend OS_SUBDOMAIN=app.redhatmsa.com
 ----
 
 === DNS issues
@@ -36,5 +36,5 @@ To solve this problem, add the following line to your `/etc/hosts` file. For Win
 
 
 # If other IP and other host
-1.2.3.4         openshift.redhatmsa.com aloha-helloworld-msa.redhatmsa.com bonjour-helloworld-msa.redhatmsa.com bonjour-helloworld-msa.redhatmsa.com frontend-helloworld-msa.redhatmsa.com hola-helloworld-msa.redhatmsa.com hystrix-dashboard-helloworld-msa.app.redhatmsa.com ola-helloworld-msa.redhatmsa.com zipkin-query-helloworld-msa.app.redhatmsa.com api-gateway-helloworld-msa.redhatmsa.com jenkins-ci.app.redhatmsa.com aloha-helloworld-msa-qa.app.redhatmsa.com
+1.2.3.4         openshift.redhatmsa.com aloha-helloworld-msa.app.redhatmsa.com bonjour-helloworld-msa.app.redhatmsa.com bonjour-helloworld-msa.app.redhatmsa.com frontend-helloworld-msa.app.redhatmsa.com hola-helloworld-msa.app.redhatmsa.com hystrix-dashboard-helloworld-msa.app.app.redhatmsa.com ola-helloworld-msa.app.redhatmsa.com zipkin-query-helloworld-msa.app.app.redhatmsa.com api-gateway-helloworld-msa.app.redhatmsa.com jenkins-ci.app.app.redhatmsa.com aloha-helloworld-msa-qa.app.app.redhatmsa.com
 ----
