@@ -57,6 +57,14 @@ Here we are creating a mounted volume in all pods that reads the file.
 $ oc patch dc/hola -p '{"spec":{"template":{"spec":{"containers":[{"name":"hola","volumeMounts":[{"name":"config-volume","mountPath":"/etc/config"}]}],"volumes":[{"name":"config-volume","configMap":{"name":"translation"}}]}}}}'
 ----
 
+#### Update the microservice to read the file
+
+The POD needs a Java System Property to inform the location of the file.
+
+----
+$ oc env dc/hola JAVA_OPTIONS="-Dconf=/etc/config/translation.properties"
+----
+
 After the deployment, check that the config is present
 
 ----
@@ -64,14 +72,6 @@ $ oc get pods -l app=hola
 $ oc rsh hola-?-????? 
 sh-4.2$ cat /etc/config/translation.properties
 sh-4.2$ exit
-----
-
-#### Update the microservice to read the file
-
-The POD needs a Java System Property to inform the location of the file.
-
-----
-$ oc env dc/hola JAVA_OPTIONS="-Dconf=/etc/config/translation.properties"
 ----
 
 Update the ConfigMap and wait the POD to get updated.
