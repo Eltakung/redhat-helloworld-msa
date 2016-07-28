@@ -91,7 +91,7 @@ $ oc new-app bonjour-new
 $ oc set probe dc/bonjour-new --readiness --get-url=http://:8080/api/health
 ----
 
-- Apply a common label (svc=canary-bonjour) for both versions (A/B)
+- Apply a common label (svc=canary-bonjour) for both versions
 ----
 $ oc patch dc/bonjour -p '{"spec":{"template":{"metadata":{"labels":{"svc":"canary-bonjour"}}}}}'
 $ oc patch dc/bonjour-new -p '{"spec":{"template":{"metadata":{"labels":{"svc":"canary-bonjour"}}}}}'
