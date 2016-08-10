@@ -27,7 +27,7 @@ This content is brought to you by http://developers.redhat.com - Register today!
 image::images/rhdevelopers.png[]
 
 Latest HTML:
-https://htmlpreview.github.io/?https://github.com/redhat-helloworld-msa/helloworld-msa/blob/master/readme.html
+http://bit.ly/msainstructions
 
 This is the frontend screenshot that you will see after the deployment of all microservices:
 
