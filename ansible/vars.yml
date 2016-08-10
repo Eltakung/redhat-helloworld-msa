@@ -1,5 +1,5 @@
 ---
-# PLEASE define where you want to checkout the sourcecode
+# PLEASE define the Absolute path where you want to checkout the sourcecode
 #workdir: "{{ ansible_user_dir }}/helloworld-msa"
 openshift: 10.1.2.2
 project_name: helloworld-msa
