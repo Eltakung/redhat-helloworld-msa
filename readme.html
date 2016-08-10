@@ -783,8 +783,18 @@ $ oc new-project helloworld-msa</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ git clone https://github.com/redhat-helloworld-msa/helloworld-msa
-$ cd helloworld-msa/ansible
-$ ansible-playbook helloworld-msa.yml</pre>
+$ cd helloworld-msa/ansible</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>First, <strong>edit the vars.yaml file</strong> to define (<strong>'workdir'</strong> variable) where you want to "git checkout" the source code of the microservices.</p>
+</div>
+<div class="paragraph">
+<p>Then execute:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ ansible-playbook helloworld-msa.yml</pre>
 </div>
 </div>
 <div class="paragraph">

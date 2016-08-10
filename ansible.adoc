@@ -30,6 +30,13 @@ And run the following commands:
 ----
 $ git clone https://github.com/redhat-helloworld-msa/helloworld-msa
 $ cd helloworld-msa/ansible
+----
+
+First, *edit the vars.yaml file* to define (*'workdir'* variable) where you want to "git checkout" the source code of the microservices.
+
+Then execute:
+
+----
 $ ansible-playbook helloworld-msa.yml
 ----
 
