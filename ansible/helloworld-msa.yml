@@ -173,16 +173,22 @@
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
       changed_when: "'exists' not in command_result.stderr"
       tags:
-        - openshift        
+        - openshift
+        - jenkins
+
+    - name: Add the edit role to the default service account in the ci project:
+      shell: "oc policy add-role-to-user edit -z default"
+      tags:
+        - openshift
         - jenkins
 
     - name: Create a Jenkins application in CI project
-      shell: "oc new-app -p MEMORY_LIMIT=1024Mi https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-ephemeral-template.json"
+      shell: "oc new-app -p JENKINS_PASSWORD=password -p MEMORY_LIMIT=1024Mi https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-ephemeral-template.json"
       register: command_result
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
       changed_when: "'exists' not in command_result.stderr"
       tags:
-        - openshift        
+        - openshift
         - jenkins
 
     - name: Use OpenShift MSA project
