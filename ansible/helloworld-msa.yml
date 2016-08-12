@@ -131,7 +131,7 @@
 
 #Install Jenkins
     - name: Login in OpenShift as administrator
-      shell: "oc login -u admin -p admin {{ openshift }}"
+      shell: "oc login --insecure-skip-tls-verify=true -u admin -p admin {{ openshift }}"
       tags:
         - openshift
         - jenkins
@@ -163,7 +163,7 @@
         - admin
         
     - name: Login in OpenShift as openshift-dev
-      shell: "oc login -u openshift-dev -p devel {{ openshift }}"
+      shell: "oc login --insecure-skip-tls-verify=true  -u openshift-dev -p devel {{ openshift }}"
       tags:
         - openshift
         
@@ -176,7 +176,7 @@
         - openshift
         - jenkins
 
-    - name: Add the edit role to the default service account in the ci project:
+    - name: Add the edit role to the default service account in the ci project
       shell: "oc policy add-role-to-user edit -z default"
       tags:
         - openshift
