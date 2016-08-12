@@ -53,9 +53,9 @@ $ eval "$(vagrant service-manager env docker)"
 
 ### Install Openshift Client
 
-You can download and unpack the CLI from the link:https://access.redhat.com/downloads/content/290[Red Hat Customer Portal] for use on Linux, MacOSX, and Windows clients. After logging in with your Red Hat account, you must have an active OpenShift Enterprise subscription to access the downloads page.
+You can download and unpack the CLI from the link:https://github.com/openshift/origin/releases/tag/v1.2.0[Red Hat Customer Portal] for use on Linux, MacOSX, and Windows clients. After logging in with your Red Hat account, you must have an active OpenShift Enterprise subscription to access the downloads page.
 
-link:https://access.redhat.com/downloads/content/290[Download the CLI]
+Alternatively you can Download the "Origin" version from link:https://github.com/openshift/origin/releases/tag/v1.2.0[GitHub page]
 
 ### Access Openshift console
 
