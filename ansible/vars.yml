@@ -7,31 +7,31 @@ domain: rhel-cdk.10.1.2.2.xip.io
 msa_projects:
   - name: hola
     project: java
-    hystryx: true
+    hystrix: true
     probe: http://:8080/api/health
     jolokia: false
   - name: frontend
     project: node
-    hystryx: false
+    hystrix: false
     probe: False
     jolokia: false
   - name: bonjour
     project: node
-    hystryx: false
+    hystrix: false
     probe: http://:8080/api/health
     jolokia: false
   - name: api-gateway
     project: java
-    hystryx: true
+    hystrix: true
     probe: http://:8080/health
     jolokia: true
   - name: ola
     project: java
-    hystryx: true
+    hystrix: true
     probe: http://:8080/api/health
     jolokia: true
   - name: aloha
     project: java
-    hystryx: true
+    hystrix: true
     probe: http://:8080/api/health
     jolokia: true

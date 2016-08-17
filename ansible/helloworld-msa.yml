@@ -76,7 +76,7 @@
         - build
 
     - name: Create OpenShift applications from previously created images
-      shell: "oc new-app {{ item.name }} -l app={{ item.name }}{{ (item.hystryx == True) | ternary(',hystrix.enabled=true','') }}"
+      shell: "oc new-app {{ item.name }} -l app={{ item.name }}{{ (item.hystrix == True) | ternary(',hystrix.enabled=true','') }}"
       register: command_result
       with_items: "{{ msa_projects }}"
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
