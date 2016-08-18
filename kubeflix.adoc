@@ -15,7 +15,7 @@
 
 ### Deploy Kubeflix
 
-https://github.com/fabric8io/kubeflix[Kubeflix] provides http://kubernetes.io/[Kubernetes] integration with https://netflix.github.io/[Netlix] open source components such as https://github.com/Netflix/Hystrix[Hystrix], https://github.com/Netflix/Turbine[Turbine] and https://github.com/Netflix/Ribbon[Ribbon].
+https://github.com/fabric8io/kubeflix[Kubeflix] provides http://kubernetes.io/[Kubernetes] integration with https://netflix.github.io/[Netflix] open source components such as https://github.com/Netflix/Hystrix[Hystrix], https://github.com/Netflix/Turbine[Turbine] and https://github.com/Netflix/Ribbon[Ribbon].
 
 Specifically it provides:
 
