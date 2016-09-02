@@ -12,10 +12,10 @@
     - name: Verify oc version
       shell: "oc version"
       register: command_result
-      failed_when: "'oc v3.2' not in command_result.stdout" 
+      failed_when: "'oc v3.2' not in command_result.stdout"
 
     - name: Create Workdir
-      file: 
+      file:
         path: "{{ workdir }}"
         state: directory
 
@@ -26,7 +26,7 @@
       with_items: "{{ msa_projects }}"
       tags:
         - git
-    
+
     - name: Compile Java Projects
       shell: "mvn -f {{ workdir }}/{{ item.name }}/pom.xml package"
       with_items: "{{ msa_projects }}"
@@ -136,7 +136,7 @@
         - openshift
         - jenkins
         - admin
-        
+
     - name: Define project=openshift
       shell: "oc project openshift"
       tags:
@@ -161,23 +161,17 @@
         - jenkins
         - build
         - admin
-        
+
     - name: Login in OpenShift as openshift-dev
       shell: "oc login --insecure-skip-tls-verify=true  -u openshift-dev -p devel {{ openshift }}"
       tags:
         - openshift
-        
+
     - name: Create a new CI OpenShift project
       shell: "oc new-project ci"
       register: command_result
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
       changed_when: "'exists' not in command_result.stderr"
-      tags:
-        - openshift
-        - jenkins
-
-    - name: Add the edit role to the default service account in the ci project
-      shell: "oc policy add-role-to-user edit -z default"
       tags:
         - openshift
         - jenkins

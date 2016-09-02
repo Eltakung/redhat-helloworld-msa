@@ -1508,7 +1508,6 @@ $ oc start-build custom-jenkins-build --follow</pre>
 <div class="content">
 <pre>$ oc login -u openshift-dev -p devel
 $ oc new-project ci
-$ oc policy add-role-to-user edit -z default
 $ oc new-app -p JENKINS_PASSWORD=password -p MEMORY_LIMIT=1024Mi https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-ephemeral-template.json
 $ oc project helloworld-msa</pre>
 </div>
