@@ -23,6 +23,13 @@ To release a new version, the router is updated to switch between the "Blue" env
 
 image::images/greendeployment.png[]
 
+We can use 2 different approaches to perform Blue/Gren deployment:
+
+- Changing the Routes
+- Changing the Services
+
+==== Blue/Green deployment using Routes
+
 This strategy is based on link:https://github.com/openshift/origin/tree/master/examples/deployment#blue-green-deployment[Openshift deployment examples] and it uses the `API-Gateway` project, but it could be used with any other project:
 
 - Modify the service.
@@ -37,19 +44,19 @@ $ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.j
 
 - Create a `"new"` version of the application using a **different name**..
 ----
-$ oc new-build --binary --name=api-gateway-new -l app=api-gateway-new
-$ mvn package && oc start-build api-gateway-new --from-dir=. --follow
-$ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true
+$ oc new-build --binary --name=api-gateway-blue -l app=api-gateway-blue
+$ mvn package && oc start-build api-gateway-blue --from-dir=. --follow
+$ oc new-app api-gateway-blue -l app=api-gateway-blue,hystrix.enabled=true
 ----
 
 - Enable Readiness probe
 ----
-$ oc set probe dc/api-gateway-new --readiness --get-url=http://:8080/health
+$ oc set probe dc/api-gateway-blue --readiness --get-url=http://:8080/health
 ----
 
 - Switch the route to the `"new"` application.
 ----
-$ oc patch route/api-gateway -p '{"spec": {"to": {"name": "api-gateway-new" }}}'
+$ oc patch route/api-gateway -p '{"spec": {"to": {"name": "api-gateway-blue" }}}'
 
 # To return to the "old" application
 $ oc patch route/api-gateway -p '{"spec": {"to": {"name": "api-gateway" }}}'
@@ -59,6 +66,40 @@ $ oc patch route/api-gateway -p '{"spec": {"to": {"name": "api-gateway" }}}'
 ----
 $ oc delete is,bc,dc,svc api-gateway
 $ oc delete builds -l build=api-gateway
+----
+
+==== Blue/Green deployment using Services
+
+This approach is more suitable for Services with internal access only. It will modify the existing Kubernetes Service to point to the new DeploymentConfig
+
+- Modify the service.
+----
+$ cd /bonjour
+
+$ vim bonjour.js
+
+# replace  return "Bonjour de " + os.hostname();
+# by       return "Version 2 - Bonjour de " + os.hostname();
+----
+
+- Create a `"new"` version of the application using a **different name**..
+----
+$ oc new-build --binary --name=bonjour-new
+$ npm install && oc start-build bonjour-new --from-dir=. --follow
+$ oc new-app bonjour-new
+----
+
+- Enable Readiness probe
+----
+$ oc set probe dc/bonjour-new --readiness --get-url=http://:8080/api/health
+----
+
+- Switch the Service to the `"new"` application.
+----
+$ oc patch svc/bonjour -p '{"spec":{"selector":{"app":"bonjour-new","deploymentconfig":"bonjour-new"}}}'
+
+# To return to the "old" application
+$ oc patch svc/bonjour -p '{"spec":{"selector":{"app":"bonjour","deploymentconfig":"bonjour"}}}'
 ----
 
 === Canary deployments
@@ -81,7 +122,7 @@ $ vim bonjour.js
 
 - Create a `"new"` version of the application using a **different name**..
 ----
-$ oc new-build --binary --name=bonjour-new -l app=bonjour-new
+$ oc new-build --binary --name=bonjour-new
 $ npm install && oc start-build bonjour-new --from-dir=. --follow
 $ oc new-app bonjour-new
 ----
@@ -97,10 +138,9 @@ $ oc patch dc/bonjour -p '{"spec":{"template":{"metadata":{"labels":{"svc":"cana
 $ oc patch dc/bonjour-new -p '{"spec":{"template":{"metadata":{"labels":{"svc":"canary-bonjour"}}}}}'
 ----
 
-- Update the Service and Routes
+- Update the Service to point to the new label
 ----
-$ oc delete svc bonjour && oc delete route bonjour
-$ oc expose dc/bonjour --selector='svc=canary-bonjour' --session-affinity='ClientIP' && oc expose svc/bonjour
+$ oc patch svc/bonjour -p '{"spec":{"selector":{"svc":"canary-bonjour","app": null, "deploymentconfig": null}, "sessionAffinity":"ClientIP"}}'
 ----
 
 - Simulate multiple clients
@@ -119,8 +159,7 @@ $ rm cookies.txt
 
 - To return to the original state
 ----
-$ oc delete route bonjour &&  oc delete svc bonjour
-$ oc expose dc/bonjour
 $ oc scale dc/bonjour --replicas=1
 $ oc delete all -l app=bonjour=new
+$ oc patch svc/bonjour -p '{"spec":{"selector":{"svc":null ,"app": "bonjour", "deploymentconfig": "bonjour"}, "sessionAffinity":"None"}}'
 ----

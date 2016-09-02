@@ -614,7 +614,12 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_use_case_deployment_patterns">Use case: Deployment Patterns</a>
 <ul class="sectlevel2">
-<li><a href="#_blue_green_deployment">Blue/Green deployment</a></li>
+<li><a href="#_blue_green_deployment">Blue/Green deployment</a>
+<ul class="sectlevel3">
+<li><a href="#_blue_green_deployment_using_routes">Blue/Green deployment using Routes</a></li>
+<li><a href="#_blue_green_deployment_using_services">Blue/Green deployment using Services</a></li>
+</ul>
+</li>
 <li><a href="#_canary_deployments">Canary deployments</a></li>
 </ul>
 </li>
@@ -1290,6 +1295,21 @@ The synchronization between the ConfigMap and the mounted volume takes some time
 </div>
 </div>
 <div class="paragraph">
+<p>We can use 2 different approaches to perform Blue/Gren deployment:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Changing the Routes</p>
+</li>
+<li>
+<p>Changing the Services</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_blue_green_deployment_using_routes">Blue/Green deployment using Routes</h4>
+<div class="paragraph">
 <p>This strategy is based on <a href="https://github.com/openshift/origin/tree/master/examples/deployment#blue-green-deployment">Openshift deployment examples</a> and it uses the <code>API-Gateway</code> project, but it could be used with any other project:</p>
 </div>
 <div class="ulist">
@@ -1318,9 +1338,9 @@ $ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.j
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc new-build --binary --name=api-gateway-new -l app=api-gateway-new
-$ mvn package &amp;&amp; oc start-build api-gateway-new --from-dir=. --follow
-$ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true</pre>
+<pre>$ oc new-build --binary --name=api-gateway-blue -l app=api-gateway-blue
+$ mvn package &amp;&amp; oc start-build api-gateway-blue --from-dir=. --follow
+$ oc new-app api-gateway-blue -l app=api-gateway-blue,hystrix.enabled=true</pre>
 </div>
 </div>
 <div class="ulist">
@@ -1332,7 +1352,7 @@ $ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc set probe dc/api-gateway-new --readiness --get-url=http://:8080/health</pre>
+<pre>$ oc set probe dc/api-gateway-blue --readiness --get-url=http://:8080/health</pre>
 </div>
 </div>
 <div class="ulist">
@@ -1344,7 +1364,7 @@ $ oc new-app api-gateway-new -l app=api-gateway-new,hystrix.enabled=true</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc patch route/api-gateway -p '{"spec": {"to": {"name": "api-gateway-new" }}}'
+<pre>$ oc patch route/api-gateway -p '{"spec": {"to": {"name": "api-gateway-blue" }}}'
 
 # To return to the "old" application
 $ oc patch route/api-gateway -p '{"spec": {"to": {"name": "api-gateway" }}}'</pre>
@@ -1361,6 +1381,71 @@ $ oc patch route/api-gateway -p '{"spec": {"to": {"name": "api-gateway" }}}'</pr
 <div class="content">
 <pre>$ oc delete is,bc,dc,svc api-gateway
 $ oc delete builds -l build=api-gateway</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_blue_green_deployment_using_services">Blue/Green deployment using Services</h4>
+<div class="paragraph">
+<p>This approach is more suitable for Services with internal access only. It will modify the existing Kubernetes Service to point to the new DeploymentConfig</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Modify the service.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ cd /bonjour
+
+$ vim bonjour.js
+
+# replace  return "Bonjour de " + os.hostname();
+# by       return "Version 2 - Bonjour de " + os.hostname();</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a <code>"new"</code> version of the application using a <strong>different name</strong>..</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc new-build --binary --name=bonjour-new
+$ npm install &amp;&amp; oc start-build bonjour-new --from-dir=. --follow
+$ oc new-app bonjour-new</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Enable Readiness probe</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc set probe dc/bonjour-new --readiness --get-url=http://:8080/api/health</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Switch the Service to the <code>"new"</code> application.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc patch svc/bonjour -p '{"spec":{"selector":{"app":"bonjour-new","deploymentconfig":"bonjour-new"}}}'
+
+# To return to the "old" application
+$ oc patch svc/bonjour -p '{"spec":{"selector":{"app":"bonjour","deploymentconfig":"bonjour"}}}'</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1403,7 +1488,7 @@ $ vim bonjour.js
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc new-build --binary --name=bonjour-new -l app=bonjour-new
+<pre>$ oc new-build --binary --name=bonjour-new
 $ npm install &amp;&amp; oc start-build bonjour-new --from-dir=. --follow
 $ oc new-app bonjour-new</pre>
 </div>
@@ -1436,14 +1521,13 @@ $ oc patch dc/bonjour-new -p '{"spec":{"template":{"metadata":{"labels":{"svc":"
 <div class="ulist">
 <ul>
 <li>
-<p>Update the Service and Routes</p>
+<p>Update the Service to point to the new label</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc delete svc bonjour &amp;&amp; oc delete route bonjour
-$ oc expose dc/bonjour --selector='svc=canary-bonjour' --session-affinity='ClientIP' &amp;&amp; oc expose svc/bonjour</pre>
+<pre>$ oc patch svc/bonjour -p '{"spec":{"selector":{"svc":"canary-bonjour","app": null, "deploymentconfig": null}, "sessionAffinity":"ClientIP"}}'</pre>
 </div>
 </div>
 <div class="ulist">
@@ -1476,10 +1560,9 @@ $ rm cookies.txt</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc delete route bonjour &amp;&amp;  oc delete svc bonjour
-$ oc expose dc/bonjour
-$ oc scale dc/bonjour --replicas=1
-$ oc delete all -l app=bonjour=new</pre>
+<pre>$ oc scale dc/bonjour --replicas=1
+$ oc delete all -l app=bonjour=new
+$ oc patch svc/bonjour -p '{"spec":{"selector":{"svc":null ,"app": "bonjour", "deploymentconfig": "bonjour"}, "sessionAffinity":"None"}}'</pre>
 </div>
 </div>
 </div>
