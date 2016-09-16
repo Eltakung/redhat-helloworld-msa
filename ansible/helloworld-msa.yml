@@ -103,6 +103,11 @@
       tags:
         - openshift
 
+    - name: Define Frontend domain
+      shell: "oc env dc/frontend OS_SUBDOMAIN={{ domain }}"
+      tags:
+        - openshift
+
     - name: Create OpenShift Readiness Probe for applications
       shell: "oc set probe dc/{{ item.name }} --readiness --get-url={{ item.probe }}"
       register: command_result
@@ -131,7 +136,7 @@
         - kubeflix
 
     - name: Install Kubernetes ZipKin
-      shell: "oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.0.8/zipkin-starter-minimal-0.0.8-kubernetes.yml &&  oc expose service zipkin-query"
+      shell: "oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.0.8/zipkin-starter-minimal-0.0.8-kubernetes.yml &&  oc expose service zipkin-query --hostname=zipkin-query-{{ project_name }}.{{ domain }}"
       register: command_result
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
       changed_when: "'exists' not in command_result.stderr"
