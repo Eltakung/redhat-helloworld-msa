@@ -2,6 +2,10 @@
 # PLEASE define the Absolute path where you want to checkout the sourcecode
 #workdir: "{{ ansible_user_dir }}/helloworld-msa"
 openshift: 10.1.2.2
+username: openshift-dev
+password: devel
+admin_username: admin
+admin_password: admin
 project_name: helloworld-msa
 domain: rhel-cdk.10.1.2.2.xip.io
 msa_projects:

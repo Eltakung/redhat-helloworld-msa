@@ -12,9 +12,17 @@
     - name: Verify oc version
       shell: "oc version"
       register: command_result
-#     failed_when: "'oc v3.2' or 'oc v1.2' not in command_result.stdout"
-#     Removed due to Bug: https://github.com/ansible/ansible/issues/17214
-      failed_when: "'oc v3.2'  not in command_result.stdout"
+      failed_when: "'oc v3.2' and 'oc v1.2' and 'oc v1.3' not in command_result.stdout"
+
+    - name: Login in OpenShift as administrator
+      shell: "oc login --insecure-skip-tls-verify=true -u {{ admin_username }} -p {{ admin_password }} {{ openshift }}"
+      tags:
+        - openshift
+        - jenkins
+        - admin
+
+    - name: Adjust SCC
+      shell: "oc patch scc restricted -p '{\"runAsUser\":{\"type\":\"RunAsAny\"},\"fsGroup\":{\"type\":\"RunAsAny\"}}'"
 
     - name: Create Workdir
       file:
@@ -44,7 +52,7 @@
         - compile
 
     - name: Login in OpenShift
-      shell: "oc login --insecure-skip-tls-verify=true -u openshift-dev -p devel {{ openshift }}"
+      shell: "oc login --insecure-skip-tls-verify=true -u {{ username }} -p {{ password }} {{ openshift }}"
       tags:
         - openshift
 
@@ -133,7 +141,7 @@
 
 #Install Jenkins
     - name: Login in OpenShift as administrator
-      shell: "oc login --insecure-skip-tls-verify=true -u admin -p admin {{ openshift }}"
+      shell: "oc login --insecure-skip-tls-verify=true -u {{ admin_username }} -p {{ admin_password }} {{ openshift }}"
       tags:
         - openshift
         - jenkins
@@ -165,7 +173,7 @@
         - admin
 
     - name: Login in OpenShift as openshift-dev
-      shell: "oc login --insecure-skip-tls-verify=true  -u openshift-dev -p devel {{ openshift }}"
+      shell: "oc login --insecure-skip-tls-verify=true -u {{ username }} -p {{ password }} {{ openshift }}"
       tags:
         - openshift
 
