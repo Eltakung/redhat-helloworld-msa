@@ -4,6 +4,9 @@
 openshift: 10.1.2.2:8443
 username: openshift-dev
 password: devel
+# To login as system:admin and no password
+#admin_username: system:admin
+#admin_password: "''"
 admin_username: admin
 admin_password: admin
 project_name: helloworld-msa

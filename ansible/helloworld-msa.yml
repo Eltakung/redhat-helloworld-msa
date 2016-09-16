@@ -18,7 +18,6 @@
       shell: "oc login --insecure-skip-tls-verify=true -u {{ admin_username }} -p {{ admin_password }} {{ openshift }}"
       tags:
         - openshift
-        - jenkins
         - admin
 
     - name: Adjust SCC
