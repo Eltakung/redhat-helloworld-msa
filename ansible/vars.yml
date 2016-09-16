@@ -1,7 +1,7 @@
 ---
 # PLEASE define the Absolute path where you want to checkout the sourcecode
 #workdir: "{{ ansible_user_dir }}/helloworld-msa"
-openshift: 10.1.2.2
+openshift: 10.1.2.2:8443
 username: openshift-dev
 password: devel
 admin_username: admin
