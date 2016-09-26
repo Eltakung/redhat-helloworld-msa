@@ -19,8 +19,8 @@
 
 - Install a virtualization provider (hypervisor) for your system such as VirtualBox, VMware, or KVM/libvirt.
 - Install Vagrant, from link:https://www.vagrantup.com/[vagrantup.com], or from your operating system’s packages.
-- From link:https://access.redhat.com/downloads/content/293/ver=2.1/rhel---7/2.1.0/x86_64/product-software[Red Hat Customer Portal] download Red Hat Container Tools (cdk-2.1.0.zip) and the RHEL 7.2 Vagrant box that matches your virtualization provider: VirtualBox, VMare, or KVM/libvirt.
-- Unzip `cdk-2.1.0.zip` into a directory of your choosing.
+- From link:http://developers.redhat.com/products/cdk/download/[Red Hat CDK Download page] download Red Hat Container Tools (cdk-2.2.0.zip) and the RHEL 7.2 Vagrant box that matches your virtualization provider: VirtualBox, VMare, or KVM/libvirt.
+- Unzip `cdk-2.2.0.zip` into a directory of your choosing.
 
 Install the required vagrant plugins:
 
