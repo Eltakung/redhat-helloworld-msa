@@ -1,16 +1,25 @@
 ---
-# PLEASE define the Absolute path where you want to checkout the sourcecode
-#workdir: "{{ ansible_user_dir }}/helloworld-msa"
+# UNCOMENT define the Absolute path where you want to checkout the sourcecode
+# workdir: "{{ ansible_user_dir }}/helloworld-msa"
+# Define the OpenShift name/ip:port address
 openshift: 10.1.2.2:8443
+# Your OpenShift credentials
 username: openshift-dev
 password: devel
+# Administrative credentials
 # To login as system:admin and no password
 #admin_username: system:admin
 #admin_password: "''"
 admin_username: admin
 admin_password: admin
-project_name: helloworld-msa
+# Customize the domain of the project
 domain: rhel-cdk.10.1.2.2.xip.io
+# If your application uses an special SCC, uncomment the following line to adjust the SCC
+adjust_scc: false
+# Define the name of the OpenShift project
+project_name: helloworld-msa
+
+# Project definition - You don't need to change anything here
 msa_projects:
   - name: hola
     project: java
