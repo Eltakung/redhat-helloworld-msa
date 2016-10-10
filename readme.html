@@ -535,48 +535,52 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc">
 <div id="toctitle" class="title">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_prepare_cdk">Prepare CDK</a>
+<li><a href="#_prepare_environment">Prepare Environment</a>
 <ul class="sectlevel2">
-<li><a href="#_install_cdk">Install CDK</a></li>
 <li><a href="#_install_openshift_client">Install Openshift Client</a></li>
+<li><a href="#__option_1_use_cdk_openshift_container_platform_3_2">(Option 1) Use CDK (OpenShift Container Platform 3.2)</a>
+<ul class="sectlevel3">
 <li><a href="#_access_openshift_console">Access Openshift console</a></li>
 </ul>
 </li>
-<li><a href="#_create_a_project">Create a project</a></li>
+<li><a href="#__option_2_use_oc_cluster_up_openshift_container_platform_3_3">(Option 2) Use "oc cluster up" (OpenShift Container Platform 3.3)</a>
+<ul class="sectlevel3">
+<li><a href="#_access_openshift_console_2">Access Openshift console</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#__option_1_install_all_microservices_using_ansible">(Option 1) Install all microservices using Ansible</a></li>
-<li><a href="#__option_2_install_each_microservice_individually">(Option 2) Install each microservice individually</a>
+<li><a href="#__option_2_install_each_microservice_individually">(Option 2) Install each microservice individually</a></li>
+<li><a href="#_create_a_project">Create a project</a>
 <ul class="sectlevel2">
 <li><a href="#_deploy_hola_jax_rs_wildfly_swarm_microservice">Deploy hola (JAX-RS/Wildfly Swarm) microservice</a>
 <ul class="sectlevel3">
-<li><a href="#_option_1_deploy_using_fabric8_plugin">Option 1: Deploy using Fabric8 plugin</a></li>
-<li><a href="#_option_2_deploy_project_via_oc_cli">Option 2: Deploy project via oc CLI</a></li>
+<li><a href="#_deploy_project_via_oc_cli">Deploy project via oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_aloha_vert_x_microservice">Deploy aloha (Vert.x) microservice</a>
 <ul class="sectlevel3">
-<li><a href="#_option_1_deploy_using_fabric8_plugin_2">Option 1: Deploy using Fabric8 plugin</a></li>
-<li><a href="#_option_2_deploy_project_via_oc_cli_2">Option 2: Deploy project via oc CLI</a></li>
+<li><a href="#_deploy_project_via_oc_cli_2">Deploy project via oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint_2">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_ola_spring_boot_microservice">Deploy ola (Spring Boot) microservice</a>
 <ul class="sectlevel3">
-<li><a href="#_option_1_deploy_using_fabric8_plugin_3">Option 1: Deploy using Fabric8 plugin</a></li>
-<li><a href="#_option_2_deploy_project_via_oc_cli_3">Option 2: Deploy project via oc CLI</a></li>
+<li><a href="#_deploy_project_via_oc_cli_3">Deploy project via oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint_3">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_bonjour_nodejs_microservice">Deploy bonjour (NodeJS) microservice</a>
 <ul class="sectlevel3">
-<li><a href="#_deploy_project_via_oc_cli">Deploy project via oc CLI</a></li>
+<li><a href="#_deploy_project_via_oc_cli_4">Deploy project via oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint_4">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_api_gateway_spring_boot">Deploy api-gateway (Spring Boot)</a>
 <ul class="sectlevel3">
-<li><a href="#_option_1_deploy_using_fabric8_plugin_4">Option 1: Deploy using Fabric8 plugin</a></li>
-<li><a href="#_option_2_deploy_project_via_oc_cli_4">Option 2: Deploy project via oc CLI</a></li>
+<li><a href="#_deploy_project_via_oc_cli_5">Deploy project via oc CLI</a></li>
 <li><a href="#_test_the_endpoint">Test the endpoint</a></li>
 </ul>
 </li>
@@ -594,7 +598,7 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_deploy_frontend_nodejs_html5_js">Deploy frontend (NodeJS/HTML5/JS)</a>
 <ul class="sectlevel3">
-<li><a href="#_deploy_project_via_oc_cli_2">Deploy project via oc CLI</a></li>
+<li><a href="#_deploy_project_via_oc_cli_6">Deploy project via oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint_5">Test the service endpoint</a></li>
 </ul>
 </li>
@@ -645,10 +649,16 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prepare_cdk">Prepare CDK</h2>
+<h2 id="_prepare_environment">Prepare Environment</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_install_cdk">Install CDK</h3>
+<h3 id="_install_openshift_client">Install Openshift Client</h3>
+<div class="paragraph">
+<p>You can download and unpack the CLI from the <a href="https://github.com/openshift/origin/releases/tag/v1.3.0">Github</a> for use on Linux, MacOSX, and Windows clients.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="__option_1_use_cdk_openshift_container_platform_3_2">(Option 1) Use CDK (OpenShift Container Platform 3.2)</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -670,8 +680,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ vagrant plugin install vagrant-service-manager
-$ vagrant plugin install vagrant-registration</pre>
+<pre>$ vagrant plugin install vagrant-service-manager vagrant-registration vagrant-sshfs</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -698,58 +707,48 @@ $ export VM_MEMORY=6000</pre>
 <div class="content">
 <pre>$ export SUB_USERNAME=&lt;your-subscription-username&gt;
 $ export SUB_PASSWORD=&lt;your-subscription-password&gt;
-$ vagrant up
-$ eval "$(vagrant service-manager env docker)"</pre>
+$ vagrant up</pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_install_openshift_client">Install Openshift Client</h3>
-<div class="paragraph">
-<p>You can download and unpack the CLI from the <a href="https://github.com/openshift/origin/releases/tag/v1.2.0">Red Hat Customer Portal</a> for use on Linux, MacOSX, and Windows clients. After logging in with your Red Hat account, you must have an active OpenShift Enterprise subscription to access the downloads page.</p>
-</div>
-<div class="paragraph">
-<p>Alternatively you can Download the "Origin" version from <a href="https://github.com/openshift/origin/releases/tag/v1.2.0">GitHub page</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_access_openshift_console">Access Openshift console</h3>
+<div class="sect3">
+<h4 id="_access_openshift_console">Access Openshift console</h4>
 <div class="paragraph">
 <p>Open Openshift console:  <a href="https://10.1.2.2:8443/console/" class="bare">https://10.1.2.2:8443/console/</a><br>
 (Accept the certificate and proceed)</p>
 </div>
 <div class="paragraph">
 <p>Log in Openshift<br>
-Use <strong>openshift-dev/devel</strong> as your credentials in CDK</p>
+Use <strong>openshift-dev/devel</strong> as your credentials</p>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_create_a_project">Create a project</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="__option_2_use_oc_cluster_up_openshift_container_platform_3_3">(Option 2) Use "oc cluster up" (OpenShift Container Platform 3.3)</h3>
 <div class="paragraph">
-<p>In Openshift, click in the <code>"New Project"</code> button. Give it the name <strong>"helloworld-msa"</strong></p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-You must use the exact project name since it will affect the generate endpoint&#8217;s URLs
-</td>
-</tr>
-</table>
+<p>This option only needs a <a href="https://github.com/docker/machine/releases">docker-machine</a> installed.</p>
 </div>
 <div class="paragraph">
-<p>Or run:</p>
+<p>Execute:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc login 10.1.2.2:8443 -u openshift-dev -p devel
-$ oc new-project helloworld-msa</pre>
+<pre>$ oc cluster up --create-machine=true   \
+                --use-existing-config   \
+                --host-data-dir=/mydata \
+                --image=registry.access.redhat.com/openshift3/ose \
+                --version=latest</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_access_openshift_console_2">Access Openshift console</h4>
+<div class="paragraph">
+<p>Open Openshift console:  <a href="https://192.168.99.10?:8443/console/" class="bare">https://192.168.99.10?:8443/console/</a><br>
+(Accept the certificate and proceed)</p>
+</div>
+<div class="paragraph">
+<p>Log in Openshift<br>
+Use <strong>openshift-dev/devel</strong> as your credentials</p>
+</div>
 </div>
 </div>
 </div>
@@ -772,7 +771,7 @@ $ oc new-project helloworld-msa</pre>
 <p>Ansible 1.9+</p>
 </li>
 <li>
-<p>Maven 3.0+</p>
+<p>Maven 3.1+</p>
 </li>
 <li>
 <p>JDK 1.8</p>
@@ -822,26 +821,40 @@ This approach is used to make it easy to create an environment with all pieces o
 <div class="sect1">
 <h2 id="__option_2_install_each_microservice_individually">(Option 2) Install each microservice individually</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_deploy_hola_jax_rs_wildfly_swarm_microservice">Deploy hola (JAX-RS/Wildfly Swarm) microservice</h3>
-<div class="paragraph">
-<p>Choose one of the following options/approaches to deploy this microservice.</p>
+
 </div>
-<div class="sect3">
-<h4 id="_option_1_deploy_using_fabric8_plugin">Option 1: Deploy using Fabric8 plugin</h4>
+</div>
+<div class="sect1">
+<h2 id="_create_a_project">Create a project</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Execute:</p>
+<p>In Openshift, click in the <code>"New Project"</code> button. Give it the name <strong>"helloworld-msa"</strong></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+You must use the exact project name since it will affect the generate endpoint&#8217;s URLs
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Or run:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ git clone https://github.com/redhat-helloworld-msa/hola
-$ cd hola/
-$ mvn clean package docker:build fabric8:json fabric8:apply</pre>
+<pre>$ oc login &lt;Openshift IP&gt;:8443 -u openshift-dev -p devel
+$ oc new-project helloworld-msa</pre>
 </div>
 </div>
-</div>
+<div class="sect2">
+<h3 id="_deploy_hola_jax_rs_wildfly_swarm_microservice">Deploy hola (JAX-RS/Wildfly Swarm) microservice</h3>
 <div class="sect3">
-<h4 id="_option_2_deploy_project_via_oc_cli">Option 2: Deploy project via oc CLI</h4>
+<h4 id="_deploy_project_via_oc_cli">Deploy project via oc CLI</h4>
 <div class="sect4">
 <h5 id="_basic_project_creation">Basic project creation</h5>
 <div class="listingblock">
@@ -873,24 +886,8 @@ $ oc expose service hola</pre>
 </div>
 <div class="sect2">
 <h3 id="_deploy_aloha_vert_x_microservice">Deploy aloha (Vert.x) microservice</h3>
-<div class="paragraph">
-<p>Choose one of the following options/approaches to deploy this microservice.</p>
-</div>
 <div class="sect3">
-<h4 id="_option_1_deploy_using_fabric8_plugin_2">Option 1: Deploy using Fabric8 plugin</h4>
-<div class="paragraph">
-<p>Execute:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ git clone https://github.com/redhat-helloworld-msa/aloha
-$ cd aloha/
-$ mvn clean package docker:build fabric8:json fabric8:apply</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_option_2_deploy_project_via_oc_cli_2">Option 2: Deploy project via oc CLI</h4>
+<h4 id="_deploy_project_via_oc_cli_2">Deploy project via oc CLI</h4>
 <div class="sect4">
 <h5 id="_basic_project_creation_2">Basic project creation</h5>
 <div class="listingblock">
@@ -923,24 +920,8 @@ $ oc set probe dc/aloha --readiness --get-url=http://:8080/api/health</pre>
 </div>
 <div class="sect2">
 <h3 id="_deploy_ola_spring_boot_microservice">Deploy ola (Spring Boot) microservice</h3>
-<div class="paragraph">
-<p>Choose one of the following options/approaches to deploy this microservice.</p>
-</div>
 <div class="sect3">
-<h4 id="_option_1_deploy_using_fabric8_plugin_3">Option 1: Deploy using Fabric8 plugin</h4>
-<div class="paragraph">
-<p>Execute:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ git clone https://github.com/redhat-helloworld-msa/ola
-$ cd ola/
-$ mvn clean package docker:build fabric8:json fabric8:apply</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_option_2_deploy_project_via_oc_cli_3">Option 2: Deploy project via oc CLI</h4>
+<h4 id="_deploy_project_via_oc_cli_3">Deploy project via oc CLI</h4>
 <div class="sect4">
 <h5 id="_basic_project_creation_3">Basic project creation</h5>
 <div class="listingblock">
@@ -977,7 +958,7 @@ $ oc set probe dc/ola --readiness --get-url=http://:8080/api/health</pre>
 <p>Choose one of the following options/approaches to deploy this microservice.</p>
 </div>
 <div class="sect3">
-<h4 id="_deploy_project_via_oc_cli">Deploy project via oc CLI</h4>
+<h4 id="_deploy_project_via_oc_cli_4">Deploy project via oc CLI</h4>
 <div class="sect4">
 <h5 id="_basic_project_creation_4">Basic project creation</h5>
 <div class="listingblock">
@@ -1012,24 +993,8 @@ $ oc expose service bonjour</pre>
 <div class="paragraph">
 <p>The API-Gateway is a microservices architectural pattern. For more information about this pattern, visit: <a href="http://microservices.io/patterns/apigateway.html" class="bare">http://microservices.io/patterns/apigateway.html</a></p>
 </div>
-<div class="paragraph">
-<p>Choose one of the following options/approaches to deploy the api-gateway.</p>
-</div>
 <div class="sect3">
-<h4 id="_option_1_deploy_using_fabric8_plugin_4">Option 1: Deploy using Fabric8 plugin</h4>
-<div class="paragraph">
-<p>Execute:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ git clone https://github.com/redhat-helloworld-msa/api-gateway
-$ cd api-gateway/
-$ mvn clean package docker:build fabric8:json fabric8:apply</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_option_2_deploy_project_via_oc_cli_4">Option 2: Deploy project via oc CLI</h4>
+<h4 id="_deploy_project_via_oc_cli_5">Deploy project via oc CLI</h4>
 <div class="sect4">
 <h5 id="_basic_project_creation_5">Basic project creation</h5>
 <div class="listingblock">
@@ -1124,7 +1089,7 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.0.8/zipkin-starter-minimal-0.0.8-kubernetes.yml
+<pre>$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.1.5/zipkin-starter-minimal-0.1.5-openshift.yml
 $ oc expose service zipkin-query</pre>
 </div>
 </div>
@@ -1147,7 +1112,7 @@ $ oc expose service zipkin-query</pre>
 <p>Choose one of the following options/approaches to deploy the UI.</p>
 </div>
 <div class="sect3">
-<h4 id="_deploy_project_via_oc_cli_2">Deploy project via oc CLI</h4>
+<h4 id="_deploy_project_via_oc_cli_6">Deploy project via oc CLI</h4>
 <div class="sect4">
 <h5 id="_basic_project_creation_6">Basic project creation</h5>
 <div class="listingblock">
@@ -1727,7 +1692,7 @@ $ vim src/main/java/com/redhat/developers/msa/aloha/AlohaVerticle.java
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-08-10 11:37:01 EDT
+Last updated 2016-10-10 17:56:18 EDT
 </div>
 </div>
 </body>

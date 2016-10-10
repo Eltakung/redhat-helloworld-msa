@@ -35,13 +35,13 @@ image::images/frontend.png[]
 
 toc::[]
 
-include::prepare-cdk.adoc[]
-
-include::create-project.adoc[]
+include::prepare-env.adoc[]
 
 include::ansible.adoc[]
 
 ## (Option 2) Install each microservice individually
+
+include::create-project.adoc[]
 
 //// 
 REMOVED EAP

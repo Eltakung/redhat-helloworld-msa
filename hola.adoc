@@ -15,19 +15,7 @@
 
 ### Deploy hola (JAX-RS/Wildfly Swarm) microservice
 
-Choose one of the following options/approaches to deploy this microservice.
-
-#### Option 1: Deploy using Fabric8 plugin
-
-Execute:
-
-----
-$ git clone https://github.com/redhat-helloworld-msa/hola
-$ cd hola/
-$ mvn clean package docker:build fabric8:json fabric8:apply
-----
-
-#### Option 2: Deploy project via oc CLI
+#### Deploy project via oc CLI
 
 ##### Basic project creation
 
@@ -47,6 +35,18 @@ $ oc set probe dc/hola --readiness --get-url=http://:8080/api/health
 ----
 
 ////
+
+#### Option 2: Deploy using Fabric8 plugin
+
+Execute:
+
+----
+$ git clone https://github.com/redhat-helloworld-msa/hola
+$ cd hola/
+$ mvn clean package docker:build fabric8:json fabric8:apply
+----
+
+
 
 ### Option 3: Deploy project using WildFly-Swarm builder template/imagestream
 
