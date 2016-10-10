@@ -21,7 +21,7 @@ Make sure you have the following requirenments installed:
 
 - Git
 - Ansible 1.9+
-- Maven 3.0+
+- Maven 3.1+
 - JDK 1.8
 - NPM
 

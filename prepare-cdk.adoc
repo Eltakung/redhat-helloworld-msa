@@ -13,9 +13,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-## Prepare CDK
+## Prepare Environment
 
-### Install CDK
+### Install Openshift Client
+
+You can download and unpack the CLI from the link:https://github.com/openshift/origin/releases/tag/v1.3.0[Github] for use on Linux, MacOSX, and Windows clients. 
+
+
+### (Option 1) Use CDK
 
 - Install a virtualization provider (hypervisor) for your system such as VirtualBox, VMware, or KVM/libvirt.
 - Install Vagrant, from link:https://www.vagrantup.com/[vagrantup.com], or from your operating system’s packages.
@@ -25,8 +30,7 @@
 Install the required vagrant plugins:
 
 ----
-$ vagrant plugin install vagrant-service-manager
-$ vagrant plugin install vagrant-registration
+$ vagrant plugin install vagrant-service-manager vagrant-registration vagrant-sshfs
 ----
 
 Add the RHEL 7.2 Vagrant box to Vagrant with the command:
@@ -48,16 +52,9 @@ Execute Vagrant:
 $ export SUB_USERNAME=<your-subscription-username>
 $ export SUB_PASSWORD=<your-subscription-password>
 $ vagrant up
-$ eval "$(vagrant service-manager env docker)"
 ----
 
-### Install Openshift Client
-
-You can download and unpack the CLI from the link:https://github.com/openshift/origin/releases/tag/v1.2.0[Red Hat Customer Portal] for use on Linux, MacOSX, and Windows clients. After logging in with your Red Hat account, you must have an active OpenShift Enterprise subscription to access the downloads page.
-
-Alternatively you can Download the "Origin" version from link:https://github.com/openshift/origin/releases/tag/v1.2.0[GitHub page]
-
-### Access Openshift console
+#### Access Openshift console
 
 Open Openshift console:  https://10.1.2.2:8443/console/ +
 (Accept the certificate and proceed)
