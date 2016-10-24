@@ -15,7 +15,7 @@ admin_password: admin
 # Customize the domain of the project
 domain: rhel-cdk.10.1.2.2.xip.io
 # If your application uses an special SCC, uncomment the following line to adjust the SCC
-adjust_scc: true
+adjust_scc: false
 # Define the name of the OpenShift project
 project_name: helloworld-msa
 
