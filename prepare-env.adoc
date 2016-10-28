@@ -78,7 +78,7 @@ $ oc cluster up --create-machine=true   \
 
 #### Access Openshift console
 
-Open Openshift console:  https://<openshift ip>:8443/console/ +
+Open Openshift console:  https://<openshift_ip>:8443/console/ +
 (Accept the certificate and proceed)
 
 Log in Openshift +
