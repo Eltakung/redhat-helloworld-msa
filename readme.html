@@ -593,7 +593,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_deploy_kubernetes_zipkin">Deploy Kubernetes ZipKin</a>
 <ul class="sectlevel3">
 <li><a href="#_deploy_using_oc_cli_2">Deploy using oc CLI</a></li>
-<li><a href="#_test_the_hystrix_dashboard_2">Test the hystrix-dashboard</a></li>
+<li><a href="#_test_the_zipkin_console">Test the Zipkin console</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_frontend_nodejs_html5_js">Deploy frontend (NodeJS/HTML5/JS)</a>
@@ -1057,7 +1057,7 @@ $ oc set probe dc/api-gateway --readiness --get-url=http://:8080/health</pre>
 <div class="content">
 <pre>$ oc create -f http://central.maven.org/maven2/io/fabric8/kubeflix/packages/kubeflix/1.0.17/kubeflix-1.0.17-kubernetes.yml
 $ oc new-app kubeflix
-$ oc expose service hystrix-dashboard
+$ oc expose service hystrix-dashboard --port=8080
 $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine</pre>
 </div>
 </div>
@@ -1089,13 +1089,13 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.1.5/zipkin-starter-minimal-0.1.5-openshift.yml
+<pre>$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.0.8/zipkin-starter-minimal-0.0.8-kubernetes.yml
 $ oc expose service zipkin-query</pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_test_the_hystrix_dashboard_2">Test the hystrix-dashboard</h4>
+<h4 id="_test_the_zipkin_console">Test the Zipkin console</h4>
 <div class="paragraph">
 <p>Access: <a href="http://zipkin-query-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/" class="bare">http://zipkin-query-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/</a></p>
 </div>
@@ -1692,7 +1692,7 @@ $ vim src/main/java/com/redhat/developers/msa/aloha/AlohaVerticle.java
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-10-25 11:39:33 EDT
+Last updated 2016-10-25 16:39:33 WEST
 </div>
 </div>
 </body>
