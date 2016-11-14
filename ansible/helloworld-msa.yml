@@ -9,11 +9,6 @@
         msg: "Target directory is not defined. Please edit vars.yml"
       when: workdir is undefined
 
-    - name: Verify oc version
-      shell: "oc version"
-      register: command_result
-      failed_when: "'oc v3.2' and 'oc v1.2' and 'oc v1.3' not in command_result.stdout"
-
     - name: Login in OpenShift as administrator
       shell: "oc login --insecure-skip-tls-verify=true -u {{ admin_username }} -p {{ admin_password }} {{ openshift }}"
       tags:
