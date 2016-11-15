@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-### Deploy Hawkular APM
+## Use case: Deploy Hawkular APM
 
 http://www.hawkular.org/overview/index.html#_application_performance_management[Hawkular APM] can be used as a drop-in alternative to ZipKin.
 If you decide to use it instead of ZipKin, you can either change each microservice environment variable named "ZIPKIN_SERVER_URL" to
@@ -21,7 +21,7 @@ point to the Hawkular APM server, or change the definition for the `zipkin-query
 
 image::images/hawkular-apm.png[]
 
-#### Deploy using oc CLI
+### Deploy using oc CLI
 
 ----
 $ git clone https://github.com/jboss-dockerfiles/hawkular-apm.git
@@ -32,7 +32,7 @@ $ oc new-app hawkular-apm-server
 $ oc expose service hawkular-apm-server
 ----
 
-#### Getting the admin username and password
+### Getting the admin username and password
 
 Once the service is deployed, the admin credentials can be obtained via Browse → Deployments → hawkular-apm-server → Click on the latest deployment → Logs.
 A sample output is as follows:
@@ -48,7 +48,7 @@ Password: KS3mmZbkdhRZ5y7oF
 
 With these credentials, login to Hawkular APM via http://hawkular-apm-server-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/
 
-#### Replacing the ZipKin URL for the services
+### Replacing the ZipKin URL for the services
 
 The recommended approach is to change the environment variable `ZIPKIN_SERVER_URL` to point to the Hawkular APM Server:
 
