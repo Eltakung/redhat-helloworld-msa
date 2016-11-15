@@ -19,6 +19,10 @@ adjust_scc: false
 # Define the name of the OpenShift project
 project_name: helloworld-msa
 
+# Optional parts
+# Define if we should deploy CI/CD capabilities with Jenkins
+deploy_jenkins: false
+
 # Project definition - You don't need to change anything here
 msa_projects:
   - name: hola
