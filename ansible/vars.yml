@@ -20,13 +20,19 @@ adjust_scc: false
 project_name: helloworld-msa
 
 # Optional parts
+# Some users might have the MSA modules cloned locally already. For those cases, make this 'false' and
+# we'll not attempt to clone it again
+clone_modules: true
+
 # Define if we should deploy CI/CD capabilities with Jenkins
 deploy_jenkins: false
 #Define if we should deploy Hystrix and Kubeflix
 deploy_hystrix: false
 #Define if we should deploy ZipKin
 deploy_zipkin: false
-#DEfine if we should deploy Keycloak for SSO
+#Define if we should deploy Hawkular APM
+deploy_hawkular_apm: false
+#Define if we should deploy Keycloak for SSO
 deploy_keycloak: false
 
 # Project definition - You don't need to change anything here
@@ -46,7 +52,7 @@ msa_projects:
   - name: bonjour
     project: node
     hystrix: false
-    probe: http://:8080/api/health 
+    probe: http://:8080/api/health
     jolokia: false #This project doesn't support Jolokia
     sso_support: true
   - name: api-gateway

@@ -46,17 +46,17 @@ Password: KS3mmZbkdhRZ5y7oF
 ------------------------------------
 ```
 
-With these credentials, login to Hawkular APM via http://hawkular-apm-server-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/
+With these credentials, login to Hawkular APM via http://hawkular-apm-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/
 
 ### Replacing the ZipKin URL for the services
 
 The recommended approach is to change the environment variable `ZIPKIN_SERVER_URL` to point to the Hawkular APM Server:
 
 ```
-oc env dc/aloha       ZIPKIN_SERVER_URL="http://hawkular-apm-server:8080"
-oc env dc/api-gateway ZIPKIN_SERVER_URL="http://hawkular-apm-server:8080"
-oc env dc/bonjour     ZIPKIN_SERVER_URL="http://hawkular-apm-server:8080"
-oc env dc/hola        ZIPKIN_SERVER_URL="http://hawkular-apm-server:8080"
-oc env dc/ola         ZIPKIN_SERVER_URL="http://hawkular-apm-server:8080"
+oc env dc/aloha       ZIPKIN_SERVER_URL="http://hawkular-apm"
+oc env dc/api-gateway ZIPKIN_SERVER_URL="http://hawkular-apm"
+oc env dc/bonjour     ZIPKIN_SERVER_URL="http://hawkular-apm"
+oc env dc/hola        ZIPKIN_SERVER_URL="http://hawkular-apm"
+oc env dc/ola         ZIPKIN_SERVER_URL="http://hawkular-apm"
 ```
 

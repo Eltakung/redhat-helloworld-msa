@@ -28,7 +28,9 @@
       git:
         repo: "https://github.com/redhat-helloworld-msa/{{ item.name }}"
         dest: "{{ workdir }}/{{ item.name }}"
+        update: yes
       with_items: "{{ msa_projects }}"
+      when: "{{ clone_modules }}"
       tags:
         - git
 
@@ -139,9 +141,21 @@
       changed_when: "'exists' not in command_result.stderr"
       tags:
         - openshift
+        - opentracing
         - zipkin
 
-#Install Jenkins
+    - name: Install Hawkular APM
+      shell: "oc create -f https://raw.githubusercontent.com/jboss-dockerfiles/hawkular-apm/master/openshift-templates/hawkular-apm-server-deployment.yml"
+      register: command_result
+      when: "{{ deploy_hawkular_apm }}"
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+        - opentracing
+        - hawkular
+
+    #Install Jenkins
     - name: Login in OpenShift as administrator
       shell: "oc login --insecure-skip-tls-verify=true -u {{ admin_username }} -p {{ admin_password }} {{ openshift }}"
       when: "{{ deploy_jenkins }}"
