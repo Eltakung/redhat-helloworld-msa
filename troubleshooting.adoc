@@ -21,6 +21,9 @@ You can easily customize the frontend to access the a new domain using the follo
 
 ----
 $ oc env dc/frontend OS_SUBDOMAIN=app.redhatmsa.com
+
+# If you deployed SSO/keycloak
+$ oc env dc/keycloak --namespace=sso OS_SUBDOMAIN=app.redhatmsa.com
 ----
 
 === DNS issues

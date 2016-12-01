@@ -63,11 +63,13 @@ include::bonjour.adoc[]
 
 include::api-gateway.adoc[]
 
+include::frontend.adoc[]
+
 include::kubeflix.adoc[]
 
 include::zipkin.adoc[]
 
-include::frontend.adoc[]
+include::sso.adoc[]
 
 include::config.adoc[]
 

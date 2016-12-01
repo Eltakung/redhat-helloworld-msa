@@ -1,6 +1,6 @@
 ---
 # UNCOMENT define the Absolute path where you want to checkout the sourcecode
-# workdir: "{{ ansible_user_dir }}/helloworld-msa"
+#workdir: "{{ ansible_user_dir }}/helloworld-msa"
 # Define the OpenShift name/ip:port address
 openshift: 10.1.2.2:8443
 # Your OpenShift credentials
@@ -13,7 +13,7 @@ password: devel
 admin_username: admin
 admin_password: admin
 # Customize the domain of the project
-domain: rhel-cdk.10.1.2.2.xip.io
+domain: rhel-cdk.10.1.2.2.nip.io
 # If your application uses an special SCC, uncomment the following line to adjust the SCC
 adjust_scc: false
 # Define the name of the OpenShift project
@@ -22,6 +22,12 @@ project_name: helloworld-msa
 # Optional parts
 # Define if we should deploy CI/CD capabilities with Jenkins
 deploy_jenkins: false
+#Define if we should deploy Hystrix and Kubeflix
+deploy_hystrix: false
+#Define if we should deploy ZipKin
+deploy_zipkin: false
+#DEfine if we should deploy Keycloak for SSO
+deploy_keycloak: false
 
 # Project definition - You don't need to change anything here
 msa_projects:
@@ -29,29 +35,35 @@ msa_projects:
     project: java
     hystrix: true
     probe: http://:8080/api/health
-    jolokia: false
+    jolokia: false #This project doesn't support Jolokia
+    sso_support: true
   - name: frontend
     project: node
     hystrix: false
     probe: False
-    jolokia: false
+    jolokia: false #This project doesn't support Jolokia
+    sso_support: true
   - name: bonjour
     project: node
     hystrix: false
-    probe: http://:8080/api/health
-    jolokia: false
+    probe: http://:8080/api/health 
+    jolokia: false #This project doesn't support Jolokia
+    sso_support: true
   - name: api-gateway
     project: java
     hystrix: true
     probe: http://:8080/health
-    jolokia: true
+    jolokia: false
+    sso_support: false
   - name: ola
     project: java
     hystrix: true
     probe: http://:8080/api/health
-    jolokia: true
+    jolokia: false
+    sso_support: true
   - name: aloha
     project: java
     hystrix: true
     probe: http://:8080/api/health
-    jolokia: true
+    jolokia: false
+    sso_support: true

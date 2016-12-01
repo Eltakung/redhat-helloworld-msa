@@ -113,7 +113,7 @@
         - openshift
 
     - name: Enable Jolokia for applications
-      shell: "oc patch dc/{{ item.name }} -p '{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"{{ item.name }}\",\"ports\":[{\"containerPort\": 8778,\"name\":\"jolokia\"}]}]}}}}'"
+      shell: "oc env dc/aloha AB_ENABLED=jolokia; oc patch dc/{{ item.name }} -p '{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"{{ item.name }}\",\"ports\":[{\"containerPort\": 8778,\"name\":\"jolokia\"}]}]}}}}'"
       register: command_result
       with_items: "{{ msa_projects }}"
       # Avoid  no Jolokia projects
@@ -122,16 +122,18 @@
         - openshift
 
     - name: Install Kubeflix
-      shell: "oc create -f http://central.maven.org/maven2/io/fabric8/kubeflix/packages/kubeflix/1.0.17/kubeflix-1.0.17-kubernetes.yml && oc new-app kubeflix && oc expose service hystrix-dashboard --port=8080 --hostname=hystrix-dashboard-{{ project_name }}.{{ domain }} && oc policy add-role-to-user admin system:serviceaccount:{{ project_name }}:turbine"
+      shell: "oc env dc/frontend ENABLE_HYSTRIX=true; oc create -f http://central.maven.org/maven2/io/fabric8/kubeflix/packages/kubeflix/1.0.17/kubeflix-1.0.17-kubernetes.yml && oc new-app kubeflix && oc expose service hystrix-dashboard --port=8080 --hostname=hystrix-dashboard-{{ project_name }}.{{ domain }} && oc policy add-role-to-user admin system:serviceaccount:{{ project_name }}:turbine"
+      when: "{{ deploy_hystrix }}"
       register: command_result
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
       changed_when: "'exists' not in command_result.stderr"
       tags:
         - openshift
-        - kubeflix
+        - hystrix
 
     - name: Install Kubernetes ZipKin
-      shell: "oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.0.8/zipkin-starter-minimal-0.0.8-kubernetes.yml &&  oc expose service zipkin-query --hostname=zipkin-query-{{ project_name }}.{{ domain }}"
+      shell: "oc env dc/frontend ENABLE_ZIPKIN=true; oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.0.8/zipkin-starter-minimal-0.0.8-kubernetes.yml &&  oc expose service zipkin-query --hostname=zipkin-query-{{ project_name }}.{{ domain }}"
+      when: "{{ deploy_zipkin }}"
       register: command_result
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
       changed_when: "'exists' not in command_result.stderr"
@@ -201,7 +203,100 @@
         - openshift
         - jenkins
 
+# Install SSO
+
+    - name: Create SSO project
+      shell: "oc new-project sso"        
+      when: "{{ deploy_keycloak }}"
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+        - sso
+
+    - name: Checkout SSO from Github
+      git:
+        repo: "https://github.com/redhat-helloworld-msa/sso"
+        dest: "{{ workdir }}/sso"
+      when: "{{ deploy_keycloak }}"
+      tags:
+        - openshift
+        - sso
+
+    - name: Create Keycloak new-build
+      shell: "oc new-build --binary --name=keycloak -l app=keycloak"
+      when: "{{ deploy_keycloak }}"
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+        - sso
+
+    - name: Build and Deploy Keycloak images from the sources
+      shell: "oc start-build keycloak --from-dir={{ workdir }}/sso --follow"
+      when: "{{ deploy_keycloak }}"
+      tags:
+        - openshift
+        - sso
+
+    - name: Create Keycloak application from previously created images
+      shell: "oc new-app keycloak -l app=keycloak"
+      when: "{{ deploy_keycloak }}"
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+        - sso
+
+    - name: Define Keycloak client project and domain
+      shell: "oc env dc keycloak OS_SUBDOMAIN={{ domain }} OS_PROJECT={{ project_name }}"
+      when: "{{ deploy_keycloak }}"
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+        - sso
+
+    - name: Expose Keycloak application
+      shell: "oc expose service keycloak --port=8080 --hostname=keycloak-sso.{{ domain }}"
+      when: "{{ deploy_keycloak }}"
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift
+        - sso
+
+    - name: Create Keycloak Readiness Probe
+      shell: "oc set probe dc keycloak --readiness --get-url=http://:8080/auth"
+      when: "{{ deploy_keycloak }}"
+      register: command_result
+      tags:
+        - openshift
+        - sso
+
     - name: Use OpenShift MSA project
       shell: "oc project {{ project_name }}"
       tags:
         - openshift
+        - sso
+
+    - name: Tell microservices where to find the Keycloak server
+      shell: "oc env dc {{ item.name }} KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.{{ domain }}/auth ENABLE_SSO=true"
+      register: command_result
+      with_items: "{{ msa_projects }}"
+      # Avoid projects without probe
+      when: "item.sso_support != False"
+      tags:
+        - openshift
+        - sso
+
+    - name: Use OpenShift MSA project
+      shell: "oc project {{ project_name }}"
+      tags:
+        - openshift
+ 
