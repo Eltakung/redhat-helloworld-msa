@@ -113,7 +113,7 @@
         - openshift
 
     - name: Enable Jolokia for applications
-      shell: "oc env dc/aloha AB_ENABLED=jolokia; oc patch dc/{{ item.name }} -p '{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"{{ item.name }}\",\"ports\":[{\"containerPort\": 8778,\"name\":\"jolokia\"}]}]}}}}'"
+      shell: "oc env dc/{{ item.name }} AB_ENABLED=jolokia; oc patch dc/{{ item.name }} -p '{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"{{ item.name }}\",\"ports\":[{\"containerPort\": 8778,\"name\":\"jolokia\"}]}]}}}}'"
       register: command_result
       with_items: "{{ msa_projects }}"
       # Avoid  no Jolokia projects
