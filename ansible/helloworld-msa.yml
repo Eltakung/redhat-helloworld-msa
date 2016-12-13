@@ -304,7 +304,7 @@
       register: command_result
       with_items: "{{ msa_projects }}"
       # Avoid projects without probe
-      when: "item.sso_support != False"
+      when: "deploy_keycloak and item.sso_support != False"
       tags:
         - openshift
         - sso
