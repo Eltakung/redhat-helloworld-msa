@@ -955,7 +955,7 @@ $ oc expose service ola</pre>
 <h5 id="__optional_enable_jolokia_and_readiness_probe_2">(Optional) Enable Jolokia and Readiness probe</h5>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/aloha AB_ENABLED=jolokia; oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+<pre>$ oc env dc/ola AB_ENABLED=jolokia; oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
 $ oc set probe dc/ola --readiness --get-url=http://:8080/api/health</pre>
 </div>
 </div>
@@ -1028,7 +1028,7 @@ $ oc expose service api-gateway</pre>
 <h5 id="__optional_enable_jolokia_and_readiness_probe_3">(Optional) Enable Jolokia and Readiness probe</h5>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/aloha AB_ENABLED=jolokia; oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+<pre>$ oc env dc/api-gateway AB_ENABLED=jolokia; oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
 $ oc set probe dc/api-gateway --readiness --get-url=http://:8080/health</pre>
 </div>
 </div>
@@ -1792,7 +1792,7 @@ Password: KS3mmZbkdhRZ5y7oF
 </div>
 </div>
 <div class="paragraph">
-<p>With these credentials, login to Hawkular APM via <a href="http://hawkular-apm-server-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/" class="bare">http://hawkular-apm-server-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/</a></p>
+<p>With these credentials, login to Hawkular APM via <a href="http://hawkular-apm-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/" class="bare">http://hawkular-apm-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -1802,11 +1802,11 @@ Password: KS3mmZbkdhRZ5y7oF
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>oc env dc/aloha       ZIPKIN_SERVER_URL="http://hawkular-apm-server:8080"
-oc env dc/api-gateway ZIPKIN_SERVER_URL="http://hawkular-apm-server:8080"
-oc env dc/bonjour     ZIPKIN_SERVER_URL="http://hawkular-apm-server:8080"
-oc env dc/hola        ZIPKIN_SERVER_URL="http://hawkular-apm-server:8080"
-oc env dc/ola         ZIPKIN_SERVER_URL="http://hawkular-apm-server:8080"</code></pre>
+<pre class="CodeRay highlight"><code>oc env dc/aloha       ZIPKIN_SERVER_URL="http://hawkular-apm"
+oc env dc/api-gateway ZIPKIN_SERVER_URL="http://hawkular-apm"
+oc env dc/bonjour     ZIPKIN_SERVER_URL="http://hawkular-apm"
+oc env dc/hola        ZIPKIN_SERVER_URL="http://hawkular-apm"
+oc env dc/ola         ZIPKIN_SERVER_URL="http://hawkular-apm"</code></pre>
 </div>
 </div>
 </div>
@@ -1855,7 +1855,7 @@ $ oc env dc/keycloak --namespace=sso OS_SUBDOMAIN=app.redhatmsa.com</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-11-30 13:06:21 EST
+Last updated 2016-11-30 16:06:21 BRST
 </div>
 </div>
 </body>
