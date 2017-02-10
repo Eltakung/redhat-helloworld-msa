@@ -76,10 +76,11 @@ This approach is more suitable for Services with internal access only. It will m
 ----
 $ cd /bonjour
 
-$ vim bonjour.js
+$ vim lib/api.js 
 
-# replace  return "Bonjour de " + os.hostname();
-# by       return "Version 2 - Bonjour de " + os.hostname();
+# go to line 32
+# replace  const sayBonjour = () => `Bonjour de ${os.hostname()}`;
+# by       const sayBonjour = () => `Version 2 - Bonjour de ${os.hostname()}`;
 ----
 
 - Create a `"new"` version of the application using a **different name**..
@@ -114,10 +115,11 @@ This strategy is based on link:https://github.com/openshift/origin/tree/master/e
 ----
 $ cd /bonjour
 
-$ vim bonjour.js
+$ vim lib/api.js 
 
-# replace  return "Bonjour de " + os.hostname();
-# by       return "Version 2 - Bonjour de " + os.hostname();
+# go to line 32
+# replace  const sayBonjour = () => `Bonjour de ${os.hostname()}`;
+# by       const sayBonjour = () => `Version 2 - Bonjour de ${os.hostname()}`;
 ----
 
 - Create a `"new"` version of the application using a **different name**..
