@@ -1625,7 +1625,7 @@ $ rm cookies.txt</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc scale dc/bonjour --replicas=1
-$ oc delete all -l app=bonjour=new
+$ oc delete all -l app=bonjour-new
 $ oc patch svc/bonjour -p '{"spec":{"selector":{"svc":null ,"app": "bonjour", "deploymentconfig": "bonjour"}, "sessionAffinity":"None"}}'</pre>
 </div>
 </div>
