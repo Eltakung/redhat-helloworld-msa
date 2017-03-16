@@ -9,16 +9,6 @@
         msg: "Target directory is not defined. Please edit vars.yml"
       when: workdir is undefined
 
-    - name: Login in OpenShift as administrator
-      shell: "oc login --insecure-skip-tls-verify=true -u {{ admin_username }} -p {{ admin_password }} {{ openshift }}"
-      tags:
-        - openshift
-        - admin
-
-    - name: Adjust SCC
-      shell: "oc patch scc restricted -p '{\"runAsUser\":{\"type\":\"RunAsAny\"},\"fsGroup\":{\"type\":\"RunAsAny\"}}'"
-      when: adjust_scc
-
     - name: Create Workdir
       file:
         path: "{{ workdir }}"

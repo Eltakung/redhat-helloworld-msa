@@ -14,8 +14,6 @@ admin_username: admin
 admin_password: admin
 # Customize the domain of the project
 domain: rhel-cdk.10.1.2.2.nip.io
-# If your application uses an special SCC, uncomment the following line to adjust the SCC
-adjust_scc: false
 # Define the name of the OpenShift project
 project_name: helloworld-msa
 
@@ -30,10 +28,10 @@ deploy_jenkins: false
 deploy_hystrix: false
 #Define if we should deploy ZipKin
 deploy_zipkin: false
-#Define if we should deploy Hawkular APM
-deploy_hawkular_apm: false
 #Define if we should deploy Keycloak for SSO
 deploy_keycloak: false
+#Define if we should deploy Hawkular APM
+deploy_hawkular_apm: false
 
 # Project definition - You don't need to change anything here
 msa_projects:
