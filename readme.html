@@ -1149,7 +1149,7 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.0.8/zipkin-starter-minimal-0.0.8-kubernetes.yml
+<pre>$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.1.1/zipkin-starter-minimal-0.1.1-openshift.yml
 $ oc expose service zipkin-query</pre>
 </div>
 </div>
@@ -1385,10 +1385,10 @@ The synchronization between the ConfigMap and the mounted volume takes some time
 <div class="content">
 <pre>$ cd /api-gateway
 
-$ vim src/main/java/com/redhat/developers/msa/api_gateway/ApiGatewayController.java
+$ vim src/main/java/com/redhat/developers/msa/api_gateway/CamelRestEndpoints.java
 
-# replace .map((feign) -&gt; feign.invokeService(serverSpan))
-# by      .map((feign) -&gt; "UPDATED - " + feign.invokeService(serverSpan))</pre>
+# replace .transform().body(List.class, list -&gt; list)
+# by      .transform().body(List.class, list -&gt; list.stream().map(res -&gt; "UPDATED - " + res).collect(java.util.stream.Collectors.toList()))</pre>
 </div>
 </div>
 <div class="ulist">
