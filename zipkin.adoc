@@ -26,7 +26,7 @@ image::images/zipkin.png[]
 Execute:
 
 ----
-$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.0.8/zipkin-starter-minimal-0.0.8-kubernetes.yml 
+$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.1.1/zipkin-starter-minimal-0.1.1-openshift.yml
 $ oc expose service zipkin-query
 ----
 
