@@ -597,7 +597,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_test_the_hystrix_dashboard">Test the hystrix-dashboard</a></li>
 </ul>
 </li>
-<li><a href="#_deploy_kubernetes_zipkin">Deploy Kubernetes ZipKin</a>
+<li><a href="#_deploy_kubernetes_zipkin">Deploy Kubernetes Zipkin</a>
 <ul class="sectlevel3">
 <li><a href="#_deploy_using_oc_cli_2">Deploy using oc CLI</a></li>
 <li><a href="#_enable_the_zipkin_dashboard_in_the_frontend">Enable the ZipKin Dashboard in the Frontend</a></li>
@@ -1130,9 +1130,9 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine<
 </div>
 </div>
 <div class="sect2">
-<h3 id="_deploy_kubernetes_zipkin">Deploy Kubernetes ZipKin</h3>
+<h3 id="_deploy_kubernetes_zipkin">Deploy Kubernetes Zipkin</h3>
 <div class="paragraph">
-<p><a href="https://github.com/fabric8io/kubernetes-zipkin">Kubernetes Zipkin</a> provides all the required resources to start the required <a href="http://zipkin.io/">ZipKin</a> components in <a href="http://kubernetes.io/">Kubernetes</a> to trace your microservices.</p>
+<p><a href="https://github.com/fabric8io/kubernetes-zipkin">Kubernetes Zipkin</a> provides all the required resources to start the required <a href="http://zipkin.io/">Zipkin</a> components in <a href="http://kubernetes.io/">Kubernetes</a> to trace your microservices.</p>
 </div>
 <div class="paragraph">
 <p>Zipkin is a distributed tracing system. It helps gather timing data needed to troubleshoot latency problems in microservice architectures.</p>
@@ -1149,8 +1149,8 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.1.1/zipkin-starter-minimal-0.1.1-openshift.yml
-$ oc expose service zipkin-query</pre>
+<pre>$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.1.9/zipkin-starter-minimal-0.1.9-openshift.yml
+$ oc volume dc/zipkin-mysql --add --overwrite --name=mysql-data --type=emptyDir --claim-name=mysql-data</pre>
 </div>
 </div>
 </div>
@@ -1168,7 +1168,7 @@ $ oc expose service zipkin-query</pre>
 <div class="sect3">
 <h4 id="_test_the_zipkin_console">Test the Zipkin console</h4>
 <div class="paragraph">
-<p>Access: <a href="http://zipkin-query-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/" class="bare">http://zipkin-query-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/</a></p>
+<p>Access: <a href="http://zipkin-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/" class="bare">http://zipkin-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/</a></p>
 </div>
 </div>
 </div>
