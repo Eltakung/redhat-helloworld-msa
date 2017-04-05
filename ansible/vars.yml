@@ -46,7 +46,7 @@ msa_projects:
   - name: frontend
     project: node
     hystrix: false
-    probe: False
+    probe: http://:8080/
     jolokia: false #This project doesn't support Jolokia
     sso_support: true
   - name: bonjour
