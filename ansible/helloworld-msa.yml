@@ -15,6 +15,10 @@
         - openshift
         - admin
 
+    - name: Adjust SCC
+      shell: "oc patch scc restricted -p '{\"runAsUser\":{\"type\":\"RunAsAny\"}}'"
+      when: adjust_scc
+
     - name: Create Workdir
       file:
         path: "{{ workdir }}"

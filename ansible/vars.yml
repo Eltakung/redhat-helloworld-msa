@@ -14,6 +14,8 @@ admin_username: admin
 admin_password: admin
 # Customize the domain of the project
 domain: app.10.1.2.2.nip.io
+# If your application uses an special SCC, uncomment the following line to adjust the SCC
+adjust_scc: true
 # Define the name of the OpenShift project
 project_name: helloworld-msa
 
@@ -44,7 +46,7 @@ msa_projects:
   - name: frontend
     project: node
     hystrix: false
-    probe: http://:8080/
+    probe: False
     jolokia: false #This project doesn't support Jolokia
     sso_support: true
   - name: bonjour
