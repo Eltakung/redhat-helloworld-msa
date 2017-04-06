@@ -134,7 +134,7 @@
         - hystrix
 
     - name: Install Kubernetes Zipkin
-      shell: "oc env dc/frontend ENABLE_ZIPKIN=true; oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.1.1/zipkin-starter-minimal-0.1.1-openshift.yml && oc expose service zipkin-query --name zipkin --hostname=zipkin-{{ project_name }}.{{ domain }} --port 9411"
+      shell: "oc env dc/frontend ENABLE_ZIPKIN=true; oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/zipkin/master/zipkin-starter-minimal-0.1.9-openshift.yml && oc expose service zipkin --name zipkin-frontend-msa --hostname=zipkin-{{ project_name }}.{{ domain }} --port 9411"
       when: "{{ deploy_zipkin }}"
       register: command_result
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"

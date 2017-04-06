@@ -1149,8 +1149,7 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc create -f http://repo1.maven.org/maven2/io/fabric8/zipkin/zipkin-starter-minimal/0.1.9/zipkin-starter-minimal-0.1.9-openshift.yml
-$ oc volume dc/zipkin-mysql --add --overwrite --name=mysql-data --type=emptyDir --claim-name=mysql-data</pre>
+<pre>$ oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/zipkin/master/zipkin-starter-minimal-0.1.9-openshift.yml</pre>
 </div>
 </div>
 </div>
