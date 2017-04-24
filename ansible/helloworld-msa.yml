@@ -134,7 +134,7 @@
         - hystrix
 
     - name: Install Jeager
-      shell: "oc env dc -l app JAEGER_SERVER_URL=jaeger-all-in-one; oc process -f jaeger-all-in-one-openshift-template.yml | oc create -f - && oc expose service jaeger-all-in-one --name jaeger-msa-frontend --hostname=jaeger-{{ project_name }}.{{ domain }}"
+      shell: "oc process -f jaeger-all-in-one-openshift-template.yml | oc create -f - && oc expose service jaeger-all-in-one --name jaeger-msa-frontend --hostname=jaeger-{{ project_name }}.{{ domain }} && oc env dc -l app JAEGER_SERVER_URL=jaeger-all-in-one"
       when: "{{ deploy_jaeger }}"
       register: command_result
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
