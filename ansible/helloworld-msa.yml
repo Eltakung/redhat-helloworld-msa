@@ -133,15 +133,9 @@
         - openshift
         - hystrix
 
-<<<<<<< 79ab05c38f3bbe1d02660ea3aab257aee32e1cda
-    - name: Install Kubernetes Zipkin
-      shell: "oc env dc/frontend ENABLE_ZIPKIN=true; oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/zipkin/master/zipkin-starter-minimal-0.1.9-openshift.yml && oc expose service zipkin --name zipkin-frontend-msa --hostname=zipkin-{{ project_name }}.{{ domain }} --port 9411"
-      when: "{{ deploy_zipkin }}"
-=======
     - name: Install Jeager
       shell: "oc env dc -l app JAEGER_SERVER_URL=jaeger-all-in-one; oc process -f jaeger-all-in-one-openshift-template.yml | oc create -f - && oc expose service jaeger-all-in-one --name jaeger-msa-frontend --hostname=jaeger-{{ project_name }}.{{ domain }}"
       when: "{{ deploy_jaeger }}"
->>>>>>> jaeger tracing
       register: command_result
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
       changed_when: "'exists' not in command_result.stderr"
