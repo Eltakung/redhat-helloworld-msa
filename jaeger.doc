@@ -13,30 +13,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-### Deploy Kubernetes Zipkin
+### Deploy Jaeger
 
-https://github.com/fabric8io/kubernetes-zipkin[Kubernetes Zipkin] provides all the required resources to start the required http://zipkin.io/[Zipkin] components in http://kubernetes.io/[Kubernetes] to trace your microservices.
+https://github.com/uber/jaeger[jaeger] provides all the required resources to start the required http://uber.github.io/jaeger/[Jaeger] components to trace your microservices.
 
-Zipkin is a distributed tracing system. It helps gather timing data needed to troubleshoot latency problems in microservice architectures.
+Jaeger is a distributed tracing system. It helps gather timing data needed to troubleshoot latency problems in microservice architectures.
 
-image::images/zipkin.png[]
+image::images/jaeger.png[]
 
 #### Deploy using oc CLI
 
 Execute:
 
 ----
+<<<<<<< 79ab05c38f3bbe1d02660ea3aab257aee32e1cda:zipkin.adoc
 $ oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/zipkin/master/zipkin-starter-minimal-0.1.9-openshift.yml
+=======
+$ oc process -f ansible/jaeger-all-in-one-openshift-template.yml | oc create -f
+$ oc expose service jaeger-all-in-one --name jaeger-msa-frontend --hostname=jaeger-helloworld-msa.<domain>"
+>>>>>>> jaeger tracing:jaeger.doc
 ----
 
-#### Enable the ZipKin Dashboard in the Frontend
+#### Enable the Jaeger Dashboard in the Frontend
 
 Execute:
 ----
-$ oc env dc/frontend ENABLE_ZIPKIN=true
+$ oc env dc/frontend JAEGER_SERVER_URL=true
 ----
 
-#### Test the Zipkin console
+#### Test the Jaeger console
 
-Access: http://zipkin-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/
+Access: http://jaeger-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/
 
