@@ -28,14 +28,14 @@ Execute:
 ----
 $ oc process -f ansible/jaeger-all-in-one-openshift-template.yml | oc create -f
 $ oc expose service jaeger-all-in-one --name jaeger-msa-frontend --hostname=jaeger-helloworld-msa.<domain>" # link for MSA's frontend
-$ oc env dc -l app JAEGER_SERVER_URL=jaeger-all-in-one  # redeploy all services with tracing
+$ oc env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one  # redeploy all services with tracing
 ----
 
 #### Enable the Jaeger Dashboard in the Frontend
 
 Execute:
 ----
-$ oc env dc/frontend JAEGER_SERVER_URL=true
+$ oc env dc/frontend JAEGER_SERVER_HOSTNAME=true
 ----
 
 #### Test the Jaeger console
