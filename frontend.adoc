@@ -32,6 +32,24 @@ $ oc new-app frontend -l app=frontend
 $ oc expose service frontend
 ----
 
+
+##### (Optional) Enable Readiness probe
+
+----
+$ oc set probe dc/frontend --readiness --get-url=http://:8080/
+----
+
+
+##### (Optional) If you are not using CDK 2.x you will need to specify the domain
+
+----
+$ oc env dc/frontend OS_SUBDOMAIN=<DOMAIN>
+
+#Example: OS_SUBDOMAIN=192.168.64.11.nip.io
+$ oc env dc/frontend OS_SUBDOMAIN=192.168.64.11.nip.io
+----
+
+
 ////
 
 ### Option 2: Deploy project using NodeJS builder template/imagestream

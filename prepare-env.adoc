@@ -59,10 +59,10 @@ $ vagrant up
 Open Openshift console:  https://10.1.2.2:8443/console/ +
 (Accept the certificate and proceed)
 
-Log in Openshift +
+Log in Openshift
 Use **openshift-dev/devel** as your credentials
 
-### (Option 2) Use "oc cluster up" (OpenShift Container Platform 3.3)
+### (Option 2) Use "oc cluster up" (OpenShift Container Platform 3.5)
 
 This option only needs a link:https://github.com/docker/machine/releases[docker-machine] installed.
 

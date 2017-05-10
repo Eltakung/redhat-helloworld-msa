@@ -15,9 +15,9 @@
 
 ### Deploy Jaeger
 
-https://github.com/uber/jaeger[jaeger] provides all the required resources to start the required http://uber.github.io/jaeger/[Jaeger] components to trace your microservices.
+http://uber.github.io/jaeger/[Jaeger] is a distributed tracing system. It helps gather timing data needed to troubleshoot latency problems in microservice architectures.
 
-Jaeger is a distributed tracing system. It helps gather timing data needed to troubleshoot latency problems in microservice architectures.
+The https://github.com/uber/jaeger[jaeger project] provides all the required resources to start the required Jaeger components to trace your microservices.
 
 image::images/jaeger.png[]
 
@@ -26,8 +26,7 @@ image::images/jaeger.png[]
 Execute:
 
 ----
-$ oc process -f ansible/jaeger-all-in-one-openshift-template.yml | oc create -f
-$ oc expose service jaeger-all-in-one --name jaeger-msa-frontend --hostname=jaeger-helloworld-msa.<domain>" # link for MSA's frontend
+$ oc process -f https://raw.githubusercontent.com/jaegertracing/jaeger-openshift/0.1.1/all-in-one/jaeger-all-in-one-template.yml | oc create -f -
 $ oc env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one  # redeploy all services with tracing
 ----
 
@@ -35,7 +34,7 @@ $ oc env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one  # redeploy all serv
 
 Execute:
 ----
-$ oc env dc/frontend JAEGER_SERVER_HOSTNAME=true
+$ oc env dc/frontend ENABLE_JAEGER=true
 ----
 
 #### Test the Jaeger console

@@ -67,7 +67,7 @@ include::frontend.adoc[]
 
 include::kubeflix.adoc[]
 
-include::zipkin.adoc[]
+include::jaeger.adoc[]
 
 include::sso.adoc[]
 
@@ -76,8 +76,6 @@ include::config.adoc[]
 include::deployments.adoc[]
 
 include::cicd.adoc[]
-
-include::hawkular-apm.adoc[]
 
 include::troubleshooting.adoc[]
 
