@@ -46,13 +46,28 @@ $ oc expose svc/keycloak
 $ oc set probe dc/keycloak --readiness --get-url=http://:8080/auth
 ----
 
+##### Specify the OpenShift domain
+
+----
+$ oc env dc/keycloak OS_SUBDOMAIN=<OPENSHIFT-DOMAIN>
+
+#Using CDK3
+$ oc env dc/keycloak OS_SUBDOMAIN=$(minishift ip).nip.io
+
+#Example: OS_SUBDOMAIN=192.168.64.11.nip.io
+$ oc env dc/keycloak OS_SUBDOMAIN=192.168.64.11.nip.io
+----
+
 #### Tell microservices where to find the Keycloak server
 
 ----
 $ oc project helloworld-msa
-$ oc env dc/hola     KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.rhel-cdk.10.1.2.2.xip.io/auth
-$ oc env dc/aloha    KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.rhel-cdk.10.1.2.2.xip.io/auth
-$ oc env dc/ola      KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.rhel-cdk.10.1.2.2.xip.io/auth
-$ oc env dc/bonjour  KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.rhel-cdk.10.1.2.2.xip.io/auth
-$ oc env dc/frontend ENABLE_SSO=true KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.rhel-cdk.10.1.2.2.xip.io/auth 
+
+# Using CDK3
+$ oc env dc KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.`minishift ip`.nip.io/auth -l app
+
+# Example: OS_SUBDOMAIN=192.168.64.11.nip.io
+$ oc env dc KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.192.168.64.11.nip.io/auth -l app
+
+$ oc env dc/frontend ENABLE_SSO=true 
 ----

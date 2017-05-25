@@ -1,8 +1,8 @@
 ---
 - name: Verify if variables are set
   fail:
-    msg: "Target directory is not defined. Please edit vars.yml"
-  when: workdir is undefined
+    msg: "[Target directory] and/or [OpenShift host] is not defined. Please edit vars.yml"
+  when: (workdir is undefined) or (openshift is undefined)
 
 - name: Login in OpenShift as administrator
   shell: "oc login --insecure-skip-tls-verify=true -u {{ admin_username }} -p {{ admin_password }} {{ openshift }}"

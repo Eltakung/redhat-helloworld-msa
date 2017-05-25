@@ -15,65 +15,31 @@
 
 ## Prepare Environment
 
-### Install Openshift Client
-
-You can download and unpack the CLI from the link:https://github.com/openshift/origin/releases/tag/v1.3.0[Github] for use on Linux, MacOSX, and Windows clients. 
+If you don't have an OpenShift instance running, we strongly suggest that you use CDK 3.x
 
 
-### (Option 1) Use CDK (OpenShift Container Platform 3.2)
+### (Option 1) Use CDK/minishift (OpenShift Container Platform 3.5)
 
-- Install a virtualization provider (hypervisor) for your system such as VirtualBox, VMware, or KVM/libvirt.
-- Install Vagrant, from link:https://www.vagrantup.com/[vagrantup.com], or from your operating system’s packages.
-- From link:http://developers.redhat.com/products/cdk/download/[Red Hat CDK Download page] download Red Hat Container Tools (cdk-2.2.0.zip) and the RHEL 7.2 Vagrant box that matches your virtualization provider: VirtualBox, VMare, or KVM/libvirt.
-- Unzip `cdk-2.2.0.zip` into a directory of your choosing.
-
-Install the required vagrant plugins:
-
-----
-$ vagrant plugin install vagrant-service-manager vagrant-registration vagrant-sshfs
-----
-
-Add the RHEL 7.2 Vagrant box to Vagrant with the command:
-
-----
-$ vagrant box add --name cdkv2 <path to downloaded .box file>
-----
-
-Update CDK Memory and CPU
-
-----
-$ cd <CDK-PATH>/components/rhel/rhel-ose
-$ export VM_MEMORY=6000
-----
-
-Execute Vagrant:
-
-----
-$ export SUB_USERNAME=<your-subscription-username>
-$ export SUB_PASSWORD=<your-subscription-password>
-$ vagrant up
-----
-
-#### Access Openshift console
-
-Open Openshift console:  https://10.1.2.2:8443/console/ +
-(Accept the certificate and proceed)
-
-Log in Openshift
-Use **openshift-dev/devel** as your credentials
-
-### (Option 2) Use "oc cluster up" (OpenShift Container Platform 3.5)
-
-This option only needs a link:https://github.com/docker/machine/releases[docker-machine] installed.
+Download CDK 3.x from link:https://developers.redhat.com/products/cdk/download/[Red Hat Developers website].
 
 Execute:
 
 ----
-$ oc cluster up --create-machine=true   \
-                --use-existing-config   \
-                --host-data-dir=/mydata \
-                --image=registry.access.redhat.com/openshift3/ose \
-                --version=latest
+$ export MINISHIFT_USERNAME=<your RHD username>
+$ export MINISHIFT_PASSWORD=<your RHD password>
+$ minishift setup-cdk
+$ minishift config set memory 6000
+$ minishift start
+$ eval $(minishift oc-env)
+----
+
+
+### (Option 2) Use "oc cluster up" (OpenShift Origin 3.5)
+
+Execute:
+
+----
+$ oc cluster up 
 ----
 
 #### Access Openshift console
@@ -82,18 +48,5 @@ Open Openshift console:  https://<openshift_ip>:8443/console/ +
 (Accept the certificate and proceed)
 
 Log in Openshift +
-Use **openshift-dev/devel** as your credentials
+Use **developer/developer** as your credentials
 
-////
-
-### (Option 2) Use minishift
-
-Download link:https://github.com/jimmidyson/minishift[minishift] and install its link:https://github.com/jimmidyson/minishift#installation[requirements].
-
-To start openshift, execute:
-
-----
-$ minishift start --cpus=2 --deploy-router=true --memory=6000
-----
-
-////

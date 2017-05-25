@@ -1,20 +1,17 @@
 ---
 # UNCOMENT define the Absolute path where you want to checkout the sourcecode
 #workdir: "{{ ansible_user_dir }}/helloworld-msa-src"
-# Define the OpenShift name/ip:port address
-openshift: 10.1.2.2:8443
-# Your OpenShift credentials
-username: openshift-dev
-password: devel
-# Administrative credentials
-# To login as system:admin and no password
-#admin_username: system:admin
-#admin_password: "''"
-admin_username: admin
-admin_password: admin
+# UNCOMENT Define the OpenShift host:port address
+#openshift: 192.168.64.11:8443
 # Customize the domain of the project
-domain: app.10.1.2.2.nip.io
-# If your application uses an special SCC, uncomment the following line to adjust the SCC
+domain: app.192.168.64.11.nip.io
+# Your OpenShift credentials
+username: developer
+password: developer
+# Administrative credentials
+admin_username: system:admin
+admin_password: "''"
+# Uncomment the following line to adjust the SCC (not using CDK3/minishift)
 adjust_scc: true
 # Define the name of the OpenShift project
 project_name: helloworld-msa

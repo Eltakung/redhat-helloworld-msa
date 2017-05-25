@@ -21,7 +21,7 @@ IMPORTANT: You must use the exact project name since it will affect the generate
 
 Or run:
 ----
-$ oc login <Openshift IP>:8443 -u openshift-dev -p devel
+$ oc login <Openshift IP>:8443 -u developer -p developer
 $ oc new-project helloworld-msa
 ----
 

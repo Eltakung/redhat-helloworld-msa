@@ -31,7 +31,7 @@ $ oc new-app api-gateway -l app=api-gateway,hystrix.enabled=true
 $ oc expose service api-gateway
 ----
 
-##### (Optional) Enable Jolokia and Readiness probe
+##### Enable Jolokia and Readiness probe
 
 ----
 $ oc env dc/api-gateway AB_ENABLED=jolokia; oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
@@ -40,18 +40,6 @@ $ oc set probe dc/api-gateway --readiness --get-url=http://:8080/health
 
 #### Test the endpoint
 
-Access: http://api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api
-
-////
-
-#### Option 1: Deploy using Fabric8 plugin
-
-Execute:
-
 ----
-$ git clone https://github.com/redhat-helloworld-msa/api-gateway
-$ cd api-gateway/
-$ mvn clean package docker:build fabric8:json fabric8:apply
+curl http://api-gateway-helloworld-msa.`minishift ip`.nip.io/api/gateway
 ----
-
-////

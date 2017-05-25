@@ -25,19 +25,3 @@ $ oc env dc/frontend OS_SUBDOMAIN=app.redhatmsa.com
 # If you deployed SSO/keycloak
 $ oc env dc/keycloak --namespace=sso OS_SUBDOMAIN=app.redhatmsa.com
 ----
-
-=== DNS issues
-
-CDK uses http://xip.io that make the following address 10.0.0.1.xip.io resolves to 10.0.0.1
-
-Sometimes xip.io presents some issues or you don't have network access.
-
-To solve this problem, add the following line to your `/etc/hosts` file. For Windows, this file is located in `C:\Windows\System32\Drivers\etc\hosts`
-
-----
-10.1.2.2        hello-helloworld-msa.rhel-cdk.10.1.2.2.xip.io hola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io aloha-helloworld-msa.rhel-cdk.10.1.2.2.xip.io namaste-helloworld-msa.rhel-cdk.10.1.2.2.xip.io ola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io hystrix-dashboard-helloworld-msa.rhel-cdk.10.1.2.2.xip.io frontend-helloworld-msa.rhel-cdk.10.1.2.2.xip.io zipkin-query-helloworld-msa.rhel-cdk.10.1.2.2.xip.io jenkins-ci.rhel-cdk.10.1.2.2.xip.io aloha-helloworld-msa-qa.rhel-cdk.10.1.2.2.xip.io
-
-
-# If other IP and other host
-1.2.3.4         openshift.redhatmsa.com aloha-helloworld-msa.app.redhatmsa.com bonjour-helloworld-msa.app.redhatmsa.com bonjour-helloworld-msa.app.redhatmsa.com frontend-helloworld-msa.app.redhatmsa.com hola-helloworld-msa.app.redhatmsa.com hystrix-dashboard-helloworld-msa.app.redhatmsa.com ola-helloworld-msa.app.redhatmsa.com zipkin-query-helloworld-msa.app.redhatmsa.com api-gateway-helloworld-msa.app.redhatmsa.com jenkins-ci.app.redhatmsa.com aloha-helloworld-msa-qa.app.redhatmsa.com
-----

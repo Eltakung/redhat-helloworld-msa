@@ -43,21 +43,11 @@ include::ansible.adoc[]
 
 include::create-project.adoc[]
 
-//// 
-REMOVED EAP
-include::hello.adoc[]
-////
-
 include::hola.adoc[]
 
 include::aloha.adoc[]
 
 include::ola.adoc[]
-
-//// 
-REMOVED Dropwizard
-include::namaste.adoc[]
-////
 
 include::bonjour.adoc[]
 

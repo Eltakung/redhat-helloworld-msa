@@ -537,15 +537,10 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel1">
 <li><a href="#_prepare_environment">Prepare Environment</a>
 <ul class="sectlevel2">
-<li><a href="#_install_openshift_client">Install Openshift Client</a></li>
-<li><a href="#__option_1_use_cdk_openshift_container_platform_3_2">(Option 1) Use CDK (OpenShift Container Platform 3.2)</a>
+<li><a href="#__option_1_use_cdk_minishift_openshift_container_platform_3_5">(Option 1) Use CDK/minishift (OpenShift Container Platform 3.5)</a></li>
+<li><a href="#__option_2_use_oc_cluster_up_openshift_origin_3_5">(Option 2) Use "oc cluster up" (OpenShift Origin 3.5)</a>
 <ul class="sectlevel3">
 <li><a href="#_access_openshift_console">Access Openshift console</a></li>
-</ul>
-</li>
-<li><a href="#__option_2_use_oc_cluster_up_openshift_container_platform_3_3">(Option 2) Use "oc cluster up" (OpenShift Container Platform 3.3)</a>
-<ul class="sectlevel3">
-<li><a href="#_access_openshift_console_2">Access Openshift console</a></li>
 </ul>
 </li>
 </ul>
@@ -650,7 +645,6 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_troubleshooting">Troubleshooting</a>
 <ul class="sectlevel2">
 <li><a href="#_running_in_the_cloud">Running in the cloud</a></li>
-<li><a href="#_dns_issues">DNS issues</a></li>
 </ul>
 </li>
 </ul>
@@ -660,103 +654,47 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="_prepare_environment">Prepare Environment</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_install_openshift_client">Install Openshift Client</h3>
 <div class="paragraph">
-<p>You can download and unpack the CLI from the <a href="https://github.com/openshift/origin/releases/tag/v1.3.0">Github</a> for use on Linux, MacOSX, and Windows clients.</p>
-</div>
+<p>If you don&#8217;t have an OpenShift instance running, we strongly suggest that you use CDK 3.x</p>
 </div>
 <div class="sect2">
-<h3 id="__option_1_use_cdk_openshift_container_platform_3_2">(Option 1) Use CDK (OpenShift Container Platform 3.2)</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Install a virtualization provider (hypervisor) for your system such as VirtualBox, VMware, or KVM/libvirt.</p>
-</li>
-<li>
-<p>Install Vagrant, from <a href="https://www.vagrantup.com/">vagrantup.com</a>, or from your operating system’s packages.</p>
-</li>
-<li>
-<p>From <a href="http://developers.redhat.com/products/cdk/download/">Red Hat CDK Download page</a> download Red Hat Container Tools (cdk-2.2.0.zip) and the RHEL 7.2 Vagrant box that matches your virtualization provider: VirtualBox, VMare, or KVM/libvirt.</p>
-</li>
-<li>
-<p>Unzip <code>cdk-2.2.0.zip</code> into a directory of your choosing.</p>
-</li>
-</ul>
-</div>
+<h3 id="__option_1_use_cdk_minishift_openshift_container_platform_3_5">(Option 1) Use CDK/minishift (OpenShift Container Platform 3.5)</h3>
 <div class="paragraph">
-<p>Install the required vagrant plugins:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ vagrant plugin install vagrant-service-manager vagrant-registration vagrant-sshfs</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Add the RHEL 7.2 Vagrant box to Vagrant with the command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ vagrant box add --name cdkv2 &lt;path to downloaded .box file&gt;</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Update CDK Memory and CPU</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ cd &lt;CDK-PATH&gt;/components/rhel/rhel-ose
-$ export VM_MEMORY=6000</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Execute Vagrant:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ export SUB_USERNAME=&lt;your-subscription-username&gt;
-$ export SUB_PASSWORD=&lt;your-subscription-password&gt;
-$ vagrant up</pre>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_access_openshift_console">Access Openshift console</h4>
-<div class="paragraph">
-<p>Open Openshift console:  <a href="https://10.1.2.2:8443/console/" class="bare">https://10.1.2.2:8443/console/</a><br>
-(Accept the certificate and proceed)</p>
-</div>
-<div class="paragraph">
-<p>Log in Openshift<br>
-Use <strong>openshift-dev/devel</strong> as your credentials</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="__option_2_use_oc_cluster_up_openshift_container_platform_3_3">(Option 2) Use "oc cluster up" (OpenShift Container Platform 3.3)</h3>
-<div class="paragraph">
-<p>This option only needs a <a href="https://github.com/docker/machine/releases">docker-machine</a> installed.</p>
+<p>Download CDK 3.x from <a href="https://developers.redhat.com/products/cdk/download/">Red Hat Developers website</a>.</p>
 </div>
 <div class="paragraph">
 <p>Execute:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc cluster up --create-machine=true   \
-                --use-existing-config   \
-                --host-data-dir=/mydata \
-                --image=registry.access.redhat.com/openshift3/ose \
-                --version=latest</pre>
+<pre>$ export MINISHIFT_USERNAME=&lt;your RHD username&gt;
+$ export MINISHIFT_PASSWORD=&lt;your RHD password&gt;
+$ minishift setup-cdk
+$ minishift config set memory 6000
+$ minishift start
+$ eval $(minishift oc-env)</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="__option_2_use_oc_cluster_up_openshift_origin_3_5">(Option 2) Use "oc cluster up" (OpenShift Origin 3.5)</h3>
+<div class="paragraph">
+<p>Execute:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc cluster up</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_access_openshift_console_2">Access Openshift console</h4>
+<h4 id="_access_openshift_console">Access Openshift console</h4>
 <div class="paragraph">
 <p>Open Openshift console:  <a href="https://&lt;openshift_ip&gt;:8443/console/" class="bare">https://&lt;openshift_ip&gt;:8443/console/</a><br>
 (Accept the certificate and proceed)</p>
 </div>
 <div class="paragraph">
 <p>Log in Openshift<br>
-Use <strong>openshift-dev/devel</strong> as your credentials</p>
+Use <strong>developer/developer</strong> as your credentials</p>
 </div>
 </div>
 </div>
@@ -856,7 +794,7 @@ You must use the exact project name since it will affect the generate endpoint&#
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc login &lt;Openshift IP&gt;:8443 -u openshift-dev -p devel
+<pre>$ oc login &lt;Openshift IP&gt;:8443 -u developer -p developer
 $ oc new-project helloworld-msa</pre>
 </div>
 </div>
@@ -878,7 +816,7 @@ $ oc expose service hola</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="__optional_enable_readiness_probe">(Optional) Enable Readiness probe</h5>
+<h5 id="_enable_readiness_probe">Enable Readiness probe</h5>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc set probe dc/hola --readiness --get-url=http://:8080/api/health</pre>
@@ -888,8 +826,10 @@ $ oc expose service hola</pre>
 </div>
 <div class="sect3">
 <h4 id="_test_the_service_endpoint">Test the service endpoint</h4>
-<div class="paragraph">
-<p>Access: <a href="http://hola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/hola" class="bare">http://hola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/hola</a></p>
+<div class="listingblock">
+<div class="content">
+<pre>curl http://hola-helloworld-msa.`minishift ip`.nip.io/api/hola</pre>
+</div>
 </div>
 </div>
 </div>
@@ -911,7 +851,7 @@ $ oc expose service aloha</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="__optional_enable_jolokia_and_readiness_probe">(Optional) Enable Jolokia and Readiness probe</h5>
+<h5 id="_enable_jolokia_and_readiness_probe">Enable Jolokia and Readiness probe</h5>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc env dc/aloha AB_ENABLED=jolokia; oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
@@ -922,8 +862,10 @@ $ oc set probe dc/aloha --readiness --get-url=http://:8080/api/health</pre>
 </div>
 <div class="sect3">
 <h4 id="_test_the_service_endpoint_2">Test the service endpoint</h4>
-<div class="paragraph">
-<p>Access: <a href="http://aloha-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/aloha" class="bare">http://aloha-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/aloha</a></p>
+<div class="listingblock">
+<div class="content">
+<pre>curl http://aloha-helloworld-msa.`minishift ip`.nip.io/api/aloha</pre>
+</div>
 </div>
 </div>
 </div>
@@ -945,7 +887,7 @@ $ oc expose service ola</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="__optional_enable_jolokia_and_readiness_probe_2">(Optional) Enable Jolokia and Readiness probe</h5>
+<h5 id="_enable_jolokia_and_readiness_probe_2">Enable Jolokia and Readiness probe</h5>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc env dc/ola AB_ENABLED=jolokia; oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
@@ -956,8 +898,10 @@ $ oc set probe dc/ola --readiness --get-url=http://:8080/api/health</pre>
 </div>
 <div class="sect3">
 <h4 id="_test_the_service_endpoint_3">Test the service endpoint</h4>
-<div class="paragraph">
-<p>Access: <a href="http://ola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/ola" class="bare">http://ola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/ola</a></p>
+<div class="listingblock">
+<div class="content">
+<pre>curl http://ola-helloworld-msa.`minishift ip`.nip.io/api/ola</pre>
+</div>
 </div>
 </div>
 </div>
@@ -982,7 +926,7 @@ $ oc expose service bonjour</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="__optional_enable_readiness_probe_2">(Optional) Enable Readiness probe</h5>
+<h5 id="_enable_readiness_probe_2">Enable Readiness probe</h5>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc set probe dc/bonjour --readiness --get-url=http://:8080/api/health</pre>
@@ -992,8 +936,10 @@ $ oc expose service bonjour</pre>
 </div>
 <div class="sect3">
 <h4 id="_test_the_service_endpoint_4">Test the service endpoint</h4>
-<div class="paragraph">
-<p>Access: <a href="http://bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/bonjour" class="bare">http://bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/bonjour</a></p>
+<div class="listingblock">
+<div class="content">
+<pre>curl http://bonjour-helloworld-msa.`minishift ip`.nip.io/api/bonjour</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1018,7 +964,7 @@ $ oc expose service api-gateway</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="__optional_enable_jolokia_and_readiness_probe_3">(Optional) Enable Jolokia and Readiness probe</h5>
+<h5 id="_enable_jolokia_and_readiness_probe_3">Enable Jolokia and Readiness probe</h5>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc env dc/api-gateway AB_ENABLED=jolokia; oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
@@ -1029,8 +975,10 @@ $ oc set probe dc/api-gateway --readiness --get-url=http://:8080/health</pre>
 </div>
 <div class="sect3">
 <h4 id="_test_the_endpoint">Test the endpoint</h4>
-<div class="paragraph">
-<p>Access: <a href="http://api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api" class="bare">http://api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api</a></p>
+<div class="listingblock">
+<div class="content">
+<pre>curl http://api-gateway-helloworld-msa.`minishift ip`.nip.io/api/gateway</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1060,21 +1008,24 @@ $ oc expose service frontend</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="__optional_enable_readiness_probe_3">(Optional) Enable Readiness probe</h5>
+<h5 id="_specify_the_openshift_domain">Specify the OpenShift domain</h5>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc set probe dc/frontend --readiness --get-url=http://:8080/</pre>
+<pre>$ oc env dc/frontend OS_SUBDOMAIN=&lt;OPENSHIFT-DOMAIN&gt;
+
+# Using CDK
+$ oc env dc/frontend OS_SUBDOMAIN=`minishift ip`.nip.io
+
+# Example: OS_SUBDOMAIN=192.168.64.11.nip.io
+$ oc env dc/frontend OS_SUBDOMAIN=192.168.64.11.nip.io</pre>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="__optional_if_you_are_not_using_cdk_2_x_you_will_need_to_specify_the_domain">(Optional) If you are not using CDK 2.x you will need to specify the domain</h5>
+<h5 id="__optional_enable_readiness_probe">(Optional) Enable Readiness probe</h5>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/frontend OS_SUBDOMAIN=&lt;DOMAIN&gt;
-
-#Example: OS_SUBDOMAIN=192.168.64.11.nip.io
-$ oc env dc/frontend OS_SUBDOMAIN=192.168.64.11.nip.io</pre>
+<pre>$ oc set probe dc/frontend --readiness --get-url=http://:8080/</pre>
 </div>
 </div>
 </div>
@@ -1082,7 +1033,7 @@ $ oc env dc/frontend OS_SUBDOMAIN=192.168.64.11.nip.io</pre>
 <div class="sect3">
 <h4 id="_test_the_service_endpoint_5">Test the service endpoint</h4>
 <div class="paragraph">
-<p>Access: <a href="http://frontend-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/" class="bare">http://frontend-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/</a></p>
+<p>Access: <a href="http://frontend-helloworld-msa.&lt;openshift-domain&gt;/" class="bare">http://frontend-helloworld-msa.&lt;openshift-domain&gt;/</a></p>
 </div>
 </div>
 </div>
@@ -1116,7 +1067,7 @@ $ oc env dc/frontend OS_SUBDOMAIN=192.168.64.11.nip.io</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>oc process -f http://central.maven.org/maven2/io/fabric8/kubeflix/packages/kubeflix/1.0.17/kubeflix-1.0.17-kubernetes.yml | oc create -f -
+<pre>$ oc process -f http://central.maven.org/maven2/io/fabric8/kubeflix/packages/kubeflix/1.0.17/kubeflix-1.0.17-kubernetes.yml | oc create -f -
 $ oc expose service hystrix-dashboard --port=8080
 $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine</pre>
 </div>
@@ -1136,7 +1087,7 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine<
 <div class="sect3">
 <h4 id="_test_the_hystrix_dashboard">Test the hystrix-dashboard</h4>
 <div class="paragraph">
-<p>Access: <a href="http://hystrix-dashboard-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/" class="bare">http://hystrix-dashboard-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/</a></p>
+<p>Access: <a href="http://hystrix-dashboard-helloworld-msa.&lt;openshift-domain&gt;/" class="bare">http://hystrix-dashboard-helloworld-msa.&lt;openshift-domain&gt;/</a></p>
 </div>
 </div>
 </div>
@@ -1179,7 +1130,7 @@ $ oc env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one  # redeploy all serv
 <div class="sect3">
 <h4 id="_test_the_jaeger_console">Test the Jaeger console</h4>
 <div class="paragraph">
-<p>Access: <a href="http://jaeger-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/" class="bare">http://jaeger-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/</a></p>
+<p>Access: <a href="http://jaeger-helloworld-msa.&lt;openshift-domain&gt;/" class="bare">http://jaeger-helloworld-msa.&lt;openshift-domain&gt;/</a></p>
 </div>
 </div>
 </div>
@@ -1220,10 +1171,24 @@ $ oc expose svc/keycloak</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="__optional_enable_readiness_probe_4">(Optional) Enable Readiness probe</h5>
+<h5 id="__optional_enable_readiness_probe_2">(Optional) Enable Readiness probe</h5>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc set probe dc/keycloak --readiness --get-url=http://:8080/auth</pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_specify_the_openshift_domain_2">Specify the OpenShift domain</h5>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc env dc/keycloak OS_SUBDOMAIN=&lt;OPENSHIFT-DOMAIN&gt;
+
+#Using CDK3
+$ oc env dc/keycloak OS_SUBDOMAIN=$(minishift ip).nip.io
+
+#Example: OS_SUBDOMAIN=192.168.64.11.nip.io
+$ oc env dc/keycloak OS_SUBDOMAIN=192.168.64.11.nip.io</pre>
 </div>
 </div>
 </div>
@@ -1233,11 +1198,14 @@ $ oc expose svc/keycloak</pre>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc project helloworld-msa
-$ oc env dc/hola     KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.rhel-cdk.10.1.2.2.xip.io/auth
-$ oc env dc/aloha    KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.rhel-cdk.10.1.2.2.xip.io/auth
-$ oc env dc/ola      KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.rhel-cdk.10.1.2.2.xip.io/auth
-$ oc env dc/bonjour  KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.rhel-cdk.10.1.2.2.xip.io/auth
-$ oc env dc/frontend ENABLE_SSO=true KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.rhel-cdk.10.1.2.2.xip.io/auth</pre>
+
+# Using CDK3
+$ oc env dc KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.`minishift ip`.nip.io/auth -l app
+
+# Example: OS_SUBDOMAIN=192.168.64.11.nip.io
+$ oc env dc KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.192.168.64.11.nip.io/auth -l app
+
+$ oc env dc/frontend ENABLE_SSO=true</pre>
 </div>
 </div>
 </div>
@@ -1483,7 +1451,7 @@ $ vim lib/api.js
 <div class="ulist">
 <ul>
 <li>
-<p>Create a <code>"new"</code> version of the application using a <strong>different name</strong>..</p>
+<p>Create a <code>"new"</code> version of the application using a <strong>different name</strong>.</p>
 </li>
 </ul>
 </div>
@@ -1617,10 +1585,10 @@ $ oc patch dc/bonjour-new -p '{"spec":{"template":{"metadata":{"labels":{"svc":"
 <pre>$ oc scale dc/bonjour --replicas=3
 
 # Simulate 10 new clients and note that 25% of the requests are made on bonjour-new.
-$ for i in {1..10}; do curl http://bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/bonjour ; echo ""; done;
+$ for i in {1..10}; do curl http://bonjour-helloworld-msa.`minishift ip`.nip.io/api/bonjour ; echo ""; done;
 
 # Simulate the same client
-$ curl -b cookies.txt -c cookies.txt  http://bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/bonjour
+$ curl -b cookies.txt -c cookies.txt  http://bonjour-helloworld-msa.$(minishift ip).nip.io/api/bonjour
 
 # To change the credentials, delete the cookies file
 $ rm cookies.txt</pre>
@@ -1779,33 +1747,12 @@ $ oc env dc/keycloak --namespace=sso OS_SUBDOMAIN=app.redhatmsa.com</pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_dns_issues">DNS issues</h3>
-<div class="paragraph">
-<p>CDK uses <a href="http://xip.io" class="bare">http://xip.io</a> that make the following address 10.0.0.1.xip.io resolves to 10.0.0.1</p>
-</div>
-<div class="paragraph">
-<p>Sometimes xip.io presents some issues or you don&#8217;t have network access.</p>
-</div>
-<div class="paragraph">
-<p>To solve this problem, add the following line to your <code>/etc/hosts</code> file. For Windows, this file is located in <code>C:\Windows\System32\Drivers\etc\hosts</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>10.1.2.2        hello-helloworld-msa.rhel-cdk.10.1.2.2.xip.io hola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io aloha-helloworld-msa.rhel-cdk.10.1.2.2.xip.io namaste-helloworld-msa.rhel-cdk.10.1.2.2.xip.io ola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io api-gateway-helloworld-msa.rhel-cdk.10.1.2.2.xip.io hystrix-dashboard-helloworld-msa.rhel-cdk.10.1.2.2.xip.io frontend-helloworld-msa.rhel-cdk.10.1.2.2.xip.io zipkin-query-helloworld-msa.rhel-cdk.10.1.2.2.xip.io jenkins-ci.rhel-cdk.10.1.2.2.xip.io aloha-helloworld-msa-qa.rhel-cdk.10.1.2.2.xip.io
-
-
-# If other IP and other host
-1.2.3.4         openshift.redhatmsa.com aloha-helloworld-msa.app.redhatmsa.com bonjour-helloworld-msa.app.redhatmsa.com bonjour-helloworld-msa.app.redhatmsa.com frontend-helloworld-msa.app.redhatmsa.com hola-helloworld-msa.app.redhatmsa.com hystrix-dashboard-helloworld-msa.app.redhatmsa.com ola-helloworld-msa.app.redhatmsa.com zipkin-query-helloworld-msa.app.redhatmsa.com api-gateway-helloworld-msa.app.redhatmsa.com jenkins-ci.app.redhatmsa.com aloha-helloworld-msa-qa.app.redhatmsa.com</pre>
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-05-09 18:10:24 EDT
+Last updated 2017-05-25 16:05:35 EDT
 </div>
 </div>
 </body>

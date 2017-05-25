@@ -28,7 +28,7 @@ $ oc new-app aloha -l app=aloha,hystrix.enabled=true
 $ oc expose service aloha
 ----
 
-##### (Optional) Enable Jolokia and Readiness probe
+##### Enable Jolokia and Readiness probe
 
 ----
 $ oc env dc/aloha AB_ENABLED=jolokia; oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
@@ -36,55 +36,9 @@ $ oc set probe dc/aloha --readiness --get-url=http://:8080/api/health
 ----
 
 
-////
-
-#### Option 2: Deploy using Fabric8 plugin
-
-Execute:
-
-----
-$ git clone https://github.com/redhat-helloworld-msa/aloha
-$ cd aloha/
-$ mvn clean package docker:build fabric8:json fabric8:apply
-----
-
-
-### Option 3: Deploy project using Vert.x builder template/imagestream
-
-----
-$ oc login 10.3.2.2:8443 (login with openshift-dev/devel credentials)
-$ oc project helloworld-msa
-$ oc create -f https://raw.githubusercontent.com/vert-x3/vertx-openshift-s2i/initial-work/vertx-s2i-all.json
-$ oc logs -f bc/vertx-s2i
-----
-
-#### Option 3.1 - Using oc CLI
-
-Execute:
-
-----
-$ oc new-app --name aloha vertx-s2i~https://github.com/redhat-helloworld-msa/aloha -l app=aloha,hystrix.enabled=true
-$ oc delete service aloha; oc expose dc aloha --port=8080
-$ oc expose service aloha
-$ oc logs -f bc/aloha
-----
-
-#### Option 3.2 - Using Openshift console
-
-- Click `"Add to Project"`
-- Select `"vertx-s2i:latest"` image 
-- Name: `aloha`
-- Git URL: https://github.com/redhat-helloworld-msa/aloha
-- Click on `"Show advanced build and deployment options"`
-- Change the **Target port** to **8080/TCP**
-- Add the label **hystrix.enabled** with the value **true**
-- Click on `"Create"`. And them click on `"Continue to overview"`
-- Wait for the build to complete. (You can click `"View log"` to follow the build logs)
-
-////
-
 #### Test the service endpoint
 
-Access: http://aloha-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/aloha
-
+----
+curl http://aloha-helloworld-msa.`minishift ip`.nip.io/api/aloha
+----
 

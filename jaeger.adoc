@@ -39,5 +39,5 @@ $ oc env dc/frontend ENABLE_JAEGER=true
 
 #### Test the Jaeger console
 
-Access: http://jaeger-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/
+Access: http://jaeger-helloworld-msa.<openshift-domain>/
 

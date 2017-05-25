@@ -28,58 +28,14 @@ $ oc new-app hola -l app=hola,hystrix.enabled=true
 $ oc expose service hola
 ----
 
-##### (Optional) Enable Readiness probe
+##### Enable Readiness probe
 
 ----
 $ oc set probe dc/hola --readiness --get-url=http://:8080/api/health
 ----
 
-////
-
-#### Option 2: Deploy using Fabric8 plugin
-
-Execute:
-
-----
-$ git clone https://github.com/redhat-helloworld-msa/hola
-$ cd hola/
-$ mvn clean package docker:build fabric8:json fabric8:apply
-----
-
-
-
-### Option 3: Deploy project using WildFly-Swarm builder template/imagestream
-
-----
-$ oc login 10.1.2.2:8443 (login with openshift-dev/devel credentials)
-$ oc project helloworld-msa
-$ oc create -f https://raw.githubusercontent.com/wildfly-swarm/sti-wildflyswarm/master/1.0/wildflyswarm-sti-all.json
-$ oc logs -f bc/wildflyswarm-10-centos7-build
-----
-
-#### Option 3.1 - Using oc CLI
-
-Execute:
-
-----
-$ oc new-app --name hola wildflyswarm-10-centos7~https://github.com/redhat-helloworld-msa/hola -l app=hola,hystrix.enabled=true
-$ oc expose service hola
-$ oc logs -f bc/hola
-----
-
-#### Option 3.2 - Using Openshift console
-
-- Click `"Add to Project"`
-- Select `"wildflyswarm-10-centos7"` image 
-- Name: `hola`
-- Git URL: https://github.com/redhat-helloworld-msa/hola
-- Click on `"Show advanced build and deployment options"`
-- Add the label **hystrix.enabled** with the value **true**
-- Click on `"Create"`. And them click on `"Continue to overview"`
-- Wait for the build to complete. (You can click `"View log"` to follow the build logs)
-
-////
-
 #### Test the service endpoint
 
-Access: http://hola-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/hola
+----
+curl http://hola-helloworld-msa.`minishift ip`.nip.io/api/hola
+----

@@ -30,39 +30,15 @@ $ oc new-app bonjour -l app=bonjour
 $ oc expose service bonjour
 ----
 
-##### (Optional) Enable Readiness probe
+##### Enable Readiness probe
 
 ----
 $ oc set probe dc/bonjour --readiness --get-url=http://:8080/api/health
 ----
 
-////
-
-### Option 2: Deploy project using NodeJS builder template/imagestream
-
-#### Option 2.1 - Using oc CLI
-
-Execute:
-
-----
-$ oc new-app --name bonjour nodejs~https://github.com/redhat-helloworld-msa/bonjour
-$ oc expose service bonjour
-$ oc logs -f bc/bonjour
-----
-
-####  Option 2.2 - Using Openshift console
-
-- Click `"Add to Project"`
-- Select `"nodejs:latest"` image 
-- Name: `bonjour`
-- Git URL: https://github.com/redhat-helloworld-msa/bonjour
-- Click on `"Create"`. And them click on `"Continue to overview"`
-- Wait for the build to complete. (You can click `"View log"` to follow the build logs)
-
-////
-
 #### Test the service endpoint
 
-Access: http://bonjour-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/api/bonjour
-
+----
+curl http://bonjour-helloworld-msa.`minishift ip`.nip.io/api/bonjour
+----
 

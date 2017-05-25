@@ -29,7 +29,7 @@ image::images/kubeflix.png[]
 Execute:
 
 ----
-oc process -f http://central.maven.org/maven2/io/fabric8/kubeflix/packages/kubeflix/1.0.17/kubeflix-1.0.17-kubernetes.yml | oc create -f -
+$ oc process -f http://central.maven.org/maven2/io/fabric8/kubeflix/packages/kubeflix/1.0.17/kubeflix-1.0.17-kubernetes.yml | oc create -f -
 $ oc expose service hystrix-dashboard --port=8080
 $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine
 ----
@@ -43,5 +43,5 @@ $ oc env dc/frontend ENABLE_HYSTRIX=true
 
 #### Test the hystrix-dashboard
 
-Access: http://hystrix-dashboard-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/
+Access: http://hystrix-dashboard-helloworld-msa.<openshift-domain>/
 

@@ -33,6 +33,18 @@ $ oc expose service frontend
 ----
 
 
+##### Specify the OpenShift domain
+
+----
+$ oc env dc/frontend OS_SUBDOMAIN=<OPENSHIFT-DOMAIN>
+
+# Using CDK
+$ oc env dc/frontend OS_SUBDOMAIN=`minishift ip`.nip.io
+
+# Example: OS_SUBDOMAIN=192.168.64.11.nip.io
+$ oc env dc/frontend OS_SUBDOMAIN=192.168.64.11.nip.io
+----
+
 ##### (Optional) Enable Readiness probe
 
 ----
@@ -40,43 +52,8 @@ $ oc set probe dc/frontend --readiness --get-url=http://:8080/
 ----
 
 
-##### (Optional) If you are not using CDK 2.x you will need to specify the domain
-
-----
-$ oc env dc/frontend OS_SUBDOMAIN=<DOMAIN>
-
-#Example: OS_SUBDOMAIN=192.168.64.11.nip.io
-$ oc env dc/frontend OS_SUBDOMAIN=192.168.64.11.nip.io
-----
-
-
-////
-
-### Option 2: Deploy project using NodeJS builder template/imagestream
-
-#### Option 2.1 - Using oc CLI
-
-Execute:
-
-----
-$ oc new-app --name frontend nodejs~https://github.com/redhat-helloworld-msa/frontend
-$ oc expose service frontend
-$ oc logs -f bc/frontend
-----
-
-####  Option 2.2 - Using Openshift console
-
-- Click `"Add to Project"`
-- Select `"centos7-s2i-nodejs:stable"` image 
-- Name: `frontend`
-- Git URL:  https://github.com/redhat-helloworld-msa/frontend
-- Click on `"Create"`. And them click on `"Continue to overview"`
-- Wait for the build to complete. (You can click `"View log"` to follow the build logs)
-
-////
-
 #### Test the service endpoint
 
-Access: http://frontend-helloworld-msa.rhel-cdk.10.1.2.2.xip.io/
+Access: http://frontend-helloworld-msa.<openshift-domain>/
 
 
