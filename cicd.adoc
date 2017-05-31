@@ -21,32 +21,23 @@
 Install a custom Jenkins image (needs an admin privilege)
 
 ----
-$ oc login -u admin -p admin
+$ oc login -u system:admin
 $ oc project openshift
+$ oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:ci:jenkins -n ci
 $ oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/jenkins/master/custom-jenkins.build.yaml
 $ oc start-build custom-jenkins-build --follow
 ----
 
-Now install the Jenkins template in the `ci` project:
+
+Install the Jenkins/OpenShift Pipeline BuildConfig in another project
 
 ----
-$ oc login -u openshift-dev -p devel
+$ oc login -u developer -p developer
 $ oc new-project ci
-$ oc new-app -p MEMORY_LIMIT=1024Mi https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-ephemeral-template.json
+$ oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/aloha/master/pipeline.yml
 $ oc project helloworld-msa
 ----
 
-Wait the server to become available in the following URL: https://jenkins-ci.rhel-cdk.10.1.2.2.xip.io/
-
-NOTE: Login with the credentials admin/password
-
-### Demo the pipeline
-
-- Have  readiness probe to show HA during the deployment
-
-----
-$ oc set probe dc/aloha --readiness --get-url=http://:8080/api/health
-----
 
 Once approved, the fixed project will be applied to the `"production"`.
 
@@ -66,21 +57,6 @@ $ vim src/main/java/com/redhat/developers/msa/aloha/AlohaVerticle.java
 $ mvn clean package; oc start-build aloha --from-dir=. --follow
 ----
 
-#### (Option 1) Trigger the build via CLI
-
-----
-$ curl -k "https://admin:password@jenkins-ci.rhel-cdk.10.1.2.2.xip.io/job/Aloha%20Microservices/buildWithParameters?token=MyAuthToken"
-----
-
-#### (Option 2) Trigger the build in Jenkins UI
-
-Access: https://jenkins-ci.rhel-cdk.10.1.2.2.xip.io/ (use username="admin" and password="password" to login)
-
-The build should have started automatically. If not, trigger the build yourself.
-
-You should see the pipeline running in: https://jenkins-ci.rhel-cdk.10.1.2.2.xip.io/job/Aloha%20Microservices/
-
-image::images/pipeline.png[]
 
 
 The projects `helloworld-msa-dev` and `helloworld-msa-qa` will be created automatically according to the link:https://github.com/redhat-helloworld-msa/aloha/blob/master/Jenkinsfile[defined Pipeline].
