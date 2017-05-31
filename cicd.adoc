@@ -57,9 +57,13 @@ $ vim src/main/java/com/redhat/developers/msa/aloha/AlohaVerticle.java
 $ mvn clean package; oc start-build aloha --from-dir=. --follow
 ----
 
+Now Browse to the `ci` project and select `Builds` -> `Pipelines` in the lateral menu.
+Click on the gray button called `Start Pipeline`.
+
+image::images/pipeline.png[]
 
 
 The projects `helloworld-msa-dev` and `helloworld-msa-qa` will be created automatically according to the link:https://github.com/redhat-helloworld-msa/aloha/blob/master/Jenkinsfile[defined Pipeline].
 
-
+You will need to manually approve the deployment to production.
 
