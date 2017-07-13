@@ -15,18 +15,28 @@
 
 ### Deploy Jaeger
 
-http://uber.github.io/jaeger/[Jaeger] is a distributed tracing system. It helps gather timing data needed to troubleshoot latency problems in microservice architectures.
+http://uber.github.io/jaeger/[Jaeger] is a fully compatible http://www.opentracing.io[OpenTracing] distributed tracing system.
+It helps gather timing data needed to troubleshoot latency problems in microservice architectures.
 
-The https://github.com/uber/jaeger[jaeger project] provides all the required resources to start the required Jaeger components to trace your microservices.
+The https://github.com/uber/jaeger[jaeger project] provides all the required resources to start the Jaeger components to trace your microservices.
 
 image::images/jaeger.png[]
+
+The figure shows a trace detail view for one invocation of the service chaining.
+We can see the invocation start time, total duration, number of services being invoked and also
+a total number of spans (an operation in the system).
+
+The showed timeline view allows us to understand
+relationships between invocations (serial vs parallel) and examine durations of these operations.
+A span also carries contextual logs and tags which can be queried. Each line represents one span so
+we can drill down to and see what happened at an operation level in the monitored system.
 
 #### Deploy using oc CLI
 
 Execute:
 
 ----
-$ oc process -f https://raw.githubusercontent.com/jaegertracing/jaeger-openshift/0.1.1/all-in-one/jaeger-all-in-one-template.yml | oc create -f -
+$ oc process -f https://raw.githubusercontent.com/jaegertracing/jaeger-openshift/0.1.2/all-in-one/jaeger-all-in-one-template.yml | oc create -f -
 $ oc env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one  # redeploy all services with tracing
 ----
 
