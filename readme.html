@@ -551,37 +551,41 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel2">
 <li><a href="#_deploy_hola_jax_rs_wildfly_swarm_microservice">Deploy hola (JAX-RS/Wildfly Swarm) microservice</a>
 <ul class="sectlevel3">
-<li><a href="#_deploy_project_via_oc_cli">Deploy project via oc CLI</a></li>
+<li><a href="#__option_1_deploy_project_via_oc_cli">(Option 1) Deploy project via oc CLI</a></li>
+<li><a href="#__option_2_deploy_project_via_fabric8_maven_plugin">(Option 2) Deploy project via Fabric8 Maven Plugin</a></li>
 <li><a href="#_test_the_service_endpoint">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_aloha_vert_x_microservice">Deploy aloha (Vert.x) microservice</a>
 <ul class="sectlevel3">
-<li><a href="#_deploy_project_via_oc_cli_2">Deploy project via oc CLI</a></li>
+<li><a href="#__option_1_deploy_project_via_oc_cli_2">(Option 1) Deploy project via oc CLI</a></li>
+<li><a href="#__option_2_deploy_project_via_fabric8_maven_plugin_2">(Option 2) Deploy project via Fabric8 Maven Plugin</a></li>
 <li><a href="#_test_the_service_endpoint_2">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_ola_spring_boot_microservice">Deploy ola (Spring Boot) microservice</a>
 <ul class="sectlevel3">
-<li><a href="#_deploy_project_via_oc_cli_3">Deploy project via oc CLI</a></li>
+<li><a href="#__option_1_deploy_project_via_oc_cli_3">(Option 1) Deploy project via oc CLI</a></li>
+<li><a href="#__option_2_deploy_project_via_fabric8_maven_plugin_3">(Option 2) Deploy project via Fabric8 Maven Plugin</a></li>
 <li><a href="#_test_the_service_endpoint_3">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_bonjour_nodejs_microservice">Deploy bonjour (NodeJS) microservice</a>
 <ul class="sectlevel3">
-<li><a href="#_deploy_project_via_oc_cli_4">Deploy project via oc CLI</a></li>
+<li><a href="#_deploy_project_via_oc_cli">Deploy project via oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint_4">Test the service endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_api_gateway_spring_boot">Deploy api-gateway (Spring Boot)</a>
 <ul class="sectlevel3">
-<li><a href="#_deploy_project_via_oc_cli_5">Deploy project via oc CLI</a></li>
+<li><a href="#__option_1_deploy_project_via_oc_cli_4">(Option 1) Deploy project via oc CLI</a></li>
+<li><a href="#__option_2_deploy_project_via_fabric8_maven_plugin_4">(Option 2) Deploy project via Fabric8 Maven Plugin</a></li>
 <li><a href="#_test_the_endpoint">Test the endpoint</a></li>
 </ul>
 </li>
 <li><a href="#_deploy_frontend_nodejs_html5_js">Deploy frontend (NodeJS/HTML5/JS)</a>
 <ul class="sectlevel3">
-<li><a href="#_deploy_project_via_oc_cli_6">Deploy project via oc CLI</a></li>
+<li><a href="#_deploy_project_via_oc_cli_2">Deploy project via oc CLI</a></li>
 <li><a href="#_test_the_service_endpoint_5">Test the service endpoint</a></li>
 </ul>
 </li>
@@ -795,7 +799,7 @@ $ oc new-project helloworld-msa</pre>
 <div class="sect2">
 <h3 id="_deploy_hola_jax_rs_wildfly_swarm_microservice">Deploy hola (JAX-RS/Wildfly Swarm) microservice</h3>
 <div class="sect3">
-<h4 id="_deploy_project_via_oc_cli">Deploy project via oc CLI</h4>
+<h4 id="__option_1_deploy_project_via_oc_cli">(Option 1) Deploy project via oc CLI</h4>
 <div class="sect4">
 <h5 id="_basic_project_creation">Basic project creation</h5>
 <div class="listingblock">
@@ -819,6 +823,14 @@ $ oc expose service hola</pre>
 </div>
 </div>
 <div class="sect3">
+<h4 id="__option_2_deploy_project_via_fabric8_maven_plugin">(Option 2) Deploy project via Fabric8 Maven Plugin</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ mvn package fabric8:deploy</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_test_the_service_endpoint">Test the service endpoint</h4>
 <div class="listingblock">
 <div class="content">
@@ -830,7 +842,7 @@ $ oc expose service hola</pre>
 <div class="sect2">
 <h3 id="_deploy_aloha_vert_x_microservice">Deploy aloha (Vert.x) microservice</h3>
 <div class="sect3">
-<h4 id="_deploy_project_via_oc_cli_2">Deploy project via oc CLI</h4>
+<h4 id="__option_1_deploy_project_via_oc_cli_2">(Option 1) Deploy project via oc CLI</h4>
 <div class="sect4">
 <h5 id="_basic_project_creation_2">Basic project creation</h5>
 <div class="listingblock">
@@ -855,6 +867,14 @@ $ oc set probe dc/aloha --readiness --get-url=http://:8080/api/health</pre>
 </div>
 </div>
 <div class="sect3">
+<h4 id="__option_2_deploy_project_via_fabric8_maven_plugin_2">(Option 2) Deploy project via Fabric8 Maven Plugin</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ mvn package fabric8:deploy</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_test_the_service_endpoint_2">Test the service endpoint</h4>
 <div class="listingblock">
 <div class="content">
@@ -866,7 +886,7 @@ $ oc set probe dc/aloha --readiness --get-url=http://:8080/api/health</pre>
 <div class="sect2">
 <h3 id="_deploy_ola_spring_boot_microservice">Deploy ola (Spring Boot) microservice</h3>
 <div class="sect3">
-<h4 id="_deploy_project_via_oc_cli_3">Deploy project via oc CLI</h4>
+<h4 id="__option_1_deploy_project_via_oc_cli_3">(Option 1) Deploy project via oc CLI</h4>
 <div class="sect4">
 <h5 id="_basic_project_creation_3">Basic project creation</h5>
 <div class="listingblock">
@@ -891,6 +911,14 @@ $ oc set probe dc/ola --readiness --get-url=http://:8080/api/health</pre>
 </div>
 </div>
 <div class="sect3">
+<h4 id="__option_2_deploy_project_via_fabric8_maven_plugin_3">(Option 2) Deploy project via Fabric8 Maven Plugin</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ mvn package fabric8:deploy</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_test_the_service_endpoint_3">Test the service endpoint</h4>
 <div class="listingblock">
 <div class="content">
@@ -905,7 +933,7 @@ $ oc set probe dc/ola --readiness --get-url=http://:8080/api/health</pre>
 <p>Choose one of the following options/approaches to deploy this microservice.</p>
 </div>
 <div class="sect3">
-<h4 id="_deploy_project_via_oc_cli_4">Deploy project via oc CLI</h4>
+<h4 id="_deploy_project_via_oc_cli">Deploy project via oc CLI</h4>
 <div class="sect4">
 <h5 id="_basic_project_creation_4">Basic project creation</h5>
 <div class="listingblock">
@@ -943,7 +971,7 @@ $ oc expose service bonjour</pre>
 <p>The API-Gateway is a microservices architectural pattern. For more information about this pattern, visit: <a href="http://microservices.io/patterns/apigateway.html" class="bare">http://microservices.io/patterns/apigateway.html</a></p>
 </div>
 <div class="sect3">
-<h4 id="_deploy_project_via_oc_cli_5">Deploy project via oc CLI</h4>
+<h4 id="__option_1_deploy_project_via_oc_cli_4">(Option 1) Deploy project via oc CLI</h4>
 <div class="sect4">
 <h5 id="_basic_project_creation_5">Basic project creation</h5>
 <div class="listingblock">
@@ -968,6 +996,14 @@ $ oc set probe dc/api-gateway --readiness --get-url=http://:8080/health</pre>
 </div>
 </div>
 <div class="sect3">
+<h4 id="__option_2_deploy_project_via_fabric8_maven_plugin_4">(Option 2) Deploy project via Fabric8 Maven Plugin</h4>
+<div class="listingblock">
+<div class="content">
+<pre>$ mvn package fabric8:deploy</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_test_the_endpoint">Test the endpoint</h4>
 <div class="listingblock">
 <div class="content">
@@ -987,7 +1023,7 @@ $ oc set probe dc/api-gateway --readiness --get-url=http://:8080/health</pre>
 <p>Choose one of the following options/approaches to deploy the UI.</p>
 </div>
 <div class="sect3">
-<h4 id="_deploy_project_via_oc_cli_6">Deploy project via oc CLI</h4>
+<h4 id="_deploy_project_via_oc_cli_2">Deploy project via oc CLI</h4>
 <div class="sect4">
 <h5 id="_basic_project_creation_6">Basic project creation</h5>
 <div class="listingblock">

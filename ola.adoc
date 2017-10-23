@@ -15,7 +15,7 @@
 
 ### Deploy ola (Spring Boot) microservice
 
-#### Deploy project via oc CLI
+#### (Option 1) Deploy project via oc CLI
 
 ##### Basic project creation
 
@@ -34,6 +34,13 @@ $ oc expose service ola
 $ oc env dc/ola AB_ENABLED=jolokia; oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
 $ oc set probe dc/ola --readiness --get-url=http://:8080/api/health
 ----
+
+#### (Option 2) Deploy project via Fabric8 Maven Plugin
+
+----
+$ mvn package fabric8:deploy
+----
+
 
 #### Test the service endpoint
 

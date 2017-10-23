@@ -18,7 +18,7 @@
 The API-Gateway is a microservices architectural pattern. For more information about this pattern, visit: http://microservices.io/patterns/apigateway.html
 
 
-#### Deploy project via oc CLI
+#### (Option 1) Deploy project via oc CLI
 
 ##### Basic project creation
 
@@ -37,6 +37,13 @@ $ oc expose service api-gateway
 $ oc env dc/api-gateway AB_ENABLED=jolokia; oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
 $ oc set probe dc/api-gateway --readiness --get-url=http://:8080/health
 ----
+
+#### (Option 2) Deploy project via Fabric8 Maven Plugin
+
+----
+$ mvn package fabric8:deploy
+----
+
 
 #### Test the endpoint
 

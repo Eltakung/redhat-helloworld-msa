@@ -15,7 +15,7 @@
 
 ### Deploy aloha (Vert.x) microservice
 
-#### Deploy project via oc CLI
+#### (Option 1) Deploy project via oc CLI
 
 ##### Basic project creation
 
@@ -35,6 +35,11 @@ $ oc env dc/aloha AB_ENABLED=jolokia; oc patch dc/aloha -p '{"spec":{"template":
 $ oc set probe dc/aloha --readiness --get-url=http://:8080/api/health
 ----
 
+#### (Option 2) Deploy project via Fabric8 Maven Plugin
+
+----
+$ mvn package fabric8:deploy
+----
 
 #### Test the service endpoint
 
