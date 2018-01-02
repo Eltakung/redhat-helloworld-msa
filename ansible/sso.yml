@@ -1,7 +1,7 @@
 ---
 - name: Create SSO project
   shell: "oc new-project sso"        
-  when: "{{ deploy_keycloak }}"
+  when: deploy_keycloak
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
@@ -13,14 +13,14 @@
   git:
     repo: "https://github.com/redhat-helloworld-msa/sso"
     dest: "{{ workdir }}/sso"
-  when: "{{ deploy_keycloak }}"
+  when: deploy_keycloak
   tags:
     - openshift
     - sso
 
 - name: Create Keycloak new-build
   shell: "oc new-build --binary --name=keycloak -l app=keycloak"
-  when: "{{ deploy_keycloak }}"
+  when: deploy_keycloak
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
@@ -30,14 +30,14 @@
 
 - name: Build and Deploy Keycloak images from the sources
   shell: "oc start-build keycloak --from-dir={{ workdir }}/sso --follow"
-  when: "{{ deploy_keycloak }}"
+  when: deploy_keycloak
   tags:
     - openshift
     - sso
 
 - name: Create Keycloak application from previously created images
   shell: "oc new-app keycloak -l app=keycloak"
-  when: "{{ deploy_keycloak }}"
+  when: deploy_keycloak
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
@@ -47,7 +47,7 @@
 
 - name: Define Keycloak client project and domain
   shell: "oc env dc keycloak OS_SUBDOMAIN={{ domain }} OS_PROJECT={{ project_name }}"
-  when: "{{ deploy_keycloak }}"
+  when: deploy_keycloak
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
@@ -57,7 +57,7 @@
 
 - name: Expose Keycloak application
   shell: "oc expose service keycloak --port=8080 --hostname=keycloak-sso.{{ domain }}"
-  when: "{{ deploy_keycloak }}"
+  when: deploy_keycloak
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
@@ -67,7 +67,7 @@
 
 - name: Create Keycloak Readiness Probe
   shell: "oc set probe dc keycloak --readiness --get-url=http://:8080/auth"
-  when: "{{ deploy_keycloak }}"
+  when: deploy_keycloak
   register: command_result
   tags:
     - openshift

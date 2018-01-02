@@ -25,7 +25,7 @@
     dest: "{{ workdir }}/{{ item.name }}"
     update: yes
   with_items: "{{ msa_projects }}"
-  when: "{{ clone_modules }}"
+  when: clone_modules
   tags:
     - git
 

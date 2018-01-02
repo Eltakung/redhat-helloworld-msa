@@ -1,11 +1,11 @@
 ---
 - name: Install Helloworld-MSA in OpenShift
-  hosts: localhost
+  hosts: local
   vars_files:
     - vars.yml
   tasks:
 
-    - include: setup.yml
+    - include_tasks: setup.yml
 
     - name: Login in OpenShift
       shell: "oc login --insecure-skip-tls-verify=true -u {{ username }} -p {{ password }} {{ openshift }}"
@@ -30,7 +30,7 @@
       # Redeploy apps: oc env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one
     - name: Install Jeager
       shell: "oc process -f https://raw.githubusercontent.com/jaegertracing/jaeger-openshift/0.1.2/all-in-one/jaeger-all-in-one-template.yml | oc create -f - && oc expose service jaeger-all-in-one --name jaeger-msa-domain --hostname=jaeger-{{ project_name }}.{{ domain }}"
-      when: "{{ deploy_jaeger }}"
+      when: deploy_jaeger
       register: command_result
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
       changed_when: "'exists' not in command_result.stderr"
@@ -107,13 +107,13 @@
         - openshift
 
     #Install Kubeflix
-    - include: kubeflix.yml
+    - include_tasks: kubeflix.yml
     
     # Install Jenkins
-    - include: jenkins.yml
+    - include_tasks: jenkins.yml
 
     # Install SSO
-    - include: sso.yml
+    - include_tasks: sso.yml
 
     - name: Use OpenShift MSA project
       shell: "oc project {{ project_name }}"
