@@ -52,10 +52,10 @@ $ oc set probe dc/keycloak --readiness --get-url=http://:8080/auth
 $ oc env dc/keycloak OS_SUBDOMAIN=<OPENSHIFT-DOMAIN>
 
 #Using CDK3
-$ oc env dc/keycloak OS_SUBDOMAIN=$(minishift ip).nip.io
+$ oc env dc/keycloak OS_SUBDOMAIN=app.$(minishift ip).nip.io
 
-#Example: OS_SUBDOMAIN=192.168.64.11.nip.io
-$ oc env dc/keycloak OS_SUBDOMAIN=192.168.64.11.nip.io
+#Example: OS_SUBDOMAIN=app.192.168.64.11.nip.io
+$ oc env dc/keycloak OS_SUBDOMAIN=app.192.168.64.11.nip.io
 ----
 
 #### Tell microservices where to find the Keycloak server

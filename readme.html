@@ -1232,10 +1232,10 @@ $ oc expose svc/keycloak</pre>
 <pre>$ oc env dc/keycloak OS_SUBDOMAIN=&lt;OPENSHIFT-DOMAIN&gt;
 
 #Using CDK3
-$ oc env dc/keycloak OS_SUBDOMAIN=$(minishift ip).nip.io
+$ oc env dc/keycloak OS_SUBDOMAIN=app.$(minishift ip).nip.io
 
-#Example: OS_SUBDOMAIN=192.168.64.11.nip.io
-$ oc env dc/keycloak OS_SUBDOMAIN=192.168.64.11.nip.io</pre>
+#Example: OS_SUBDOMAIN=app.192.168.64.11.nip.io
+$ oc env dc/keycloak OS_SUBDOMAIN=app.192.168.64.11.nip.io</pre>
 </div>
 </div>
 </div>
