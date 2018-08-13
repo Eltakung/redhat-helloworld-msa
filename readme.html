@@ -1664,15 +1664,12 @@ $ oc patch svc/bonjour -p '{"spec":{"selector":{"svc":null ,"app": "bonjour", "d
 <div class="sect2">
 <h3 id="_deploy_jenkins">Deploy Jenkins</h3>
 <div class="paragraph">
-<p>Install a custom Jenkins image (needs an admin privilege)</p>
+<p>Give Jenkins an admin privilege</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc login -u system:admin
-$ oc project openshift
-$ oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:ci:jenkins -n ci
-$ oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/jenkins/master/custom-jenkins.build.yaml
-$ oc start-build custom-jenkins-build --follow</pre>
+<pre>$ oc login -u admin -p admin
+$ oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:ci:jenkins -n ci</pre>
 </div>
 </div>
 <div class="paragraph">

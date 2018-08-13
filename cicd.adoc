@@ -18,14 +18,11 @@
 
 ### Deploy Jenkins
 
-Install a custom Jenkins image (needs an admin privilege)
+Give Jenkins an admin privilege
 
 ----
-$ oc login -u system:admin
-$ oc project openshift
+$ oc login -u admin -p admin
 $ oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:ci:jenkins -n ci
-$ oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/jenkins/master/custom-jenkins.build.yaml
-$ oc start-build custom-jenkins-build --follow
 ----
 
 

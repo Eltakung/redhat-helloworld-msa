@@ -2,19 +2,15 @@
 # UNCOMENT define the Absolute path where you want to checkout the sourcecode
 #workdir: "{{ ansible_user_dir }}/helloworld-msa-src"
 # UNCOMENT Define the OpenShift host:port address
-#openshift: 192.168.64.46:8443
+#openshift: 192.168.64.53:8443
 # Customize the domain of the project
-#domain: app.192.168.64.46.nip.io
+#domain: app.192.168.64.53.nip.io
 # Your OpenShift credentials
 username: developer
 password: developer
 # Administrative credentials
 admin_username: admin
 admin_password: admin
-# Uncomment the following line to adjust the SCC (not using CDK3/minishift)
-adjust_scc: false
-#Needed to set when you are using CDK or OCP
-use_RHEL_image: false
 # Define the name of the OpenShift project
 project_name: helloworld-msa
 
@@ -24,7 +20,7 @@ project_name: helloworld-msa
 clone_modules: true
 
 # Define if we should deploy CI/CD capabilities with Jenkins
-deploy_jenkins: true
+deploy_jenkins: false
 #Define if we should deploy Hystrix and Kubeflix
 deploy_hystrix: false
 #Define if we should deploy Jaeger

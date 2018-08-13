@@ -10,9 +10,8 @@
     - openshift
     - admin
 
-- name: Adjust SCC
-  shell: "oc patch scc restricted -p '{\"runAsUser\":{\"type\":\"RunAsAny\"}}'"
-  when: adjust_scc
+- name: Adjust SCC to use AnyUID
+  shell: "oc apply -f https://raw.githubusercontent.com/redhat-helloworld-msa/helloworld-msa/master/anyuid.yaml"
 
 - name: Create Workdir
   file:
