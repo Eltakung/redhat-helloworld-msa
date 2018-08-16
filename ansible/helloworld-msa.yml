@@ -104,21 +104,26 @@
 
     #Install Kubeflix
     - include_tasks: kubeflix.yml
+      when: deploy_hystrix
       tags:
         - hystrix
 
     # Install Jenkins
     - include_tasks: jenkins.yml
+      when: deploy_jenkins
       tags:
         - jenkins
 
     # Install SSO
     - include_tasks: sso.yml
+      when: deploy_keycloak or deploy_3scale
       tags:
         - sso
+        - 3scale
 
     # Install Api-Management with 3scale
     - include_tasks: 3scale.yml
+      when: deploy_3scale
       tags:
         - 3scale
     

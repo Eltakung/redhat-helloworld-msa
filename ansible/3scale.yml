@@ -3,42 +3,35 @@
   git:
     repo: "https://github.com/redhat-helloworld-msa/api-management"
     dest: "{{ workdir }}/api-management"
-  when: deploy_3scale
 
 - name: Create Api-Management new-build
   shell: "oc new-build --binary --name=api-management -l app=api-management -e BACKEND_URL=http://127.0.0.1:8081"
-  when: deploy_3scale
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
 
 - name: Define Api-Management client project and domain
   shell: "oc env bc api-management OS_SUBDOMAIN={{ domain }} OS_PROJECT={{ project_name }}"
-  when: deploy_3scale
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
 
 - name: Build and Api-Management images from the sources
   shell: "oc start-build api-management --from-dir={{ workdir }}/api-management --follow"
-  when: deploy_3scale
 
 - name: Create Api-Management application from previously created images
   shell: "oc new-app api-management -l app=api-management"
-  when: deploy_3scale
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
 
 - name: Create Api-Management Readiness Probe
   shell: "oc set probe dc api-management --readiness --get-url=http://:8081/status/ready"
-  when: deploy_3scale
   register: command_result
 
 - name: Expose Api-Management routes
-  shell: "oc expose service api-management --port=8080 --name=api-{{ item.name }} --hostname=api-{{ item.name }}.{{ domain }}"
+  shell: "oc expose service api-management --port=8080 --name=api-{{ item.name }} --hostname=api-{{ item.name }}-{{ project_name }}.{{ domain }}"
   with_items: "{{ msa_projects }}"
-  when: deploy_3scale
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
@@ -46,5 +39,3 @@
 - name: Tell frontend to enable Api-Management
   shell: "oc env dc frontend ENABLE_THREESCALE=true"
   register: command_result
-  # Avoid projects without sso support
-  when: "deploy_3scale"
