@@ -6,9 +6,6 @@
 
 - name: Login in OpenShift as administrator
   shell: "oc login --insecure-skip-tls-verify=true -u {{ admin_username }} -p {{ admin_password }} {{ openshift }}"
-  tags:
-    - openshift
-    - admin
 
 - name: Adjust SCC to use AnyUID
   shell: "oc apply -f https://raw.githubusercontent.com/redhat-helloworld-msa/helloworld-msa/master/anyuid.yaml"
@@ -25,19 +22,13 @@
     update: yes
   with_items: "{{ msa_projects }}"
   when: clone_modules
-  tags:
-    - git
 
 - name: Compile Java Projects
   shell: "mvn -f {{ workdir }}/{{ item.name }}/pom.xml package"
   with_items: "{{ msa_projects }}"
   when: "item.project == 'java'"
-  tags:
-    - compile
 
 - name: NPM install NodeJS Projects
   shell: "npm --prefix {{ workdir }}/{{ item.name }} install {{ workdir }}/{{ item.name }}"
   with_items: "{{ msa_projects }}"
   when: "item.project == 'node'"
-  tags:
-    - compile

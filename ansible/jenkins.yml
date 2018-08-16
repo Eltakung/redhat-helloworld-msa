@@ -1,24 +1,13 @@
 ---
 - name: Login in OpenShift as administrator
   shell: "oc login --insecure-skip-tls-verify=true -u {{ admin_username }} -p {{ admin_password }} {{ openshift }}"
-  when: deploy_jenkins
-  tags:
-    - openshift
-    - jenkins
-    - admin
 
 - name: Give Jenkins Service Account admin privileges
   shell: "oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:ci:jenkins -n ci"
   when: deploy_jenkins
-  tags:
-    - openshift
-    - jenkins
-    - admin
 
 - name: Login in OpenShift as regular user
   shell: "oc login --insecure-skip-tls-verify=true -u {{ username }} -p {{ password }} {{ openshift }}"
-  tags:
-    - openshift
 
 - name: Create a new CI OpenShift project
   shell: "oc new-project ci"
@@ -26,9 +15,6 @@
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
-  tags:
-    - openshift
-    - jenkins
 
 - name: Create an OpenShift pipeline in CI project
   shell: "oc create -f https://raw.githubusercontent.com/redhat-helloworld-msa/aloha/master/pipeline.yml"
@@ -36,6 +22,3 @@
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
-  tags:
-    - openshift
-    - jenkins

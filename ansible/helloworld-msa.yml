@@ -6,24 +6,21 @@
   tasks:
 
     - include_tasks: setup.yml
+      tags:
+        - setup
+        - compile
 
     - name: Login in OpenShift
       shell: "oc login --insecure-skip-tls-verify=true -u {{ username }} -p {{ password }} {{ openshift }}"
-      tags:
-        - openshift
 
     - name: Create a new OpenShift project
       shell: "oc new-project {{ project_name }}"
       register: command_result
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
       changed_when: "'exists' not in command_result.stderr"
-      tags:
-        - openshift
 
     - name: Define OpenShift project
       shell: "oc project {{ project_name }}"
-      tags:
-        - openshift
 
       # Install Jaeger before applications, to make Jaeger's agent ready for connections.
       # If Jaeger's agent is deployed after apps it can take some time to open connections.
@@ -35,7 +32,6 @@
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
       changed_when: "'exists' not in command_result.stderr"
       tags:
-        - openshift
         - opentracing
         - jaeger
 
@@ -108,12 +104,24 @@
 
     #Install Kubeflix
     - include_tasks: kubeflix.yml
-    
+      tags:
+        - hystrix
+
     # Install Jenkins
     - include_tasks: jenkins.yml
+      tags:
+        - jenkins
 
     # Install SSO
     - include_tasks: sso.yml
+      tags:
+        - sso
+
+    # Install Api-Management with 3scale
+    - include_tasks: 3scale.yml
+      tags:
+        - 3scale
+    
 
     - name: Use OpenShift MSA project
       shell: "oc project {{ project_name }}"

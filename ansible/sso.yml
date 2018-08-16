@@ -61,23 +61,14 @@
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
-  tags:
-    - openshift
-    - sso
 
 - name: Create Keycloak Readiness Probe
   shell: "oc set probe dc keycloak --readiness --get-url=http://:8080/auth"
   when: deploy_keycloak
   register: command_result
-  tags:
-    - openshift
-    - sso
 
 - name: Use OpenShift MSA project
   shell: "oc project {{ project_name }}"
-  tags:
-    - openshift
-    - sso
 
 - name: Tell microservices where to find the Keycloak server
   shell: "oc env dc {{ item.name }} KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.{{ domain }}/auth ENABLE_SSO=true"
@@ -85,6 +76,3 @@
   with_items: "{{ msa_projects }}"
   # Avoid projects without sso support
   when: "deploy_keycloak and item.sso_support != False"
-  tags:
-    - openshift
-    - sso
