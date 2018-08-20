@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-## (Option 1) Install all microservices using Ansible
 
 link:https://www.ansible.com/[Ansible] can be used to automate the bootstrap process to setup Helloworld-MSA in CDK. 
 

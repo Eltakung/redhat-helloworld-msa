@@ -27,7 +27,7 @@ This content is brought to you by http://developers.redhat.com - Register today!
 image::images/rhdevelopers.png[]
 
 Latest HTML:
-http://bit.ly/msainstructions
+http://bit.ly/msa-tutorial
 
 This is the frontend screenshot that you will see after the deployment of all microservices:
 
@@ -35,11 +35,15 @@ image::images/frontend.png[]
 
 toc::[]
 
-include::prepare-env.adoc[]
+include::setup.adoc[]
+
+## Install Microservices
+
+### (Option 1) Install all microservices using Ansible
 
 include::ansible.adoc[]
 
-## (Option 2) Install each microservice individually
+### (Option 2) Install each microservice individually
 
 include::create-project.adoc[]
 

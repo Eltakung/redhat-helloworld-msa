@@ -18,14 +18,14 @@
 If you don't have an OpenShift instance running, we strongly suggest that you use minishift
 
 
-### (Option 1) Use minishift (OpenShift Container Platform 3.7)
+### (Option 1) Use minishift (OpenShift 3.9)
 
-Download Minishift from link:https://github.com/minishift/minishift[minishift].
+Download Minishift from link:https://github.com/minishift/minishift/releases[minishift].
 
 Execute:
 
 ----
-$ minishift profile set helloworldmsa
+$ minishift profile set msa-tutorial
 $ minishift config set memory 8GB
 $ minishift config set cpus 3
 $ minishift addons enable anyuid

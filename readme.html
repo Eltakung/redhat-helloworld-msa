@@ -538,7 +538,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div class="paragraph">
 <p>Latest HTML:
-<a href="http://bit.ly/msainstructions" class="bare">http://bit.ly/msainstructions</a></p>
+<a href="http://bit.ly/msa-tutorial" class="bare">http://bit.ly/msa-tutorial</a></p>
 </div>
 <div class="paragraph">
 <p>This is the frontend screenshot that you will see after the deployment of all microservices:</p>
@@ -553,15 +553,19 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel1">
 <li><a href="#_prepare_environment">Prepare Environment</a>
 <ul class="sectlevel2">
-<li><a href="#_option_1_use_minishift_openshift_container_platform_3_7">(Option 1) Use minishift (OpenShift Container Platform 3.7)</a>
+<li><a href="#_option_1_use_minishift_openshift_3_9">(Option 1) Use minishift (OpenShift 3.9)</a>
 <ul class="sectlevel3">
 <li><a href="#_access_openshift_console">Access Openshift console</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li><a href="#_install_microservices">Install Microservices</a>
+<ul class="sectlevel2">
 <li><a href="#_option_1_install_all_microservices_using_ansible">(Option 1) Install all microservices using Ansible</a></li>
 <li><a href="#_option_2_install_each_microservice_individually">(Option 2) Install each microservice individually</a></li>
+</ul>
+</li>
 <li><a href="#_create_a_project">Create a project</a>
 <ul class="sectlevel2">
 <li><a href="#_deploy_hola_jax_rs_wildfly_swarm_microservice">Deploy hola (JAX-RS/Wildfly Swarm) microservice</a>
@@ -680,16 +684,16 @@ table.CodeRay td.code>pre{padding:0}
 <p>If you don&#8217;t have an OpenShift instance running, we strongly suggest that you use minishift</p>
 </div>
 <div class="sect2">
-<h3 id="_option_1_use_minishift_openshift_container_platform_3_7">(Option 1) Use minishift (OpenShift Container Platform 3.7)</h3>
+<h3 id="_option_1_use_minishift_openshift_3_9">(Option 1) Use minishift (OpenShift 3.9)</h3>
 <div class="paragraph">
-<p>Download Minishift from <a href="https://github.com/minishift/minishift">minishift</a>.</p>
+<p>Download Minishift from <a href="https://github.com/minishift/minishift/releases">minishift</a>.</p>
 </div>
 <div class="paragraph">
 <p>Execute:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ minishift profile set helloworldmsa
+<pre>$ minishift profile set msa-tutorial
 $ minishift config set memory 8GB
 $ minishift config set cpus 3
 $ minishift addons enable anyuid
@@ -713,8 +717,10 @@ Use <strong>developer/developer</strong> as your credentials</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_option_1_install_all_microservices_using_ansible">(Option 1) Install all microservices using Ansible</h2>
+<h2 id="_install_microservices">Install Microservices</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_option_1_install_all_microservices_using_ansible">(Option 1) Install all microservices using Ansible</h3>
 <div class="paragraph">
 <p><a href="https://www.ansible.com/">Ansible</a> can be used to automate the bootstrap process to setup Helloworld-MSA in CDK.</p>
 </div>
@@ -776,11 +782,10 @@ This approach is used to make it easy to create an environment with all pieces o
 </table>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_option_2_install_each_microservice_individually">(Option 2) Install each microservice individually</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_option_2_install_each_microservice_individually">(Option 2) Install each microservice individually</h3>
 
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1859,7 +1864,7 @@ $ oc env dc/keycloak --namespace=sso OS_SUBDOMAIN=app.redhatmsa.com</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-08-16 11:25:55 EDT
+Last updated 2018-08-20 10:57:39 EDT
 </div>
 </div>
 </body>
