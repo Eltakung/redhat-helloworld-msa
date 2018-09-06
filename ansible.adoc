@@ -19,7 +19,7 @@ link:https://www.ansible.com/[Ansible] can be used to automate the bootstrap pro
 Make sure you have the following requirenments installed:
 
 - Git
-- Ansible 1.9+
+- Ansible 2.4+
 - Maven 3.1+
 - JDK 1.8
 - NPM
