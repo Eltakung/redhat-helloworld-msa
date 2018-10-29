@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-### Deploy hola (JAX-RS/Wildfly Swarm) microservice
+### Deploy hola (JAX-RS/Microprofile/Thorntail) microservice
 
 #### (Option 1) Deploy project via oc CLI
 
