@@ -36,13 +36,13 @@ $ oc expose service frontend
 ##### Specify the OpenShift domain
 
 ----
-$ oc env dc/frontend OS_SUBDOMAIN=<OPENSHIFT-DOMAIN>
+$ oc set env dc/frontend OS_SUBDOMAIN=<OPENSHIFT-DOMAIN>
 
 # Using CDK
-$ oc env dc/frontend OS_SUBDOMAIN=`minishift ip`.nip.io
+$ oc set env dc/frontend OS_SUBDOMAIN=`minishift ip`.nip.io
 
 # Example: OS_SUBDOMAIN=192.168.64.11.nip.io
-$ oc env dc/frontend OS_SUBDOMAIN=192.168.64.11.nip.io
+$ oc set env dc/frontend OS_SUBDOMAIN=192.168.64.11.nip.io
 ----
 
 ##### (Optional) Enable Readiness probe

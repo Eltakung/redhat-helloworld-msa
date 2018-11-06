@@ -24,7 +24,7 @@
 
       # Install Jaeger before applications, to make Jaeger's agent ready for connections.
       # If Jaeger's agent is deployed after apps it can take some time to open connections.
-      # Redeploy apps: oc env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one
+      # Redeploy apps: oc set env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one
     - name: Install Jeager
       shell: "oc process -f https://raw.githubusercontent.com/jaegertracing/jaeger-openshift/0.1.2/all-in-one/jaeger-all-in-one-template.yml | oc create -f - && oc expose service jaeger-all-in-one --name jaeger-msa-domain --hostname=jaeger-{{ project_name }}.{{ domain }}"
       when: deploy_jaeger
@@ -61,7 +61,7 @@
         - openshift
 
     - name: Tell microservices where to find the Jaeger server
-      shell: "oc env dc {{ item.name }} JAEGER_SERVER_HOSTNAME=jaeger-all-in-one ENABLE_JAEGER=true"
+      shell: "oc set env dc {{ item.name }} JAEGER_SERVER_HOSTNAME=jaeger-all-in-one ENABLE_JAEGER=true"
       register: command_result
       with_items: "{{ msa_projects }}"
       when: "deploy_jaeger"
@@ -80,7 +80,7 @@
         - openshift
 
     - name: Define Frontend domain
-      shell: "oc env dc/frontend OS_SUBDOMAIN={{ domain }}"
+      shell: "oc set env dc/frontend OS_SUBDOMAIN={{ domain }}"
       tags:
         - openshift
 
@@ -94,7 +94,7 @@
         - openshift
 
     - name: Enable Jolokia for applications
-      shell: "oc env dc/{{ item.name }} AB_ENABLED=jolokia; oc patch dc/{{ item.name }} -p '{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"{{ item.name }}\",\"ports\":[{\"containerPort\": 8778,\"name\":\"jolokia\"}]}]}}}}'"
+      shell: "oc set env dc/{{ item.name }} AB_ENABLED=jolokia; oc patch dc/{{ item.name }} -p '{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"{{ item.name }}\",\"ports\":[{\"containerPort\": 8778,\"name\":\"jolokia\"}]}]}}}}'"
       register: command_result
       with_items: "{{ msa_projects }}"
       # Avoid  no Jolokia projects

@@ -553,7 +553,7 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel1">
 <li><a href="#_prepare_environment">Prepare Environment</a>
 <ul class="sectlevel2">
-<li><a href="#_option_1_use_minishift_openshift_3_9">(Option 1) Use minishift (OpenShift 3.9)</a>
+<li><a href="#_option_1_use_minishift_openshift_3_11">(Option 1) Use minishift (OpenShift 3.11)</a>
 <ul class="sectlevel3">
 <li><a href="#_access_openshift_console">Access Openshift console</a></li>
 </ul>
@@ -684,7 +684,7 @@ table.CodeRay td.code>pre{padding:0}
 <p>If you don&#8217;t have an OpenShift instance running, we strongly suggest that you use minishift</p>
 </div>
 <div class="sect2">
-<h3 id="_option_1_use_minishift_openshift_3_9">(Option 1) Use minishift (OpenShift 3.9)</h3>
+<h3 id="_option_1_use_minishift_openshift_3_11">(Option 1) Use minishift (OpenShift 3.11)</h3>
 <div class="paragraph">
 <p>Download Minishift from <a href="https://github.com/minishift/minishift/releases">minishift</a>.</p>
 </div>
@@ -696,6 +696,8 @@ table.CodeRay td.code>pre{padding:0}
 <pre>$ minishift profile set msa-tutorial
 $ minishift config set memory 8GB
 $ minishift config set cpus 3
+$ minishift config set image-caching true
+$ minishift config set openshift-version v3.11.0
 $ minishift addons enable anyuid
 $ minishift addons enable admin-user
 $ minishift start
@@ -879,7 +881,7 @@ $ oc expose service aloha</pre>
 <h5 id="_enable_jolokia_and_readiness_probe">Enable Jolokia and Readiness probe</h5>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/aloha AB_ENABLED=jolokia; oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+<pre>$ oc set env dc/aloha AB_ENABLED=jolokia; oc patch dc/aloha -p '{"spec":{"template":{"spec":{"containers":[{"name":"aloha","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
 $ oc set probe dc/aloha --readiness --get-url=http://:8080/api/health</pre>
 </div>
 </div>
@@ -923,7 +925,7 @@ $ oc expose service ola</pre>
 <h5 id="_enable_jolokia_and_readiness_probe_2">Enable Jolokia and Readiness probe</h5>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/ola AB_ENABLED=jolokia; oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+<pre>$ oc set env dc/ola AB_ENABLED=jolokia; oc patch dc/ola -p '{"spec":{"template":{"spec":{"containers":[{"name":"ola","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
 $ oc set probe dc/ola --readiness --get-url=http://:8080/api/health</pre>
 </div>
 </div>
@@ -1008,7 +1010,7 @@ $ oc expose service api-gateway</pre>
 <h5 id="_enable_jolokia_and_readiness_probe_3">Enable Jolokia and Readiness probe</h5>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/api-gateway AB_ENABLED=jolokia; oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
+<pre>$ oc set env dc/api-gateway AB_ENABLED=jolokia; oc patch dc/api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","ports":[{"containerPort": 8778,"name":"jolokia"}]}]}}}}'
 $ oc set probe dc/api-gateway --readiness --get-url=http://:8080/health</pre>
 </div>
 </div>
@@ -1060,13 +1062,13 @@ $ oc expose service frontend</pre>
 <h5 id="_specify_the_openshift_domain">Specify the OpenShift domain</h5>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/frontend OS_SUBDOMAIN=&lt;OPENSHIFT-DOMAIN&gt;
+<pre>$ oc set env dc/frontend OS_SUBDOMAIN=&lt;OPENSHIFT-DOMAIN&gt;
 
 # Using CDK
-$ oc env dc/frontend OS_SUBDOMAIN=`minishift ip`.nip.io
+$ oc set env dc/frontend OS_SUBDOMAIN=`minishift ip`.nip.io
 
 # Example: OS_SUBDOMAIN=192.168.64.11.nip.io
-$ oc env dc/frontend OS_SUBDOMAIN=192.168.64.11.nip.io</pre>
+$ oc set env dc/frontend OS_SUBDOMAIN=192.168.64.11.nip.io</pre>
 </div>
 </div>
 </div>
@@ -1129,7 +1131,7 @@ $ oc policy add-role-to-user admin system:serviceaccount:helloworld-msa:turbine<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/frontend ENABLE_HYSTRIX=true</pre>
+<pre>$ oc set env dc/frontend ENABLE_HYSTRIX=true</pre>
 </div>
 </div>
 </div>
@@ -1173,7 +1175,7 @@ we can drill down to and see what happened at an operation level in the monitore
 <div class="listingblock">
 <div class="content">
 <pre>$ oc process -f https://raw.githubusercontent.com/jaegertracing/jaeger-openshift/0.1.2/all-in-one/jaeger-all-in-one-template.yml | oc create -f -
-$ oc env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one  # redeploy all services with tracing</pre>
+$ oc set env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one  # redeploy all services with tracing</pre>
 </div>
 </div>
 </div>
@@ -1184,7 +1186,7 @@ $ oc env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one  # redeploy all serv
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/frontend ENABLE_JAEGER=true</pre>
+<pre>$ oc set env dc/frontend ENABLE_JAEGER=true</pre>
 </div>
 </div>
 </div>
@@ -1243,13 +1245,13 @@ $ oc expose svc/keycloak</pre>
 <h5 id="_specify_the_openshift_domain_2">Specify the OpenShift domain</h5>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/keycloak OS_SUBDOMAIN=&lt;OPENSHIFT-DOMAIN&gt;
+<pre>$ oc set env dc/keycloak OS_SUBDOMAIN=&lt;OPENSHIFT-DOMAIN&gt;
 
 #Using CDK3
-$ oc env dc/keycloak OS_SUBDOMAIN=app.$(minishift ip).nip.io
+$ oc set env dc/keycloak OS_SUBDOMAIN=app.$(minishift ip).nip.io
 
 #Example: OS_SUBDOMAIN=app.192.168.64.11.nip.io
-$ oc env dc/keycloak OS_SUBDOMAIN=app.192.168.64.11.nip.io</pre>
+$ oc set env dc/keycloak OS_SUBDOMAIN=app.192.168.64.11.nip.io</pre>
 </div>
 </div>
 </div>
@@ -1261,12 +1263,12 @@ $ oc env dc/keycloak OS_SUBDOMAIN=app.192.168.64.11.nip.io</pre>
 <pre>$ oc project helloworld-msa
 
 # Using CDK3
-$ oc env dc KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.`minishift ip`.nip.io/auth -l app
+$ oc set env dc KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.`minishift ip`.nip.io/auth -l app
 
 # Example: OS_SUBDOMAIN=192.168.64.11.nip.io
-$ oc env dc KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.192.168.64.11.nip.io/auth -l app
+$ oc set env dc KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.192.168.64.11.nip.io/auth -l app
 
-$ oc env dc/frontend ENABLE_SSO=true</pre>
+$ oc set env dc/frontend ENABLE_SSO=true</pre>
 </div>
 </div>
 </div>
@@ -1295,13 +1297,13 @@ $ oc new-build --binary --name api-management -e BACKEND_URL=http://127.0.0.1:80
 <h5 id="_specify_the_openshift_domain_3">Specify the OpenShift domain</h5>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env bc/api-management OS_SUBDOMAIN=&lt;OPENSHIFT-DOMAIN&gt;
+<pre>$ oc set env bc/api-management OS_SUBDOMAIN=&lt;OPENSHIFT-DOMAIN&gt;
 
 #Using CDK3
-$ oc env bc/api-management OS_SUBDOMAIN=$(minishift ip).nip.io
+$ oc set env bc/api-management OS_SUBDOMAIN=$(minishift ip).nip.io
 
 #Example: OS_SUBDOMAIN=192.168.64.11.nip.io
-$ oc env bc/api-management OS_SUBDOMAIN=192.168.64.11.nip.io</pre>
+$ oc set env bc/api-management OS_SUBDOMAIN=192.168.64.11.nip.io</pre>
 </div>
 </div>
 </div>
@@ -1331,7 +1333,7 @@ $ oc expose svc/api-management --name api-aloha</pre>
 <h4 id="_tell_frontend_to_enable_api_management">Tell frontend to enable API Management</h4>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/frontend ENABLE_THREESCALE=true</pre>
+<pre>$ oc set env dc/frontend ENABLE_THREESCALE=true</pre>
 </div>
 </div>
 </div>
@@ -1398,10 +1400,10 @@ $ oc expose svc/api-management --name api-aloha</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/hola hello="Hola de Env var"
+<pre>$ oc set env dc/hola hello="Hola de Env var"
 
 # To unset the env var
-$ oc env dc/hola hello-</pre>
+$ oc set env dc/hola hello-</pre>
 </div>
 </div>
 </div>
@@ -1438,7 +1440,7 @@ $ oc get configmap translation -o yaml</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/hola JAVA_OPTIONS="-Dconf=/etc/config/translation.properties"</pre>
+<pre>$ oc set env dc/hola JAVA_OPTIONS="-Dconf=/etc/config/translation.properties"</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1852,10 +1854,10 @@ Click on the gray button called <code>Start Pipeline</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ oc env dc/frontend OS_SUBDOMAIN=app.redhatmsa.com
+<pre>$ oc set env dc/frontend OS_SUBDOMAIN=app.redhatmsa.com
 
 # If you deployed SSO/keycloak
-$ oc env dc/keycloak --namespace=sso OS_SUBDOMAIN=app.redhatmsa.com</pre>
+$ oc set env dc/keycloak --namespace=sso OS_SUBDOMAIN=app.redhatmsa.com</pre>
 </div>
 </div>
 </div>

@@ -37,14 +37,14 @@ Execute:
 
 ----
 $ oc process -f https://raw.githubusercontent.com/jaegertracing/jaeger-openshift/0.1.2/all-in-one/jaeger-all-in-one-template.yml | oc create -f -
-$ oc env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one  # redeploy all services with tracing
+$ oc set env dc -l app JAEGER_SERVER_HOSTNAME=jaeger-all-in-one  # redeploy all services with tracing
 ----
 
 #### Enable the Jaeger Dashboard in the Frontend
 
 Execute:
 ----
-$ oc env dc/frontend ENABLE_JAEGER=true
+$ oc set env dc/frontend ENABLE_JAEGER=true
 ----
 
 #### Test the Jaeger console

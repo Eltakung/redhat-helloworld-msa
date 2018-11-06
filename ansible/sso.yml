@@ -41,7 +41,7 @@
     - sso
 
 - name: Define Keycloak client project and domain
-  shell: "oc env dc keycloak OS_SUBDOMAIN={{ domain }} OS_PROJECT={{ project_name }}"
+  shell: "oc set env dc keycloak OS_SUBDOMAIN={{ domain }} OS_PROJECT={{ project_name }}"
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
@@ -63,7 +63,7 @@
   shell: "oc project {{ project_name }}"
 
 - name: Tell microservices where to find the Keycloak server
-  shell: "oc env dc {{ item.name }} KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.{{ domain }}/auth ENABLE_SSO=true"
+  shell: "oc set env dc {{ item.name }} KEYCLOAK_AUTH_SERVER_URL=http://keycloak-sso.{{ domain }}/auth ENABLE_SSO=true"
   register: command_result
   with_items: "{{ msa_projects }}"
   # Avoid projects without sso support

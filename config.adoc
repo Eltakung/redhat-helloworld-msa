@@ -31,10 +31,10 @@ We will use 2 different approaches to configure "hola" microservice:
 Update the DeploymentConfig:
 
 ----
-$ oc env dc/hola hello="Hola de Env var"
+$ oc set env dc/hola hello="Hola de Env var"
 
 # To unset the env var
-$ oc env dc/hola hello-
+$ oc set env dc/hola hello-
 ----
 
 ### ConfigMaps
@@ -62,7 +62,7 @@ $ oc patch dc/hola -p '{"spec":{"template":{"spec":{"containers":[{"name":"hola"
 The POD needs a Java System Property to inform the location of the file.
 
 ----
-$ oc env dc/hola JAVA_OPTIONS="-Dconf=/etc/config/translation.properties"
+$ oc set env dc/hola JAVA_OPTIONS="-Dconf=/etc/config/translation.properties"
 ----
 
 After the deployment, check that the config is present

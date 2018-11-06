@@ -32,13 +32,13 @@ $ oc new-build --binary --name api-management -e BACKEND_URL=http://127.0.0.1:80
 ##### Specify the OpenShift domain
 
 ----
-$ oc env bc/api-management OS_SUBDOMAIN=<OPENSHIFT-DOMAIN>
+$ oc set env bc/api-management OS_SUBDOMAIN=<OPENSHIFT-DOMAIN>
 
 #Using CDK3
-$ oc env bc/api-management OS_SUBDOMAIN=$(minishift ip).nip.io
+$ oc set env bc/api-management OS_SUBDOMAIN=$(minishift ip).nip.io
 
 #Example: OS_SUBDOMAIN=192.168.64.11.nip.io
-$ oc env bc/api-management OS_SUBDOMAIN=192.168.64.11.nip.io
+$ oc set env bc/api-management OS_SUBDOMAIN=192.168.64.11.nip.io
 ----
 
 #### Create a custom API Management instance
@@ -61,7 +61,7 @@ $ oc set probe dc/api-management --readiness --get-url=http://:8081/status/ready
 #### Tell frontend to enable API Management
 
 ----
-$ oc env dc/frontend ENABLE_THREESCALE=true 
+$ oc set env dc/frontend ENABLE_THREESCALE=true 
 ----
 
 

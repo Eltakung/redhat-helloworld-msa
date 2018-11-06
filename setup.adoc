@@ -18,7 +18,7 @@
 If you don't have an OpenShift instance running, we strongly suggest that you use minishift
 
 
-### (Option 1) Use minishift (OpenShift 3.9)
+### (Option 1) Use minishift (OpenShift 3.11)
 
 Download Minishift from link:https://github.com/minishift/minishift/releases[minishift].
 
@@ -28,6 +28,8 @@ Execute:
 $ minishift profile set msa-tutorial
 $ minishift config set memory 8GB
 $ minishift config set cpus 3
+$ minishift config set image-caching true
+$ minishift config set openshift-version v3.11.0
 $ minishift addons enable anyuid
 $ minishift addons enable admin-user
 $ minishift start

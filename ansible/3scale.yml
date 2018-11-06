@@ -11,7 +11,7 @@
   changed_when: "'exists' not in command_result.stderr"
 
 - name: Define Api-Management client project and domain
-  shell: "oc env bc api-management OS_SUBDOMAIN={{ domain }} OS_PROJECT={{ project_name }}"
+  shell: "oc set env bc api-management OS_SUBDOMAIN={{ domain }} OS_PROJECT={{ project_name }}"
   register: command_result
   failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
   changed_when: "'exists' not in command_result.stderr"
@@ -37,5 +37,5 @@
   changed_when: "'exists' not in command_result.stderr"
 
 - name: Tell frontend to enable Api-Management
-  shell: "oc env dc frontend ENABLE_THREESCALE=true"
+  shell: "oc set env dc frontend ENABLE_THREESCALE=true"
   register: command_result
